@@ -1,0 +1,253 @@
+{
+  "freeTextAnnotations": [
+    {
+      "id": "title",
+      "text": "SecGW  -  N:M MC-IPsec, single tunnel group (TG1 / ipsec-domain 1)   |   7750 SR-7 SR-SIM 26.7.R2, 1x MS-ISA2 (isa2-tunnel) per node",
+      "position": {
+        "x": 20,
+        "y": 10
+      },
+      "fontSize": 18,
+      "fontWeight": "bold",
+      "fontColor": "#001135",
+      "backgroundColor": "transparent",
+      "textAlign": "left"
+    },
+    {
+      "id": "seg1-role",
+      "text": "DA  prio 200\nexpected: OA",
+      "position": {
+        "x": 660,
+        "y": 150
+      },
+      "fontSize": 13,
+      "fontWeight": "bold",
+      "fontColor": "#FFFFFF",
+      "backgroundColor": "#00A36C",
+      "textAlign": "left"
+    },
+    {
+      "id": "seg2-role",
+      "text": "DA  prio 100\nexpected: OS (hot, states on ISA)",
+      "position": {
+        "x": 660,
+        "y": 470
+      },
+      "fontSize": 13,
+      "fontWeight": "bold",
+      "fontColor": "#FFFFFF",
+      "backgroundColor": "#124191",
+      "textAlign": "left"
+    },
+    {
+      "id": "seg3-role",
+      "text": "DS  prio 200\ntunnel-member-pool \"pool1\"\nexpected: OS (states on CPM)",
+      "position": {
+        "x": 930,
+        "y": 360
+      },
+      "fontSize": 13,
+      "fontWeight": "bold",
+      "fontColor": "#FFFFFF",
+      "backgroundColor": "#64748B",
+      "textAlign": "left"
+    },
+    {
+      "id": "mesh-note",
+      "text": "Full-mesh MIMPv2 + MCS (system 10.0.0.1-3)\n2 direct links per pair, OSPF ECMP + BFD 100ms x3\nlink A also carries shunt (Base :1, VPRN :3)",
+      "position": {
+        "x": 760,
+        "y": 560
+      },
+      "fontSize": 11,
+      "fontFamily": "monospace",
+      "fontColor": "#001135",
+      "backgroundColor": "#EAF2FF",
+      "textAlign": "left"
+    },
+    {
+      "id": "gw-note",
+      "text": "ipsec-gw 198.51.100.1 on all SeGWs\neBGP MED by MIMP state:\n master-with-peer 100 / without-peer 200 / non-master 1000",
+      "position": {
+        "x": 210,
+        "y": 120
+      },
+      "fontSize": 11,
+      "fontFamily": "monospace",
+      "fontColor": "#001135",
+      "backgroundColor": "#FFF7E6",
+      "textAlign": "left"
+    },
+    {
+      "id": "ran-note",
+      "text": "strongSwan IKEv2 PSK initiators\nenb1 100.64.1.2  inner 10.100.1.1\nenb2 100.64.2.2  inner 10.100.2.1",
+      "position": {
+        "x": 10,
+        "y": 560
+      },
+      "fontSize": 11,
+      "fontFamily": "monospace",
+      "fontColor": "#475569",
+      "backgroundColor": "transparent",
+      "textAlign": "left"
+    },
+    {
+      "id": "core-note",
+      "text": "SR-1: Base = public, VPRN mobile = private\nmme 10.200.0.10",
+      "position": {
+        "x": 250,
+        "y": 600
+      },
+      "fontSize": 11,
+      "fontFamily": "monospace",
+      "fontColor": "#475569",
+      "backgroundColor": "transparent",
+      "textAlign": "left"
+    }
+  ],
+  "freeShapeAnnotations": [],
+  "trafficRateAnnotations": [],
+  "groupStyleAnnotations": [
+    {
+      "id": "ran-grp",
+      "name": "RAN  (eNB)",
+      "level": "1",
+      "position": {
+        "x": 10,
+        "y": 150
+      },
+      "width": 170,
+      "height": 390,
+      "labelColor": "#475569",
+      "backgroundColor": "#F8FAFC",
+      "borderColor": "#94A3B8"
+    },
+    {
+      "id": "core-grp",
+      "name": "IP/MPLS",
+      "level": "1",
+      "position": {
+        "x": 220,
+        "y": 200
+      },
+      "width": 200,
+      "height": 390,
+      "labelColor": "#00A36C",
+      "backgroundColor": "#ECFDF5",
+      "borderColor": "#00A36C"
+    },
+    {
+      "id": "segw-grp",
+      "name": "SecGW N:M redundancy domain 1  (TG1)",
+      "level": "1",
+      "position": {
+        "x": 470,
+        "y": 90
+      },
+      "width": 680,
+      "height": 460,
+      "labelColor": "#005AFF",
+      "backgroundColor": "#EAF2FF",
+      "borderColor": "#005AFF"
+    }
+  ],
+  "networkNodeAnnotations": [],
+  "nodeAnnotations": [
+    {
+      "id": "enb1",
+      "position": {
+        "x": 95,
+        "y": 240
+      },
+      "label": "enb1",
+      "icon": "client",
+      "iconColor": "#124191",
+      "groupId": "ran-grp",
+      "labelPosition": "bottom",
+      "interfacePattern": "eth{n}"
+    },
+    {
+      "id": "enb2",
+      "position": {
+        "x": 95,
+        "y": 450
+      },
+      "label": "enb2",
+      "icon": "client",
+      "iconColor": "#124191",
+      "groupId": "ran-grp",
+      "labelPosition": "bottom",
+      "interfacePattern": "eth{n}"
+    },
+    {
+      "id": "ipmpls",
+      "position": {
+        "x": 320,
+        "y": 340
+      },
+      "label": "ipmpls\n7750 SR-1",
+      "icon": "cloud",
+      "iconColor": "#00A36C",
+      "groupId": "core-grp",
+      "labelPosition": "bottom",
+      "interfacePattern": "1/1/c{n}/1"
+    },
+    {
+      "id": "mme",
+      "position": {
+        "x": 320,
+        "y": 520
+      },
+      "label": "mme\n10.200.0.10",
+      "icon": "server",
+      "iconColor": "#64748B",
+      "groupId": "core-grp",
+      "labelPosition": "bottom",
+      "interfacePattern": "eth{n}"
+    },
+    {
+      "id": "seg1",
+      "position": {
+        "x": 600,
+        "y": 180
+      },
+      "label": "seg1\n7750 SR-7",
+      "icon": "pe",
+      "iconColor": "#00A36C",
+      "groupId": "segw-grp",
+      "labelPosition": "bottom",
+      "interfacePattern": "1/1/{n}"
+    },
+    {
+      "id": "seg2",
+      "position": {
+        "x": 600,
+        "y": 450
+      },
+      "label": "seg2\n7750 SR-7",
+      "icon": "pe",
+      "iconColor": "#124191",
+      "groupId": "segw-grp",
+      "labelPosition": "bottom",
+      "interfacePattern": "1/1/{n}"
+    },
+    {
+      "id": "seg3",
+      "position": {
+        "x": 980,
+        "y": 300
+      },
+      "label": "seg3\n7750 SR-7",
+      "icon": "pe",
+      "iconColor": "#64748B",
+      "groupId": "segw-grp",
+      "labelPosition": "bottom",
+      "interfacePattern": "1/1/{n}"
+    }
+  ],
+  "edgeAnnotations": [],
+  "aliasEndpointAnnotations": [],
+  "viewerSettings": {
+    "linkLabelMode": "show-all"
+  }
+}

@@ -1,0 +1,11 @@
+# SR-SIM license - never commit
+license*.txt
+*.lic
+# containerlab runtime directories
+clab-*/
+.*.clab.yml.bak
+# local test output (published results live in results/raw)
+results/*.md
+results/*.ping
+results/*.log
+__pycache__/
