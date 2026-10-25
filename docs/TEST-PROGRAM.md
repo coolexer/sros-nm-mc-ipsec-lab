@@ -378,6 +378,11 @@ the final reply after nominal.
 loss caused by node return. The published T7 row covers the full window; its log identifies
 the return boundary. Restore a nominal seg1 baseline before the next independent scenario.
 
+**Observed timing:** the accepted T7 reply gaps are 2.947 / 2.953 s. Approximately 96 s
+elapse from seg1 startup to all domains being observed nominal, with no additional packet
+loss during node return. These are separate measurements: traffic already uses seg2
+while seg1 boots and rejoins. See the [event timeline and interpretation](../RESULTS.md#traffic-restoration-versus-node-reintegration).
+
 ### T7-noBFD — Core-routing detection control
 
 ![T7-noBFD: transient failed next-hop and the eventual recovered path](topology-scenarios/T7-noBFD.svg)
@@ -401,6 +406,11 @@ on the last KEEPALIVE, so the observed outage need not equal exactly 90 s after 
 The map distinguishes that transient red path from recovered forwarding through seg2.
 Wait for actual recovery on both eNBs, with the runner's 180-s limit, before restarting seg1.
 Apply the same stateful and node-return continuity checks as T7.
+
+**Observed timing:** the accepted no-BFD reply gaps are 84.238 / 84.187 s. The captured
+core state confirms the failed next-hop is retained with a negotiated 90 s BGP hold time.
+This control demonstrates why OA takeover alone does not restore traffic when core routing
+still selects the failed node. It does not describe the normal BFD-enabled configuration.
 
 **Restore:** set `bfd-liveness true` on every modified group and return to the nominal baseline.
 

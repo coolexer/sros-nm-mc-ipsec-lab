@@ -112,6 +112,44 @@ the failed OA next-hop until BGP hold expiration; the negotiated hold time is 90
 Traffic also recovers before seg1 startup in this variant, and node return adds no loss.
 The normal lab configuration enables BFD.
 
+#### Traffic restoration versus node reintegration
+
+The accepted [T7 log](results/validated-compact-20261024-212948/T7.log) records two
+separate phases. Times below are UTC on 24 October 2026; state observations are runner
+polling timestamps, rather than packet-level transition timestamps. The log's local
+timestamps (UTC+02:00) are converted to UTC here using its epoch window markers.
+
+| Event | T7 with BFD | T7-noBFD control |
+|---|---|---|
+| seg1 kill completed | 19:43:08 | 19:47:24 |
+| First replies after the main gap, eNB1 / eNB2 (packet timestamps) | 19:43:10.150 / 19:43:10.140 | 19:48:46.961 / 19:48:46.911 |
+| seg2 observed as OA | 19:43:14 | 19:47:29 |
+| Ten consecutive replies confirmed on both eNBs, while seg1 was off | 19:43:15 | 19:48:49 |
+| seg1 start completed | 19:43:19 | 19:48:53 |
+| seg1 CLI available | 19:43:40 | 19:49:10 |
+| All domains observed nominal after node return | 19:44:55 | 19:50:34 |
+| Measured maximum reply gap, eNB1 / eNB2 | **2.947 / 2.953 s** | **84.238 / 84.187 s** |
+| Additional packets lost during node return | **0 / 0** | **0 / 0** |
+
+T7 therefore has approximately 3 s of traffic interruption. The approximately 96 s from
+seg1 startup to nominal describes simulator boot and return to the protected domain state;
+traffic already uses seg2 during this phase. The CLI becomes available before nominal.
+The retained snapshots do not isolate individual boot, peering and synchronization times.
+
+In the no-BFD control, OA election and core routing converge at different times. The
+[captured core state](results/validated-compact-20261024-212948/T7-noBFD-stale-core-route.log)
+shows the old next-hop `172.31.1.1`, BGP still Established, BFD disabled, Active Hold Time
+90 s and Active Keep Alive 30 s. This explains the long blackhole toward failed seg1.
+Hold time is measured from the last received BGP message, so a roughly 84 s interruption
+after the failure is consistent with a 90 s hold timer. IKE identifiers are preserved in
+both variants; neither outage requires waiting for seg1 to restart.
+
+The configured BFD interval is 100 ms with multiplier 3. This is a failure-detection
+setting, not an end-to-end restoration guarantee. The 2.95 s measured reply gap includes
+the complete failover path. These logs do not provide sufficient event timing to assign
+that gap separately to BFD, OA election and route/data-plane convergence, or to establish
+a hardware-platform restoration time from this SR-SIM measurement.
+
 ### DS takeover and pool HA
 
 T8 and T9 recover both flows on seg3 after both DAs are killed, preserving IKE and before

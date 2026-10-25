@@ -11,17 +11,17 @@
 <rect x="30" y="95" width="1540" height="95" rx="12" fill="#f4f7fc" stroke="#ccd5e0" stroke-width="1.5"/>
 <text x="48" y="126" font-size="19" fill="#122344" text-anchor="start" font-weight="600">Kill seg1 and seg2 CPM/IOM components. Synchronized states are preloaded on the seg3 HA pool ISA.</text>
 <text x="48" y="157" font-size="17" fill="#68788f" text-anchor="start" font-weight="400">Recovered path before both DAs restart: OA seg3; public ingress seg3; private ingress seg3.</text>
-<rect x="650" y="205" width="920" height="680" rx="12" fill="#f6f9ff" stroke="#d8e2f2" stroke-width="1.5"/>
-<text x="680" y="253" font-size="19" fill="#122344" text-anchor="start" font-weight="600">SecGW full mesh: LAG 12 / 13 / 23</text>
+<rect x="650" y="200" width="920" height="685" rx="12" fill="#f6f9ff" stroke="#d8e2f2" stroke-width="1.5"/>
+<text x="680" y="261" font-size="19" fill="#122344" text-anchor="start" font-weight="600">SecGW full mesh: LAG 12 / 13 / 23</text>
 <rect x="280" y="325" width="280" height="360" rx="12" fill="#f1faf7" stroke="#84bca7" stroke-width="1.5"/>
-<text x="420" y="352" font-size="18" fill="#122344" text-anchor="middle" font-weight="600">ipmpls · one 7750 SR-1</text>
-<text x="420" y="376" font-size="14" fill="#68788f" text-anchor="middle" font-weight="400">AS 65000</text>
-<polyline points="540,425 610,425 610,365 700,365" fill="none" stroke="#d29898" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 6"/>
-<polyline points="540,580 580,580 580,400 700,400" fill="none" stroke="#d29898" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 6"/>
-<polyline points="540,440 625,440 625,745 700,745" fill="none" stroke="#d29898" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 6"/>
-<polyline points="540,595 600,595 600,780 700,780" fill="none" stroke="#d29898" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 6"/>
-<polyline points="540,455 590,455 590,225 1540,225 1540,560 1490,560" fill="none" stroke="#aebccc" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-<polyline points="540,610 565,610 565,870 1540,870 1540,595 1490,595" fill="none" stroke="#aebccc" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="420" y="360" font-size="18" fill="#122344" text-anchor="middle" font-weight="600">ipmpls · one 7750 SR-1</text>
+<text x="420" y="381" font-size="14" fill="#68788f" text-anchor="middle" font-weight="400">AS 65000</text>
+<polyline points="560,405 620,405 620,365 700,365" fill="none" stroke="#d29898" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 6"/>
+<polyline points="560,445 645,445 645,400 700,400" fill="none" stroke="#d29898" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 6"/>
+<polyline points="560,535 645,535 645,745 700,745" fill="none" stroke="#d29898" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 6"/>
+<polyline points="560,575 620,575 620,780 700,780" fill="none" stroke="#d29898" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 6"/>
+<polyline points="400,325 400,230 1520,230 1520,560 1490,560" fill="none" stroke="#aebccc" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="360,325 360,210 1550,210 1550,595 1490,595" fill="none" stroke="#aebccc" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="225,405 300,425" fill="none" stroke="#b4bfce" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="225,550 260,550 260,465 300,465" fill="none" stroke="#b4bfce" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="420,650 420,760" fill="none" stroke="#b4bfce" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
@@ -31,12 +31,24 @@
 <polyline points="980,360 1290,465" fill="none" stroke="#c62828" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 6"/>
 <polyline points="980,715 1270,625" fill="none" stroke="#c62828" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 6"/>
 <polyline points="980,735 1290,625" fill="none" stroke="#c62828" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 6"/>
-<rect x="300" y="390" width="240" height="100" rx="12" fill="white" stroke="#84bca7" stroke-width="1.5"/>
-<text x="420" y="426" font-size="20" fill="#122344" text-anchor="middle" font-weight="600">Base · public</text>
-<text x="420" y="456" font-size="14" fill="#68788f" text-anchor="middle" font-weight="400">ESP / gateway 198.51.100.1</text>
-<rect x="300" y="550" width="240" height="100" rx="12" fill="white" stroke="#84bca7" stroke-width="1.5"/>
-<text x="420" y="586" font-size="20" fill="#122344" text-anchor="middle" font-weight="600">VPRN 100 · private</text>
-<text x="420" y="616" font-size="14" fill="#68788f" text-anchor="middle" font-weight="400">Inner IP / MME network</text>
+<rect x="300" y="390" width="210" height="100" rx="12" fill="white" stroke="#84bca7" stroke-width="1.5"/>
+<text x="405" y="426" font-size="20" fill="#122344" text-anchor="middle" font-weight="600">Base · public</text>
+<text x="405" y="456" font-size="14" fill="#68788f" text-anchor="middle" font-weight="400">ESP / gateway 198.51.100.1</text>
+<rect x="300" y="550" width="210" height="100" rx="12" fill="white" stroke="#84bca7" stroke-width="1.5"/>
+<text x="405" y="586" font-size="20" fill="#122344" text-anchor="middle" font-weight="600">VPRN 100 · private</text>
+<text x="405" y="616" font-size="14" fill="#68788f" text-anchor="middle" font-weight="400">Inner IP / MME network</text>
+<circle cx="560" cy="405" r="4" fill="white" stroke="#68788f"/>
+<text x="550" y="409" font-size="11" fill="#68788f" text-anchor="end" font-weight="400">1P</text>
+<circle cx="560" cy="445" r="4" fill="white" stroke="#68788f"/>
+<text x="550" y="449" font-size="11" fill="#68788f" text-anchor="end" font-weight="400">1V</text>
+<circle cx="560" cy="535" r="4" fill="white" stroke="#68788f"/>
+<text x="550" y="539" font-size="11" fill="#68788f" text-anchor="end" font-weight="400">2P</text>
+<circle cx="560" cy="575" r="4" fill="white" stroke="#68788f"/>
+<text x="550" y="579" font-size="11" fill="#68788f" text-anchor="end" font-weight="400">2V</text>
+<circle cx="400" cy="325" r="4" fill="white" stroke="#68788f"/>
+<text x="400" y="340" font-size="11" fill="#68788f" text-anchor="middle" font-weight="400">3P</text>
+<circle cx="360" cy="325" r="4" fill="white" stroke="#68788f"/>
+<text x="360" y="340" font-size="11" fill="#68788f" text-anchor="middle" font-weight="400">3V</text>
 <rect x="50" y="355" width="175" height="100" rx="12" fill="white" stroke="#ccd5e0" stroke-width="1.5"/>
 <text x="67" y="383" font-size="16" fill="#122344" text-anchor="start" font-weight="600">eNB1 · strongSwan</text>
 <text x="67" y="410" font-size="14" fill="#68788f" text-anchor="start" font-weight="400">public 100.64.1.2</text>
@@ -90,18 +102,18 @@
 <polyline points="221,401 296,421" fill="none" stroke="#005aff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#m005aff)"/>
 <polyline points="221,546 256,546 256,461 296,461" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="221,546 256,546 256,461 296,461" fill="none" stroke="#005aff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#m005aff)"/>
-<polyline points="536,451 586,451 586,221 1536,221 1536,556 1486,556" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
-<polyline points="536,451 586,451 586,221 1536,221 1536,556 1486,556" fill="none" stroke="#005aff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#m005aff)"/>
-<polyline points="1486,591 1536,591 1536,866 561,866 561,606 536,606" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
-<polyline points="1486,591 1536,591 1536,866 561,866 561,606 536,606" fill="none" stroke="#005aff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#m005aff)"/>
+<polyline points="396,321 396,226 1516,226 1516,556 1486,556" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="396,321 396,226 1516,226 1516,556 1486,556" fill="none" stroke="#005aff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#m005aff)"/>
+<polyline points="1486,591 1546,591 1546,206 356,206 356,321" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="1486,591 1546,591 1546,206 356,206 356,321" fill="none" stroke="#005aff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#m005aff)"/>
 <polyline points="415,645 415,755" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="415,645 415,755" fill="none" stroke="#005aff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#m005aff)"/>
 <polyline points="425,765 425,655" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="425,765 425,655" fill="none" stroke="#c46a00" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#mc46a00)"/>
-<polyline points="544,614 569,614 569,874 1544,874 1544,599 1494,599" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
-<polyline points="544,614 569,614 569,874 1544,874 1544,599 1494,599" fill="none" stroke="#c46a00" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#mc46a00)"/>
-<polyline points="1494,564 1544,564 1544,229 594,229 594,459 544,459" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
-<polyline points="1494,564 1544,564 1544,229 594,229 594,459 544,459" fill="none" stroke="#c46a00" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#mc46a00)"/>
+<polyline points="364,329 364,214 1554,214 1554,599 1494,599" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="364,329 364,214 1554,214 1554,599 1494,599" fill="none" stroke="#c46a00" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#mc46a00)"/>
+<polyline points="1494,564 1524,564 1524,234 404,234 404,329" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="1494,564 1524,564 1524,234 404,234 404,329" fill="none" stroke="#c46a00" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#mc46a00)"/>
 <polyline points="304,429 229,409" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
 <polyline points="304,429 229,409" fill="none" stroke="#c46a00" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#mc46a00)"/>
 <polyline points="304,469 264,469 264,554 229,554" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
@@ -128,5 +140,5 @@
 <text x="1195" y="1001" font-size="17" fill="#c62828" text-anchor="start" font-weight="400">Disabled / blocked</text>
 <text x="40" y="1045" font-size="18" fill="#005aff" text-anchor="start" font-weight="400">Request: eNB → Base → seg3 ISA decrypt → VPRN → MME</text>
 <text x="40" y="1080" font-size="18" fill="#c46a00" text-anchor="start" font-weight="400">Reply: MME → VPRN → seg3 ISA encrypt → Base → eNB</text>
-<text x="40" y="1125" font-size="16" fill="#68788f" text-anchor="start" font-weight="400">Thin lines: lab links. Colored arrows: selected paths. Compact: both LAG members are on MDA 1/1.</text>
+<text x="40" y="1125" font-size="16" fill="#68788f" text-anchor="start" font-weight="400">Core ports: 1/2/3 = SecGW; P = Base/public, V = VPRN/private. Thin lines: links. Arrows: traffic. LAG members: MDA 1/1.</text>
 </svg>

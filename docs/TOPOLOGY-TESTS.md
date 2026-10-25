@@ -2,7 +2,7 @@
 
 Each view shows the complete compact lab, the action and the resulting traffic path. Blue arrows carry requests to MME; orange arrows carry replies to the eNBs. Green identifies the OA; red identifies a disabled component or a blocked path. The dashed teal path in T6 is MIMP/MCS reachability, separate from user traffic.
 
-Base and VPRN 100 are routing instances of one core router. For T7-noBFD, the red dashed path shows the transient blackhole before hold expiry; the main arrows show recovered forwarding. T8r/T9r show the accepted outcome with seg3 remaining OA. Blocking in T10b/T11b is the expected negative-control result.
+Base and VPRN 100 are routing instances of one core router. Its external ports are labeled by SecGW number and routing instance: P = Base/public, V = VPRN/private. Internal core switching is omitted; the request and reply sequences state the processing order. For T7-noBFD, the red dashed path shows the transient blackhole before hold expiry; the main arrows show recovered forwarding. T8r/T9r show the accepted outcome with seg3 remaining OA. Blocking in T10b/T11b is the expected negative-control result.
 
 [Detailed test program](TEST-PROGRAM.md) · [Results](../RESULTS.md)
 

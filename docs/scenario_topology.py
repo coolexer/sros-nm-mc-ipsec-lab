@@ -7,14 +7,14 @@ FWD, REV, OFF, OA, CONTROL = '#005aff', '#c46a00', '#c62828', '#008653', '#087f8
 INK, GRAY = '#122344', '#68788f'
 NODES = {'seg1': (700, 270), 'seg2': (700, 650), 'seg3': (1210, 465)}
 PUBLIC = {
-    'seg1': [(540, 425), (610, 425), (610, 365), (700, 365)],
-    'seg2': [(540, 440), (625, 440), (625, 745), (700, 745)],
-    'seg3': [(540, 455), (590, 455), (590, 225), (1540, 225), (1540, 560), (1490, 560)],
+    'seg1': [(560, 405), (620, 405), (620, 365), (700, 365)],
+    'seg2': [(560, 535), (645, 535), (645, 745), (700, 745)],
+    'seg3': [(400, 325), (400, 230), (1520, 230), (1520, 560), (1490, 560)],
 }
 PRIVATE = {
-    'seg1': [(540, 580), (580, 580), (580, 400), (700, 400)],
-    'seg2': [(540, 595), (600, 595), (600, 780), (700, 780)],
-    'seg3': [(540, 610), (565, 610), (565, 870), (1540, 870), (1540, 595), (1490, 595)],
+    'seg1': [(560, 445), (645, 445), (645, 400), (700, 400)],
+    'seg2': [(560, 575), (620, 575), (620, 780), (700, 780)],
+    'seg3': [(360, 325), (360, 210), (1550, 210), (1550, 595), (1490, 595)],
 }
 PEERS = {
     ('seg1', 'seg2'): [[(820, 430), (820, 650)], [(850, 430), (850, 650)]],
@@ -93,11 +93,11 @@ def draw_topology(test, active, public, private, down, isa, block, ports):
             label(35, 75, 'N:M MC-IPsec · SR-SIM 26.7.R2 · compact · gateway 198.51.100.1/32 · ipsec-domain / tunnel-group 1', 17, GRAY),
             rect(30, 95, 1540, 95, '#f4f7fc'), label(48, 126, action, 19, weight=600),
             label(48, 157, f'{phase}: OA {active}; public ingress {public}; private ingress {private}.', 17, GRAY),
-            rect(650, 205, 920, 680, '#f6f9ff', '#d8e2f2'),
-            label(680, 253, 'SecGW full mesh: LAG 12 / 13 / 23', 19, weight=600),
+            rect(650, 200, 920, 685, '#f6f9ff', '#d8e2f2'),
+            label(680, 261, 'SecGW full mesh: LAG 12 / 13 / 23', 19, weight=600),
             rect(280, 325, 280, 360, '#f1faf7', '#84bca7'),
-            label(420, 352, 'ipmpls · one 7750 SR-1', 18, anchor='middle', weight=600),
-            label(420, 376, 'AS 65000', 14, GRAY, 'middle')]
+            label(420, 360, 'ipmpls · one 7750 SR-1', 18, anchor='middle', weight=600),
+            label(420, 381, 'AS 65000', 14, GRAY, 'middle')]
 
     # Physical paths stay visible even when not selected for user traffic.
     for node in NODES:
@@ -147,11 +147,20 @@ def draw_topology(test, active, public, private, down, isa, block, ports):
         out.append(cross(665, 373))
         out.append(label(1000, 285, 'Before hold expiry: core → seg1 = blackhole', 16, OFF))
 
-    # One physical core, two independent routing instances; no Base/VPRN bypass.
+    # Independent physical ports avoid crossing the six external core uplinks.
+    # P ports belong to Base; V ports belong to VPRN 100. Internal switching is omitted.
     for y, name, info in [(390, 'Base · public', 'ESP / gateway 198.51.100.1'), (550, 'VPRN 100 · private', 'Inner IP / MME network')]:
-        out += [rect(300, y, 240, 100, 'white', '#84bca7'),
-                label(420, y+36, name, 20, anchor='middle', weight=600),
-                label(420, y+66, info, 14, GRAY, 'middle')]
+        out += [rect(300, y, 210, 100, 'white', '#84bca7'),
+                label(405, y+36, name, 20, anchor='middle', weight=600),
+                label(405, y+66, info, 14, GRAY, 'middle')]
+    for node in NODES:
+        for side, routes in [('P', PUBLIC), ('V', PRIVATE)]:
+            x, y = routes[node][0]
+            out.append(f'<circle cx="{x}" cy="{y}" r="4" fill="white" stroke="{GRAY}"/>')
+            out.append(label(x if node == 'seg3' else x-10,
+                             y+15 if node == 'seg3' else y+4,
+                             node[-1]+side, 11, GRAY,
+                             'middle' if node == 'seg3' else 'end'))
     for i, y in enumerate((355, 500), 1):
         out += [rect(50, y, 175, 100), label(67, y+28, f'eNB{i} · strongSwan', 16, weight=600),
                 label(67, y+55, f'public 100.64.{i}.2', 14, GRAY), label(67, y+80, f'inner 10.100.{i}.1', 14, GRAY)]
@@ -210,7 +219,7 @@ def draw_topology(test, active, public, private, down, isa, block, ports):
     elif block == 'private':
         ret = f'MME → VPRN → {private}: reply BLOCKED before the shunt to the {active} ISA.'
     out += [label(40, 1045, 'Request: '+fwd, 18, FWD), label(40, 1080, 'Reply: '+ret, 18, REV),
-            label(40, 1125, 'Thin lines: lab links. Colored arrows: selected paths. Compact: both LAG members are on MDA 1/1.', 16, GRAY), '</svg>']
+            label(40, 1125, 'Core ports: 1/2/3 = SecGW; P = Base/public, V = VPRN/private. Thin lines: links. Arrows: traffic. LAG members: MDA 1/1.', 16, GRAY), '</svg>']
     (OUT/(test+'.svg')).write_text('\n'.join(out)+'\n', encoding='utf-8', newline='\n')
     GALLERY.append((test, title, action))
 
@@ -223,6 +232,8 @@ def write_gallery():
              'Green identifies the OA; red identifies a disabled component or a blocked path. '
              'The dashed teal path in T6 is MIMP/MCS reachability, separate from user traffic.', '',
              'Base and VPRN 100 are routing instances of one core router. '
+             'Its external ports are labeled by SecGW number and routing instance: P = Base/public, V = VPRN/private. '
+             'Internal core switching is omitted; the request and reply sequences state the processing order. '
              'For T7-noBFD, the red dashed path shows the transient blackhole before hold expiry; '
              'the main arrows show recovered forwarding. '
              'T8r/T9r show the accepted outcome with seg3 remaining OA. '
