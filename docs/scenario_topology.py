@@ -220,7 +220,7 @@ def draw_topology(test, active, public, private, down, isa, block, ports):
         ret = f'MME → VPRN → {private}: reply BLOCKED before the shunt to the {active} ISA.'
     out += [label(40, 1045, 'Request: '+fwd, 18, FWD), label(40, 1080, 'Reply: '+ret, 18, REV),
             label(40, 1125, 'Core ports: 1/2/3 = SecGW; P = Base/public, V = VPRN/private. Thin lines: links. Arrows: traffic. LAG members: MDA 1/1.', 16, GRAY), '</svg>']
-    (OUT/(test+'.svg')).write_text('\n'.join(out)+'\n', encoding='utf-8', newline='\n')
+    (OUT/(test+'-paths.svg')).write_text('\n'.join(out)+'\n', encoding='utf-8', newline='\n')
     GALLERY.append((test, title, action))
 
 
@@ -243,5 +243,5 @@ def write_gallery():
     for case, title, action in GALLERY:
         lines.append(f'| [{case}](#{case.lower()}) | {action} | [Packet processing](scenarios/{case}.svg) |')
     for case, title, action in GALLERY:
-        lines += ['', f'## {case}', '', f'**{title}.** {action}', '', f'![{case}: {title}](topology-scenarios/{case}.svg)']
+        lines += ['', f'## {case}', '', f'**{title}.** {action}', '', f'![{case}: {title}](topology-scenarios/{case}-paths.svg)']
     (OUT.parent/'TOPOLOGY-TESTS.md').write_text('\n'.join(lines)+'\n', encoding='utf-8', newline='\n')
