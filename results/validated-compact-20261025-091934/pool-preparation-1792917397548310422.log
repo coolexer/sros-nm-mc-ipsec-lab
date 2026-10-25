@@ -1,0 +1,88 @@
+
+[/]
+A:admin@seg3-a# show isa tunnel-member-pool pool1 detail
+
+===============================================================================
+ISA Tunnel Member Pool : pool1
+Description            : (Not Specified)
+High Availability      : (Not Specified)
+Associated Tunnel Grps : 1
+Last Config Change     : 10/25/2026 08:35:35
+
+===============================================================================
+Member                        Weight      Hash Slots  Active In Group
+-------------------------------------------------------------------------------
+1/2                                                   
+-------------------------------------------------------------------------------
+Number of Configured Entries: 1
+Number of Active Entries: 0
+===============================================================================
+
+[/]
+A:admin@seg3-a# show mda
+
+===============================================================================
+MDA Summary
+===============================================================================
+Slot  Mda   Provisioned Type                            Admin     Operational
+                Equipped Type (if different)            State     State
+-------------------------------------------------------------------------------
+1     1     me10-10gb-sfp+                              up        up
+      2     isa2-tunnel                                 up        up
+                me-isa2-ms                                            
+===============================================================================
+
+[/]
+A:admin@seg3-a# logout
+
+Host memory after pool preparation:
+MemTotal:       17984688 kB
+MemFree:         6362128 kB
+MemAvailable:    7677420 kB
+Buffers:           75020 kB
+Cached:          1451720 kB
+SwapCached:       144652 kB
+Active:          1233116 kB
+Inactive:        9108136 kB
+Active(anon):     113912 kB
+Inactive(anon):  8702112 kB
+Active(file):    1119204 kB
+Inactive(file):   406024 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:       5242880 kB
+SwapFree:        4396932 kB
+Dirty:                 8 kB
+Writeback:             0 kB
+AnonPages:       8684020 kB
+Mapped:          1154708 kB
+Shmem:              1512 kB
+KReclaimable:      96028 kB
+Slab:             246324 kB
+SReclaimable:      96028 kB
+SUnreclaim:       150296 kB
+KernelStack:       47060 kB
+PageTables:        40860 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    14235224 kB
+Committed_AS:   30113688 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:      728424 kB
+VmallocChunk:          0 kB
+Percpu:            22528 kB
+AnonHugePages:   4007936 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+FileHugePages:         0 kB
+FilePmdMapped:         0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+Hugetlb:               0 kB
+DirectMap4k:      662528 kB
+DirectMap2M:    17768448 kB
+DirectMap1G:     8388608 kB

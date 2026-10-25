@@ -1,0 +1,189 @@
+
+[/]
+A:admin@seg1-a# show redundancy multi-chassis ipsec-domain 1
+
+===============================================================================
+Multi-Chassis IPsec Domain: 1
+===============================================================================
+Designated Role    : active             Priority           : 200
+Tunnel Group       : 1                  Revertive          : false
+Admin State        : Up                 Protection Status  : nominal
+Router Id          : 10.0.0.1           Current Active     : 10.0.0.1
+Activity State     : active                                                     
+===============================================================================
+
+===============================================================================
+Domain 1 Adjacencies
+===============================================================================
+Peer                                        Oper    Remote       Remote
+  Router-Id                                 State   Activity     Designated
+                                                    State        Role
+-------------------------------------------------------------------------------
+10.0.0.2                                    Up      standby      active
+  10.0.0.2
+10.0.0.3                                    Up      standby      standby
+  10.0.0.3
+-------------------------------------------------------------------------------
+Domain Adjacency Entries found: 2
+===============================================================================
+
+===============================================================================
+Multi-Chassis Tunnel Statistics
+===============================================================================
+                              Static              Dynamic
+-------------------------------------------------------------------------------
+Installed                     0                   2
+Installing                    0                   0
+Standby Dormant               0                   0
+Awaiting Config               0                   0
+Failed                        0                   0
+===============================================================================
+
+[/]
+A:admin@seg1-a# show redundancy multi-chassis sync
+
+===============================================================================
+Multi-chassis Peer Table
+===============================================================================
+Peer
+-------------------------------------------------------------------------------
+Peer IP Address         : 10.0.0.2
+Peer Name               : seg2
+Description             : (Not Specified)
+Authentication          : Disabled
+Source IP Address       : 10.0.0.1
+Admin State             : Enabled
+Warm standby            : No
+Remote warm standby     : No
+Sub-mgmt options        : 
+  DHCP lease threshold  : Inactive
+    Local / Remote      : -- / --
+-------------------------------------------------------------------------------
+Sync-status
+-------------------------------------------------------------------------------
+Client Applications     : IPsec
+Sync Admin State        : Up
+Sync Oper State         : Up
+DB Sync State           : inSync
+Num Entries             : 4
+Lcl Deleted Entries     : 0
+Alarm Entries           : 0
+OMCR Standby Entries    : 0
+OMCR Alarm Entries      : 0
+Rem Num Entries         : 4
+Rem Lcl Deleted Entries : 0
+Rem Alarm Entries       : 0
+Rem OMCR Standby Entries: 0
+Rem OMCR Alarm Entries  : 0
+===============================================================================
+Peer
+-------------------------------------------------------------------------------
+Peer IP Address         : 10.0.0.3
+Peer Name               : seg3
+Description             : (Not Specified)
+Authentication          : Disabled
+Source IP Address       : 10.0.0.1
+Admin State             : Enabled
+Warm standby            : No
+Remote warm standby     : No
+Sub-mgmt options        : 
+  DHCP lease threshold  : Inactive
+    Local / Remote      : -- / --
+-------------------------------------------------------------------------------
+Sync-status
+-------------------------------------------------------------------------------
+Client Applications     : IPsec
+Sync Admin State        : Up
+Sync Oper State         : Up
+DB Sync State           : inSync
+Num Entries             : 4
+Lcl Deleted Entries     : 0
+Alarm Entries           : 0
+OMCR Standby Entries    : 0
+OMCR Alarm Entries      : 0
+Rem Num Entries         : 4
+Rem Lcl Deleted Entries : 0
+Rem Alarm Entries       : 0
+Rem OMCR Standby Entries: 0
+Rem OMCR Alarm Entries  : 0
+===============================================================================
+===============================================================================
+
+[/]
+A:admin@seg1-a# show isa tunnel-group
+
+=============================================================================
+ISA Tunnel Groups (Multi-Active)
+=============================================================================
+Tunnel    Non-Active       Required     Active           Admin     Oper
+GroupId   Members          Active Qty   Members          State     State
+-----------------------------------------------------------------------------
+1                          1            1/2              Up        Up
+-----------------------------------------------------------------------------
+No. of ISA Tunnel Groups (Multi-Active): 1
+=============================================================================
+
+[/]
+A:admin@seg1-a# show router bfd session
+
+===============================================================================
+Legend:
+  Session Id = Interface Name | LSP Name | Prefix | RSVP Sess Name | Service Id
+  wp = Working path   pp = Protecting path
+===============================================================================
+BFD Session
+===============================================================================
+Session Id                                        State      Tx Pkts    Rx Pkts
+  Rem Addr/Info/SdpId:VcId                      Multipl     Tx Intvl   Rx Intvl
+  Protocols                                        Type     LAG Port     LAG ID
+  Loc Addr                                                             LAG name
+-------------------------------------------------------------------------------
+system                                               Up          N/A        N/A
+  10.0.0.2                                            3         1000       1000
+  mcIpsec                                        cpm-np          N/A        N/A
+  10.0.0.1                                                                     
+system                                               Up          N/A        N/A
+  10.0.0.3                                            3         1000       1000
+  mcIpsec                                        cpm-np          N/A        N/A
+  10.0.0.1                                                                     
+to-core                                              Up         2024       2017
+  172.31.1.0                                          3          100        100
+  bgp                                               iom          N/A        N/A
+  172.31.1.1                                                                   
+to-seg2-a                                            Up          N/A        N/A
+  10.12.1.1                                           3         1000       1000
+  ospf2                                          cpm-np          N/A        N/A
+  10.12.1.0                                                                    
+to-seg3-a                                            Up          N/A        N/A
+  10.13.1.1                                           3         1000       1000
+  ospf2                                          cpm-np          N/A        N/A
+  10.13.1.0                                                                    
+-------------------------------------------------------------------------------
+No. of BFD sessions: 5
+===============================================================================
+
+[/]
+A:admin@seg1-a# show router "100" bfd session
+
+===============================================================================
+Legend:
+  Session Id = Interface Name | LSP Name | Prefix | RSVP Sess Name | Service Id
+  wp = Working path   pp = Protecting path
+===============================================================================
+BFD Session
+===============================================================================
+Session Id                                        State      Tx Pkts    Rx Pkts
+  Rem Addr/Info/SdpId:VcId                      Multipl     Tx Intvl   Rx Intvl
+  Protocols                                        Type     LAG Port     LAG ID
+  Loc Addr                                                             LAG name
+-------------------------------------------------------------------------------
+to-core                                              Up         2039       2044
+  172.30.1.0                                          3          100        100
+  bgp                                               iom          N/A        N/A
+  172.30.1.1                                                                   
+-------------------------------------------------------------------------------
+No. of BFD sessions: 1
+===============================================================================
+
+[/]
+A:admin@seg1-a# logout

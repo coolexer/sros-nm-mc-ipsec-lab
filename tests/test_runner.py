@@ -17,6 +17,38 @@ def trace(sequences, tx=20, stop=2.1):
 
 
 class RunnerChecks(unittest.TestCase):
+    def test_peer_sync_must_match_the_surviving_peer(self):
+        text = ('Peer IP Address : 10.0.0.1\nSync Oper State : Up\nDB Sync State : inSync\n'
+                'Peer IP Address : 10.0.0.3\nSync Oper State : Down\nDB Sync State : notReady\n')
+        with patch.object(lab, 'op', return_value=text):
+            self.assertFalse(lab.peer_in_sync('seg2', 'seg3'))
+            self.assertTrue(lab.peer_in_sync('seg2', 'seg1'))
+
+    def test_second_failure_waits_for_verified_first_stage(self):
+        events = []
+        def wait(description, predicate, timeout):
+            events.append(description)
+            if description.startswith('surviving seg2/seg3'):
+                raise lab.LabError('not synchronized')
+        with tempfile.TemporaryDirectory() as tmp, patch.object(lab, 'RUN', Path(tmp)), \
+             patch.object(lab, 'CASE', 'T13a'), patch.object(lab, 'prepare_pool'), \
+             patch.object(lab, 'begin'), patch.object(lab, 'op', return_value='evidence'), \
+             patch.object(lab, 'node_power', side_effect=lambda nodes, verb: events.append((nodes, verb))), \
+             patch.object(lab, 'wait', side_effect=wait), patch.object(lab, 'finish') as finish:
+            with self.assertRaisesRegex(lab.LabError, 'not synchronized'):
+                lab.sequential_failure()
+            finish.assert_not_called()
+        self.assertEqual([event for event in events if isinstance(event, tuple)], [(('seg1',), 'kill')])
+
+    def test_stable_observation_rejects_loss_even_if_traffic_recovers(self):
+        before = trace(set(range(1, 21)))
+        after = trace(set(range(1, 41)) - {25}, tx=40, stop=4.1)
+        with patch.object(lab, 'docker', side_effect=[before, before, after]), \
+             patch.object(lab, 'traffic_stable', return_value=True), patch.object(lab.time, 'sleep'), \
+             patch.object(lab, 'log'):
+            with self.assertRaisesRegex(lab.LabError, 'Observation lost 1'):
+                lab.observe_stable()
+
     def test_initial_loss_is_in_gap(self):
         data = metrics(trace(set(range(11, 21))))
         self.assertEqual(data['lost'], 10)

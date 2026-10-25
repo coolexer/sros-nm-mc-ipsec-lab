@@ -1,0 +1,106 @@
+
+[/]
+A:admin@ipmpls# show router route-table 198.51.100.1/32
+
+===============================================================================
+Route Table (Router: Base)
+===============================================================================
+Dest Prefix[Flags]                            Type    Proto     Age        Pref
+      Next Hop[Interface Name]                                    Metric   
+-------------------------------------------------------------------------------
+198.51.100.1/32                               Remote  BGP       00h00m35s  170
+       172.31.3.1                                                   0
+-------------------------------------------------------------------------------
+No. of Routes: 1
+Flags: n = Number of times nexthop is repeated
+       B = BGP backup route available
+       L = LFA nexthop available
+       S = Sticky ECMP requested
+===============================================================================
+
+[/]
+A:admin@ipmpls# show router "100" route-table 10.100.1.1/32
+
+===============================================================================
+Route Table (Service: 100)
+===============================================================================
+Dest Prefix[Flags]                            Type    Proto     Age        Pref
+      Next Hop[Interface Name]                                    Metric   
+-------------------------------------------------------------------------------
+10.100.1.1/32                                 Remote  BGP       00h00m36s  170
+       172.30.3.1                                                   0
+-------------------------------------------------------------------------------
+No. of Routes: 1
+Flags: n = Number of times nexthop is repeated
+       B = BGP backup route available
+       L = LFA nexthop available
+       S = Sticky ECMP requested
+===============================================================================
+
+[/]
+A:admin@ipmpls# show router "100" route-table 10.100.2.1/32
+
+===============================================================================
+Route Table (Service: 100)
+===============================================================================
+Dest Prefix[Flags]                            Type    Proto     Age        Pref
+      Next Hop[Interface Name]                                    Metric   
+-------------------------------------------------------------------------------
+10.100.2.1/32                                 Remote  BGP       00h00m36s  170
+       172.30.3.1                                                   0
+-------------------------------------------------------------------------------
+No. of Routes: 1
+Flags: n = Number of times nexthop is repeated
+       B = BGP backup route available
+       L = LFA nexthop available
+       S = Sticky ECMP requested
+===============================================================================
+
+[/]
+A:admin@ipmpls# show router bfd session
+
+===============================================================================
+Legend:
+  Session Id = Interface Name | LSP Name | Prefix | RSVP Sess Name | Service Id
+  wp = Working path   pp = Protecting path
+===============================================================================
+BFD Session
+===============================================================================
+Session Id                                        State      Tx Pkts    Rx Pkts
+  Rem Addr/Info/SdpId:VcId                      Multipl     Tx Intvl   Rx Intvl
+  Protocols                                        Type     LAG Port     LAG ID
+  Loc Addr                                                             LAG name
+-------------------------------------------------------------------------------
+to-seg3                                              Up        14985      14979
+  172.31.3.1                                          3          100        100
+  bgp                                               iom          N/A        N/A
+  172.31.3.0                                                                   
+-------------------------------------------------------------------------------
+No. of BFD sessions: 1
+===============================================================================
+
+[/]
+A:admin@ipmpls# show router "100" bfd session
+
+===============================================================================
+Legend:
+  Session Id = Interface Name | LSP Name | Prefix | RSVP Sess Name | Service Id
+  wp = Working path   pp = Protecting path
+===============================================================================
+BFD Session
+===============================================================================
+Session Id                                        State      Tx Pkts    Rx Pkts
+  Rem Addr/Info/SdpId:VcId                      Multipl     Tx Intvl   Rx Intvl
+  Protocols                                        Type     LAG Port     LAG ID
+  Loc Addr                                                             LAG name
+-------------------------------------------------------------------------------
+to-seg3                                              Up        14982      14970
+  172.30.3.1                                          3          100        100
+  bgp                                               iom          N/A        N/A
+  172.30.3.0                                                                   
+-------------------------------------------------------------------------------
+No. of BFD sessions: 1
+===============================================================================
+
+[/]
+A:admin@ipmpls# logout

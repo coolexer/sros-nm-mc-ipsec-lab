@@ -178,7 +178,7 @@ Server Enabled     : No                 Server Authenticate  : No
 Clock Source       : 172.20.30.123
 Auth Check         : Yes                
 Auth Keychain      :                    
-Current Date & Time: 2026/10/25 06:35:16 UTC
+Current Date & Time: 2026/10/25 08:37:50 UTC
 ===============================================================================
 
 ===============================================================================
@@ -187,7 +187,7 @@ NTP Active Associations
 State                     Reference ID    St Type  A  Poll Reach     Offset(ms)
     Router         Remote                                            
 -------------------------------------------------------------------------------
-chosen                    127.127.1.1     10 srvr  -  64   .YYYYYYY  -0.039
+chosen                    127.127.1.1     10 srvr  -  64   ..YYYYYY  -0.038
     management     172.20.30.123
 ===============================================================================
 
@@ -382,7 +382,7 @@ Server Enabled     : No                 Server Authenticate  : No
 Clock Source       : 172.20.30.123
 Auth Check         : Yes                
 Auth Keychain      :                    
-Current Date & Time: 2026/10/25 06:35:17 UTC
+Current Date & Time: 2026/10/25 08:37:52 UTC
 ===============================================================================
 
 ===============================================================================
@@ -391,7 +391,7 @@ NTP Active Associations
 State                     Reference ID    St Type  A  Poll Reach     Offset(ms)
     Router         Remote                                            
 -------------------------------------------------------------------------------
-chosen                    127.127.1.1     10 srvr  -  64   .YYYYYYY  -0.036
+chosen                    127.127.1.1     10 srvr  -  64   ..YYYYYY  -0.036
     management     172.20.30.123
 ===============================================================================
 
@@ -586,7 +586,7 @@ Server Enabled     : No                 Server Authenticate  : No
 Clock Source       : 172.20.30.123
 Auth Check         : Yes                
 Auth Keychain      :                    
-Current Date & Time: 2026/10/25 06:35:18 UTC
+Current Date & Time: 2026/10/25 08:37:53 UTC
 ===============================================================================
 
 ===============================================================================
@@ -595,7 +595,7 @@ NTP Active Associations
 State                     Reference ID    St Type  A  Poll Reach     Offset(ms)
     Router         Remote                                            
 -------------------------------------------------------------------------------
-chosen                    127.127.1.1     10 srvr  -  64   YYYYYYYY  -0.028
+chosen                    127.127.1.1     10 srvr  -  64   YYYYYYYY  -0.040
     management     172.20.30.123
 ===============================================================================
 
@@ -773,7 +773,7 @@ Server Enabled     : No                 Server Authenticate  : No
 Clock Source       : 172.20.30.123
 Auth Check         : Yes                
 Auth Keychain      :                    
-Current Date & Time: 2026/10/25 06:35:20 UTC
+Current Date & Time: 2026/10/25 08:37:54 UTC
 ===============================================================================
 
 ===============================================================================
@@ -782,7 +782,7 @@ NTP Active Associations
 State                     Reference ID    St Type  A  Poll Reach     Offset(ms)
     Router         Remote                                            
 -------------------------------------------------------------------------------
-chosen                    127.127.1.1     10 srvr  -  64   YYYYYYYY  -0.035
+chosen                    127.127.1.1     10 srvr  -  64   YYYYYYYY  -0.030
     management     172.20.30.123
 ===============================================================================
 
@@ -860,7 +860,7 @@ ISA Tunnel Member Pool : pool1
 Description            : (Not Specified)
 High Availability      : (Not Specified)
 Associated Tunnel Grps : 1
-Last Config Change     : 10/25/2026 06:32:44
+Last Config Change     : 10/25/2026 08:35:35
 
 ===============================================================================
 Member                        Weight      Hash Slots  Active In Group
@@ -902,12 +902,12 @@ A:admin@seg3-a# logout
   },
   "ike": [
     [
-      "2f615c4e27de67ae_i*",
-      "f698fddfdae4a385_r"
+      "5c4ed0e15b570aad_i*",
+      "ecd5d858f31be6cf_r"
     ],
     [
-      "28ad74b65f7fd9ae_i*",
-      "96dbc8d7bc6293ab_r"
+      "8d954cf007f239ae_i*",
+      "129f718e78e55000_r"
     ]
   ]
 }

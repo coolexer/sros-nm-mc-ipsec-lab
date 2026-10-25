@@ -114,6 +114,33 @@ not establish a statistically significant HA improvement.
 | T10b | Remove public shunt profile on the selected standby | Both eNBs lose traffic until restoration |
 | T11/T11b | Equivalent private-route pinning/profile removal | Private shunting works, and its removal blocks both eNBs |
 | T12 | Disable member A, switch OA to seg2, pin both traffic directions to former OA | Shunting over surviving member B restores and sustains both flows |
+| T13a/T13b/T13r | Normal pool: kill seg1, verify seg2 and 30 s without further loss; kill seg2 with seg1 still off; return both DAs | Both original IKE pairs survive seg1→seg2→seg3 and DA return; measure each fault separately; verify surviving MCS before the second fault |
+| T14a/T14b/T14r | The same sequential faults with seg3 HA pool | Same checks, with HA preparation outside measurement; restore normal pool afterwards |
+
+Select `./tests/nm_tests.sh T13 T14` to run both sequential-failure cases. Each produces
+three measurement windows: first fault (`a`), second fault (`b`) and DA return (`r`).
+The second fault is injected only after seg2 has two installed tunnels, all three core
+routes select seg2, both traffic flows recover, seg2/seg3 MCS is inSync in both directions,
+and a 30-s observation adds no packet loss. seg1 stays off throughout this interval.
+Both original IKE pairs are compared across all three windows of each mode.
+
+After the first fault, whole-domain protection is not nominal because seg1 is absent.
+The second fault deliberately tests this degraded state; it is not a planned switchover
+from nominal protection. No force-switchover or peer-domain reset is used between faults.
+
+## Operational BFD intervals
+
+The configuration requests 100 ms transmit/receive and multiplier 3 on the system interface
+and the routed links. In this SR-SIM instance, MC-IPsec sessions run as `cpm-np` and report
+1000 ms operational intervals; core BGP sessions run as `iom` and report 100 ms. The sequential
+tests retain BFD session output before and after faults. A requested interval is not proof
+of the operational interval or of end-to-end restoration time.
+
+Nokia's [simulation note for CPM-NP BFD](https://documentation.nokia.com/acg/24-7-2/books/mpls-classic/c079-mpls-tp.html)
+describes simulated CPM-NP sessions negotiating 1000 ms when configured below 1000 ms.
+This matches the observed behavior here. It is a simulator condition, not a recommendation
+to use 1000 ms for production MC-IPsec. Faster hardware detection must be validated on the
+target platform, including the complete OA, routing and forwarding transition.
 
 ## Nokia references
 

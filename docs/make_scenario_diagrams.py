@@ -101,6 +101,10 @@ def main():
         draw('T11-'+target, 'Private routes pinned to ' + target, private=target)
         draw('T11b-'+target, 'Remove private shunt profile on ' + target, private=target, block='private', note='Expected negative control: return traffic stops on the selected standby; restore profile before the next case')
     draw('T12', 'Member A off; OA seg2; both directions pinned to seg1', active='seg2', public='seg1', private='seg1', ports=('DOWN', 'UP'), note='Both public and private shunts cross LAG 12 on surviving member B. Control-plane reachability alone cannot prove this data path')
+    for number, mode in [('T13', 'normal pool'), ('T14', 'HA pool')]:
+        draw(number+'a', 'First sequential DA failure; '+mode, active='seg2', down=('seg1',), note='seg1 remains off. Verify OA seg2, all three core routes, two installed tunnels and seg2/seg3 MCS inSync. Observe 30 s without additional loss before the second fault')
+        draw(number+'b', 'Second sequential DA failure; '+mode, active='seg3', down=('seg1', 'seg2'), note='Only after verified seg2 forwarding: kill seg2 while seg1 stays off. seg3 must forward with the original IKE pairs preserved across both stages; observe another 30 s')
+        draw(number+'r', 'Return both DAs after sequential failure; '+mode, active='seg3', note='Shown outcome: OA stays seg3. Both original IKE pairs must survive the complete seg1 → seg2 → seg3 chain and DA return. Require nominal; no return loss if OA remains seg3')
     write_gallery()
 
 

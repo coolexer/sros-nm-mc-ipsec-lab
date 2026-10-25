@@ -1,0 +1,212 @@
+[
+  {
+    "id": "T13a",
+    "expected": "seg2",
+    "actual": "seg2",
+    "ike_kept": true,
+    "verdict": "PASS",
+    "traffic": [
+      {
+        "tx": 524,
+        "rx": 497,
+        "lost": 27,
+        "max_gap_s": 3.200707,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 524,
+        "stable_since": 1792916455.806704,
+        "head_s": 0.009296,
+        "tail_s": 0.071117,
+        "explicit_window": true
+      },
+      {
+        "tx": 532,
+        "rx": 505,
+        "lost": 27,
+        "max_gap_s": 3.179507,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 532,
+        "stable_since": 1792916456.939853,
+        "head_s": 0.009573,
+        "tail_s": 0.029387,
+        "explicit_window": true
+      }
+    ]
+  },
+  {
+    "id": "T13b",
+    "expected": "seg3",
+    "actual": "seg3",
+    "ike_kept": true,
+    "verdict": "PASS",
+    "traffic": [
+      {
+        "tx": 430,
+        "rx": 406,
+        "lost": 24,
+        "max_gap_s": 2.785598,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 430,
+        "stable_since": 1792916519.795029,
+        "head_s": 0.012814,
+        "tail_s": 0.025032,
+        "explicit_window": true
+      },
+      {
+        "tx": 428,
+        "rx": 405,
+        "lost": 23,
+        "max_gap_s": 2.693293,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 428,
+        "stable_since": 1792916520.160886,
+        "head_s": 0.013296,
+        "tail_s": 0.054747,
+        "explicit_window": true
+      }
+    ]
+  },
+  {
+    "id": "T13r",
+    "expected": "unique",
+    "actual": "seg3",
+    "ike_kept": true,
+    "verdict": "PASS",
+    "traffic": [
+      {
+        "tx": 692,
+        "rx": 692,
+        "lost": 0,
+        "max_gap_s": 0.228353,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 692,
+        "stable_since": 1792916600.17649,
+        "head_s": 0.01269,
+        "tail_s": 0.013363,
+        "explicit_window": true
+      },
+      {
+        "tx": 694,
+        "rx": 694,
+        "lost": 0,
+        "max_gap_s": 0.21341,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 694,
+        "stable_since": 1792916600.637191,
+        "head_s": 0.009449,
+        "tail_s": 0.047862,
+        "explicit_window": true
+      }
+    ]
+  },
+  {
+    "id": "T14a",
+    "expected": "seg2",
+    "actual": "seg2",
+    "ike_kept": true,
+    "verdict": "PASS",
+    "traffic": [
+      {
+        "tx": 477,
+        "rx": 450,
+        "lost": 27,
+        "max_gap_s": 3.181027,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 477,
+        "stable_since": 1792917079.502396,
+        "head_s": 0.01853,
+        "tail_s": 0.042871,
+        "explicit_window": true
+      },
+      {
+        "tx": 474,
+        "rx": 447,
+        "lost": 27,
+        "max_gap_s": 3.143666,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 474,
+        "stable_since": 1792917079.907692,
+        "head_s": 0.029458,
+        "tail_s": 0.001538,
+        "explicit_window": true
+      }
+    ]
+  },
+  {
+    "id": "T14b",
+    "expected": "seg3",
+    "actual": "seg3",
+    "ike_kept": true,
+    "verdict": "PASS",
+    "traffic": [
+      {
+        "tx": 425,
+        "rx": 403,
+        "lost": 22,
+        "max_gap_s": 2.618338,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 425,
+        "stable_since": 1792917131.937355,
+        "head_s": 0.013502,
+        "tail_s": 0.037234,
+        "explicit_window": true
+      },
+      {
+        "tx": 425,
+        "rx": 403,
+        "lost": 22,
+        "max_gap_s": 2.640174,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 425,
+        "stable_since": 1792917132.305489,
+        "head_s": 0.009368,
+        "tail_s": 0.025681,
+        "explicit_window": true
+      }
+    ]
+  },
+  {
+    "id": "T14r",
+    "expected": "unique",
+    "actual": "seg3",
+    "ike_kept": true,
+    "verdict": "PASS",
+    "traffic": [
+      {
+        "tx": 665,
+        "rx": 665,
+        "lost": 0,
+        "max_gap_s": 0.106469,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 665,
+        "stable_since": 1792917207.673406,
+        "head_s": 0.010131,
+        "tail_s": 0.035746,
+        "explicit_window": true
+      },
+      {
+        "tx": 664,
+        "rx": 664,
+        "lost": 0,
+        "max_gap_s": 0.105418,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 664,
+        "stable_since": 1792917207.935205,
+        "head_s": 0.009382,
+        "tail_s": 0.04542,
+        "explicit_window": true
+      }
+    ]
+  }
+]

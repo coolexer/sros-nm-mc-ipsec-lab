@@ -1,0 +1,21 @@
+[09:19:54] Sequential failure: seg1 off; verify sustained forwarding through seg2; HA=False
+[09:19:54] waiting: nominal before test
+[09:19:56] ready: nominal before test
+[09:19:56] waiting: expected routes public=seg1, private=seg1
+[09:19:57] ready: expected routes public=seg1, private=seg1
+[09:20:03] before: domains={'seg1': {'act': 'active', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg2': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 0}}, paths={'198.51.100.1/32': 'seg1', '10.100.1.1/32': 'seg1', '10.100.2.1/32': 'seg1'}, IKE=[('2f615c4e27de67ae_i*', 'f698fddfdae4a385_r'), ('28ad74b65f7fd9ae_i*', '96dbc8d7bc6293ab_r')]
+[09:20:03] waiting: 10 consecutive replies on each eNB
+[09:20:08] ready: 10 consecutive replies on each eNB
+[09:20:08] ACTION WINDOW START 1792916408.9654822
+[09:20:12] kill seg1
+[09:20:12] waiting: seg2 unique OA with two installed tunnels
+[09:20:20] ready: seg2 unique OA with two installed tunnels
+[09:20:20] waiting: all three core routes through seg2
+[09:20:20] ready: all three core routes through seg2
+[09:20:20] waiting: traffic restored on seg2 while seg1 stays off
+[09:20:21] ready: traffic restored on seg2 while seg1 stays off
+[09:20:21] waiting: surviving seg2/seg3 MCS inSync in both directions
+[09:20:21] ready: surviving seg2/seg3 MCS inSync in both directions
+[09:20:22] Observe 30 seconds of forwarding without additional loss
+[09:21:05] {"id": "T13a", "expected": "seg2", "actual": "seg2", "ike_kept": true, "verdict": "PASS", "traffic": [{"tx": 524, "rx": 497, "lost": 27, "max_gap_s": 3.200707, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 524, "stable_since": 1792916455.806704, "head_s": 0.009296, "tail_s": 0.071117, "explicit_window": true}, {"tx": 532, "rx": 505, "lost": 27, "max_gap_s": 3.179507, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 532, "stable_since": 1792916456.939853, "head_s": 0.009573, "tail_s": 0.029387, "explicit_window": true}]}
+[09:21:11] after: domains={'seg1': {'act': 'down', 'prot': 'unknown', 'current': 'unknown', 'installed': 0}, 'seg2': {'act': 'active', 'prot': 'notReady', 'current': '10.0.0.2', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'notReady', 'current': '10.0.0.2', 'installed': 0}}, paths={'198.51.100.1/32': 'seg2', '10.100.1.1/32': 'seg2', '10.100.2.1/32': 'seg2'}, IKE=[('2f615c4e27de67ae_i*', 'f698fddfdae4a385_r'), ('28ad74b65f7fd9ae_i*', '96dbc8d7bc6293ab_r')]

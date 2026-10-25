@@ -9,7 +9,7 @@ includes an automated switchover test runner.
 - [Customer test program](docs/TEST-PROGRAM.md) describes every action, both packet directions,
   acceptance and recovery, with a full topology view for each measured window.
 - [Per-test topology gallery](docs/TOPOLOGY-TESTS.md) shows disabled components and request/reply
-  arrows for all 23 windows. Companion packet-processing diagrams are linked from the gallery.
+  arrows for all 29 windows. Companion packet-processing diagrams are linked from the gallery.
 - [RESULTS.md](RESULTS.md) contains the accepted measurements, their source traces and final
   operational state.
 

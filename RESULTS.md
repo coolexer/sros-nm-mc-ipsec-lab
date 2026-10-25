@@ -1,8 +1,8 @@
 # N:M MC-IPsec validation results
 
 **Test dates: 24–25 October 2026.** The compact-profile program is complete:
-all 23 accepted measurement windows meet their functional criteria. Coverage includes
-stateful DA switchover, normal/HA DS takeover, node return, public/private shunting and
+all 29 accepted measurement windows meet their functional criteria. Coverage includes
+stateful DA switchover, normal/HA DS takeover, sequential DA failures, node return, public/private shunting and
 forwarding over a surviving LAG member.
 
 The [customer test program](docs/TEST-PROGRAM.md) describes each action, both traffic
@@ -62,6 +62,12 @@ The test identifier links to its measurement log.
 | [T11-seg3](results/validated-compact-20261025-070431/T11-seg3.log) | seg1 | yes | 0 / 0.118 s | 0 / 0.105 s | PASS |
 | [T11b-seg3](results/validated-compact-20261025-070431/T11b-seg3.log) | seg1 | yes | 92 / 10.558 s — blocked | 94 / 10.793 s — blocked | PASS |
 | [T12](results/validated-compact-20261025-070431/T12.log) | seg2 | yes | 1 / 0.205 s | 2 / 0.314 s | PASS |
+| [T13a](results/validated-compact-20261025-091934/T13a.log) | seg2 | yes | 27 / 3.201 s | 27 / 3.180 s | PASS |
+| [T13b](results/validated-compact-20261025-091934/T13b.log) | seg3 | yes | 24 / 2.786 s | 23 / 2.693 s | PASS |
+| [T13r](results/validated-compact-20261025-091934/T13r.log) | seg3 | yes | 0 / 0.228 s | 0 / 0.213 s | PASS |
+| [T14a](results/validated-compact-20261025-091934/T14a.log) | seg2 | yes | 27 / 3.181 s | 27 / 3.144 s | PASS |
+| [T14b](results/validated-compact-20261025-091934/T14b.log) | seg3 | yes | 22 / 2.618 s | 22 / 2.640 s | PASS |
+| [T14r](results/validated-compact-20261025-091934/T14r.log) | seg3 | yes | 0 / 0.106 s | 0 / 0.105 s | PASS |
 
 Every accepted window preserved both original IKE SAs: both SPI values of each session were
 checked before and after the action. CHILD SAs were installed; CHILD rekey on switchover
@@ -144,11 +150,20 @@ Hold time is measured from the last received BGP message, so a roughly 84 s inte
 after the failure is consistent with a 90 s hold timer. IKE identifiers are preserved in
 both variants; neither outage requires waiting for seg1 to restart.
 
-The configured BFD interval is 100 ms with multiplier 3. This is a failure-detection
-setting, not an end-to-end restoration guarantee. The 2.95 s measured reply gap includes
-the complete failover path. These logs do not provide sufficient event timing to assign
-that gap separately to BFD, OA election and route/data-plane convergence, or to establish
-a hardware-platform restoration time from this SR-SIM measurement.
+The configuration requests BFD at 100 ms with multiplier 3. Operational session output
+retained with the sequential tests distinguishes two implementations: core BGP uses
+`iom` sessions at 100 ms; MC-IPsec uses `cpm-np` sessions at 1000 ms with multiplier 3.
+Nokia documents a [1000-ms negotiation floor for simulated CPM-NP BFD](https://documentation.nokia.com/acg/24-7-2/books/mpls-classic/c079-mpls-tp.html),
+consistent with this lab's output. The approximately 3-s MC-IPsec detection timer is
+therefore consistent with the observed failover gaps. It is a simulator condition,
+not a production timer recommendation.
+
+The retained T7 snapshots do not isolate the exact BFD, OA-election and route/data-plane
+convergence contributions. A tenfold reduction of the operational BFD interval would
+reduce that detection timer from approximately 3 s to 0.3 s, without guaranteeing a
+tenfold reduction of the complete reply gap. Configuring 100 ms alone does not demonstrate
+that reduction when the operational session remains at 1000 ms. Hardware restoration
+time requires a separate measurement on the target platform.
 
 ### DS takeover and pool HA
 
@@ -156,7 +171,7 @@ T8 and T9 recover both flows on seg3 after both DAs are killed, preserving IKE a
 the DAs return. T8 uses a normal pool; T9 uses `high-availability tunnel-limit-32k`.
 The user-packet processing path is the same:
 
-![T9: complete topology during HA DS takeover](docs/topology-scenarios/T9.svg)
+![T9: complete topology during HA DS takeover](docs/topology-scenarios/T9-paths.svg)
 
 Normal mode downloads states from CPM to ISA at takeover. HA preloads them on the pool ISA;
 takeover still requires activation. The measured gaps also include fault detection and route
@@ -171,6 +186,47 @@ HA preparation is completed before the measured fault, as specified in the
 [operational conditions](docs/operational-notes.md). The group ends with OA seg1 and
 normal pool mode none.
 
+### Sequential DA failures: verified seg1 → seg2 → seg3
+
+T13 (normal pool) and T14 (HA pool) validate two successive complete DA failures with
+an explicit intermediate forwarding checkpoint. Unlike T8/T9, the second DA is kept
+running until the first takeover has been verified.
+
+1. Start nominal on seg1. Record both original IKE pairs and baseline routes/BFD.
+2. Kill seg1 CPM/IOM. Require OA seg2, two installed tunnels, all three core /32 routes
+   through seg2, recovered replies and surviving seg2/seg3 MCS inSync in both directions.
+3. Observe 30 s without additional missing sequence numbers. Keep seg1 off.
+4. Start the second measured window through seg2, check the original IKE pairs and
+   seg1's off state, then kill seg2 CPM/IOM.
+5. Require isolated seg3 to be the unique forwarding owner with two installed tunnels,
+   all core /32 routes through seg3 and recovered traffic. Observe another 30 s without
+   additional loss, before either DA restarts.
+6. Measure both DAs returning. Both original IKE pairs survive the complete chain and
+   return. In both accepted runs, seg3 remains OA, return adds zero loss, and all domains
+   become nominal. Cleanup restores the normal-pool seg1 baseline.
+
+| Pool mode | First fault: seg1 → seg2 gap, eNB1 / eNB2 | Second fault: seg2 → seg3 gap, eNB1 / eNB2 | DA return: lost, eNB1 / eNB2 |
+|---|---|---|---|
+| Normal pool | 3.201 s / 3.180 s | 2.786 s / 2.693 s | 0 / 0 |
+| HA pool | 3.181 s / 3.144 s | 2.618 s / 2.640 s | 0 / 0 |
+
+![First sequential fault: seg1 off and verified forwarding through seg2](docs/topology-scenarios/T13a-paths.svg)
+
+![Second sequential fault: both DAs off and traffic through the HA pool on seg3](docs/topology-scenarios/T14b-paths.svg)
+
+The first fault leaves whole-domain protection notReady because seg1 is absent. The
+surviving seg2/seg3 MCS relationship is still synchronized. The second fault deliberately
+tests this degraded state; no planned force-switchover, IKE reset or peer-domain reset
+is inserted between failures. Each fault has its own complete ping traces and gap.
+The three windows per mode share the same original IKE identity; their boundary checks
+prevent a new session from being mistaken for a stateful continuation.
+
+The [sequential measurement group](results/validated-compact-20261025-091934/) contains per-node and core
+operational evidence. The [restored baseline BFD details](results/validated-compact-20261025-091934/bfd-baseline-detail.log)
+distinguish configured intervals from operational CPM-NP and IOM intervals. HA preparation
+is outside measured windows. These single observations do not establish a statistically
+significant speed difference between pool modes.
+
 ### Shunting through both standbys
 
 For T10/T11, the core selects the relevant routes through seg2 and then seg3. All four
@@ -180,7 +236,7 @@ controls blocks both round-trip flows while preserving OA and IKE.
 T12 combines member-A failure, switchover to OA seg2 and both traffic paths pinned through
 former OA seg1. Its final stable part demonstrates shunting on surviving member B:
 
-![T12: requests and replies shunt over the surviving LAG member](docs/topology-scenarios/T12.svg)
+![T12: requests and replies shunt over the surviving LAG member](docs/topology-scenarios/T12-paths.svg)
 
 ## Evidence
 
@@ -190,13 +246,15 @@ former OA seg1. Its final stable part demonstrates shunting on surviving member 
 | [24 October, group 2](results/validated-compact-20261024-212948/) | T2, T3, T4, T5, T6, T7, T7-noBFD |
 | [24 October, group 3](results/validated-compact-20261024-215807/) | T8, T8r |
 | [25 October, shunting](results/validated-compact-20261025-070431/) | Four public, four private windows, and T12 |
-| [25 October, final group](results/validated-compact-20261025-072430/) | T9, T9r, T0 |
+| [25 October, HA and baseline](results/validated-compact-20261025-072430/) | T9, T9r, T0 |
+| [25 October, sequential failures](results/validated-compact-20261025-091934/) | T13a, T13b, T13r, T14a, T14b, T14r |
 
 Each directory contains the accepted windows listed for that group: original log lines
 from window start through the after-action snapshot, complete START/STOP ping traces,
 JSON metrics and source-invocation metadata. These results are not presented as one
-uninterrupted `all` invocation. All **46 original ping traces** were independently reparsed
-and matched to their stored metrics. T7/T7-noBFD were also checked for additional missing
+uninterrupted `all` invocation. All **58 original ping traces** were independently reparsed
+and matched to their stored metrics. The sequential chains were also independently checked
+for original IKE continuity and both 30-s loss-free checkpoints per mode. T7/T7-noBFD were also checked for additional missing
 sequences during node return.
 
 Index: [validated-compact-index.json](results/validated-compact-index.json).

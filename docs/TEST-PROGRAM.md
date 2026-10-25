@@ -144,6 +144,15 @@ allowing CHILD SPI changes.
 | Negative shunting control | OA/IKE preserved; both flows lose replies and remain blocked at window end |
 | seg1 return in T7 | No additional missing sequence numbers after node startup begins |
 | DA return in T8r/T9r | Unique OA, nominal and preserved IKE; zero loss when seg3 remains OA |
+| Sequential failures in T13/T14 | Verify the intermediate seg2 checkpoint before the second fault; original IKE pairs preserved across both faults and DA return |
+
+**Operational BFD:** the configuration requests 100-ms transmit/receive with multiplier 3.
+In this SR-SIM instance, MC-IPsec uses `cpm-np` sessions operationally at 1000 ms × 3;
+core BGP uses `iom` sessions at 100 ms × 3. Nokia describes a 1000-ms negotiation floor
+for simulated CPM-NP sessions in its [BFD simulation note](https://documentation.nokia.com/acg/24-7-2/books/mpls-classic/c079-mpls-tp.html).
+The recorded session output is the basis for interpreting gaps. The simulator's interval
+is not a recommended production timer. A smaller BFD detection timer alone does not
+guarantee a proportional reduction in complete traffic-restoration time.
 
 Failover tests apply functional criteria and publish the measured gaps separately.
 A numerical hardware gap limit is not defined by this simulator program. Negative controls
@@ -159,10 +168,12 @@ python3 -m unittest discover -s tests -v
 # Independent groups; T1 includes T1b, T2 includes T3, T8/T9 include DA-return windows
 ./tests/nm_tests.sh T0 T1 T2 T4 T5 T6
 ./tests/nm_tests.sh T7 T7-noBFD T8 T9 T10 T11 T12
+./tests/nm_tests.sh T13 T14
 ```
 
-The full program has 23 windows: T0, T1, T1b, T2, T3, T4, T5, T6, T7, T7-noBFD,
-T8, T8r, T9, T9r, four public-shunting windows, four private-shunting windows and T12.
+The full program has 29 windows: T0, T1, T1b, T2, T3, T4, T5, T6, T7, T7-noBFD,
+T8, T8r, T9, T9r, four public-shunting windows, four private-shunting windows, T12,
+and three phases each for T13 and T14 (first fault, second fault and DA return).
 Each invocation writes `results/YYYYMMDD-HHMMSS/` with metadata, runner SHA-256, step logs,
 original ping traces, JSON metrics and SUMMARY. Accepted evidence is published in
 `results/validated-*`; [RESULTS.md](../RESULTS.md) identifies the source group for each window.
@@ -633,6 +644,104 @@ The complete T12 window includes the switchover loss; zero loss is not required 
 The stable final part, with pins present and A disabled, demonstrates the surviving shunt path.
 
 **Restore:** remove pins, enable A, verify two active LAG members and restore nominal seg1 baseline.
+
+### T13 — Sequential DA failures with a normal pool
+
+**Purpose:** validate the complete **seg1 → seg2 → seg3** forwarding sequence. This case
+has an explicit intermediate checkpoint on seg2. T8 instead kills both DAs in one command
+without waiting for verified forwarding on seg2.
+
+**Initial state:** nominal domain, OA seg1, normal pool `none` on seg3, BFD enabled and
+both original IKE/CHILD sessions present. Keep the core, eNBs, MME, NTP and all distributed
+namespace helpers running throughout the two failures.
+
+#### T13a — First failure: seg1 to seg2
+
+![T13a: seg1 stays off while seg2 forwards and seg3 remains standby](topology-scenarios/T13a-paths.svg)
+
+1. Start a measured ping window on both eNBs after ten successful replies and record both
+   original IKE SPI pairs, domain state, routes and operational BFD sessions.
+2. Kill seg1 CPM and its IOM components. Keep seg1 off through T13b.
+3. Require unique OA seg2, two installed tunnels and all three core /32 routes through seg2.
+4. Require recovered replies on both eNBs and MCS `inSync` between seg2 and seg3 in **both**
+   directions. Record the surviving peers' domain, MCS, tunnel-group and BFD outputs.
+5. Observe 30 s of forwarding with **no additional missing sequence numbers**. Recheck
+   recovered traffic and the unchanged original IKE pairs before accepting the first stage.
+
+**Traffic:** requests use eNB → core Base → seg2 ISA decrypt → core VPRN → MME.
+Replies use MME → core VPRN → seg2 ISA encrypt → core Base → eNB.
+seg3 remains standby; seg1 does not forward traffic.
+
+After this fault, whole-domain protection is `notReady` because seg1 is absent. That is
+the intended degraded state for the second failure. The surviving seg2/seg3 MCS adjacency
+must still be synchronized; this test does not require or force a false nominal state.
+
+#### T13b — Second failure: seg2 to seg3
+
+![T13b: both DAs are off after the verified intermediate stage; seg3 forwards](topology-scenarios/T13b-paths.svg)
+
+1. Start a separate measured window with both traffic directions routed through seg2.
+   Verify that seg1 is still off and both IKE pairs match the original T13a pairs.
+2. Kill seg2 CPM and its IOM components. Do not restart either DA during takeover measurement.
+3. Require seg3 to be the unique forwarding owner, with two installed tunnels; while
+   isolated, its domain Activity State is `eligible`. Require all core /32 routes through seg3.
+4. Require recovered replies on both eNBs, then observe another 30 s without additional loss.
+5. Compare both IKE pairs with the original pairs, retain the second fault's ping traces,
+   and record seg3 and core operational evidence.
+
+**Traffic:** requests use eNB → core Base → seg3 ISA decrypt → core VPRN → MME.
+Replies use MME → core VPRN → seg3 ISA encrypt → core Base → eNB. Both DAs remain off.
+
+The two faults have independent packet-loss and maximum-gap measurements. A new IKE
+session between stages cannot be accepted as a stateful continuation. No manual IKE
+initiation, force-switchover or peer-domain reset is used between the faults.
+
+#### T13r — Return both DAs
+
+![T13r: both DAs restored after the sequential chain; accepted OA remains seg3](topology-scenarios/T13r-paths.svg)
+
+Start a third measured window through seg3 and verify that both IKE pairs still match T13a.
+Start both DA CPM/IOM components, wait for their CLIs, all-domain nominal protection and
+recovered traffic. Record the actual election result. Require a unique owner and preserved
+original IKE pairs; require zero return-window loss when seg3 remains OA. Cleanup then
+restores the nominal seg1 baseline. DA boot/reintegration time is separate from either
+fault's traffic-restoration gap.
+
+### T14 — Sequential DA failures with HA pool
+
+Repeat the same three stages with seg3 pool configured as
+`high-availability tunnel-limit-32k`. Use the cold HA preparation described under T9;
+its restarts and readiness probes occur **before** T14a. The intermediate owner is still
+seg2; HA preloads synchronized states on the seg3 pool ISA before seg2 fails.
+
+#### T14a — First failure with HA standby
+
+![T14a: seg1 off, verified seg2 forwarding, HA pool on standby seg3](topology-scenarios/T14a-paths.svg)
+
+Kill seg1, verify OA seg2, two installed tunnels, all three core routes and both traffic
+flows. Require seg2/seg3 MCS `inSync` in both directions and the same 30-s observation
+without additional loss. Keep seg1 off. Retain both original IKE pairs for T14b/T14r.
+
+#### T14b — Second failure and HA takeover
+
+![T14b: seg2 fails after the intermediate checkpoint; HA pool on seg3 carries traffic](topology-scenarios/T14b-paths.svg)
+
+Kill seg2 only after T14a passes and seg1 is verified off. Require unique forwarding
+owner seg3, two installed tunnels, all core routes through seg3, preserved original
+IKE and recovered replies on both eNBs. Observe 30 s without additional loss. The request
+and reply routes are the same as T13b; pool HA is the configuration difference.
+
+#### T14r — DA return after HA takeover
+
+![T14r: both DAs restored after the HA sequence; accepted OA remains seg3](topology-scenarios/T14r-paths.svg)
+
+Measure both DAs returning as in T13r and preserve the T14a IKE pairs across the complete
+chain. Record the actual OA, nominal protection and traffic result. Move forwarding to
+seg1 before returning the pool to normal mode, then verify the full final baseline.
+
+**Interpretation:** T13 and T14 validate sequential failure handling for two tunnels.
+A single run per mode does not establish a statistically significant HA speed advantage.
+Use the recorded operational BFD intervals when interpreting the observed gaps.
 
 ## Final restoration and acceptance
 

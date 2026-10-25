@@ -1,0 +1,687 @@
+Captured UTC: 2026-10-25T08:38:07.992487+00:00
+
+NODE: seg1
+
+[/]
+A:admin@seg1-a# show router bfd session detail
+
+===============================================================================
+BFD Session
+===============================================================================
+Remote Address : 10.0.0.2
+Local Address  : 10.0.0.1
+Admin State    : Up                       Oper State       : Up
+Protocols      : mcIpsec                  
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Up Time        : 0d 00:05:06              Up Transitions   : 1
+Last Down Time : 0d 00:00:16              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 1                        Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 1000                     Local Mult       : 3
+Last Sent (ms) : 1                        Local Min Rx     : 1000
+Type           : cpm-np                   Cfg Type         : auto
+Remote Discr   : 1                        Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 1000                     Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv (ms) : 0                        Remote Min Rx    : 1000
+===============================================================================
+Remote Address : 10.0.0.3
+Local Address  : 10.0.0.1
+Admin State    : Up                       Oper State       : Up
+Protocols      : mcIpsec                  
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Up Time        : 0d 00:02:00              Up Transitions   : 2
+Last Down Time : 0d 00:00:29              Down Transitions : 1
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 2                        Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 1000                     Local Mult       : 3
+Last Sent (ms) : 1                        Local Min Rx     : 1000
+Type           : cpm-np                   Cfg Type         : auto
+Remote Discr   : 1                        Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 1000                     Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv (ms) : 0                        Remote Min Rx    : 1000
+===============================================================================
+Remote Address : 172.31.1.0
+Local Address  : 172.31.1.1
+Admin State    : Up                       Oper State       : Up
+Protocols      : bgp                      
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Recd Msgs      : 3954                     Sent Msgs        : 3959
+Up Time        : 0d 00:05:08              Up Transitions   : 1
+Last Down Time : 0d 00:00:01              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 6                        Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 100                      Local Mult       : 3
+Last Sent      : 10/25/2026 08:38:08      Local Min Rx     : 100
+Type           : iom                      Cfg Type         : auto
+Remote Discr   : 70                       Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 100                      Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv      : 10/25/2026 08:38:08      Remote Min Rx    : 100
+===============================================================================
+Remote Address : 10.12.1.1
+Local Address  : 10.12.1.0
+Admin State    : Up                       Oper State       : Up
+Protocols      : ospf2                    
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Up Time        : 0d 00:05:11              Up Transitions   : 1
+Last Down Time : 0d 00:00:02              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 4                        Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 1000                     Local Mult       : 3
+Last Sent (ms) : 1                        Local Min Rx     : 1000
+Type           : cpm-np                   Cfg Type         : auto
+Remote Discr   : 3                        Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 1000                     Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv (ms) : 0                        Remote Min Rx    : 1000
+===============================================================================
+Remote Address : 10.13.1.1
+Local Address  : 10.13.1.0
+Admin State    : Up                       Oper State       : Up
+Protocols      : ospf2                    
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Up Time        : 0d 00:02:06              Up Transitions   : 1
+Last Down Time : 0d 00:00:02              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 7                        Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 1000                     Local Mult       : 3
+Last Sent (ms) : 1                        Local Min Rx     : 1000
+Type           : cpm-np                   Cfg Type         : auto
+Remote Discr   : 9                        Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 1000                     Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv (ms) : 0                        Remote Min Rx    : 1000
+===============================================================================
+===============================================================================
+
+[/]
+A:admin@seg1-a# show router "100" bfd session detail
+
+===============================================================================
+BFD Session
+===============================================================================
+Remote Address : 172.30.1.0
+Local Address  : 172.30.1.1
+Admin State    : Up                       Oper State       : Up
+Protocols      : bgp                      
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Recd Msgs      : 3993                     Sent Msgs        : 3997
+Up Time        : 0d 00:05:11              Up Transitions   : 1
+Last Down Time : 0d 00:00:01              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 5                        Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 100                      Local Mult       : 3
+Last Sent      : 10/25/2026 08:38:08      Local Min Rx     : 100
+Type           : iom                      Cfg Type         : auto
+Remote Discr   : 68                       Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 100                      Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv      : 10/25/2026 08:38:08      Remote Min Rx    : 100
+===============================================================================
+===============================================================================
+
+[/]
+A:admin@seg1-a# logout
+
+
+[/]
+A:admin@seg1-a# /admin show configuration /configure router "Base" interface "system" ipv4 bfd
+    admin-state enable
+    transmit-interval 100
+    receive 100
+    multiplier 3
+
+[/]
+A:admin@seg1-a# logout
+
+
+NODE: seg2
+
+[/]
+A:admin@seg2-a# show router bfd session detail
+
+===============================================================================
+BFD Session
+===============================================================================
+Remote Address : 10.0.0.1
+Local Address  : 10.0.0.2
+Admin State    : Up                       Oper State       : Up
+Protocols      : mcIpsec                  
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Up Time        : 0d 00:05:06              Up Transitions   : 1
+Last Down Time : 0d 00:00:16              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 1                        Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 1000                     Local Mult       : 3
+Last Sent (ms) : 1                        Local Min Rx     : 1000
+Type           : cpm-np                   Cfg Type         : auto
+Remote Discr   : 1                        Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 1000                     Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv (ms) : 1                        Remote Min Rx    : 1000
+===============================================================================
+Remote Address : 10.0.0.3
+Local Address  : 10.0.0.2
+Admin State    : Up                       Oper State       : Up
+Protocols      : mcIpsec                  
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Up Time        : 0d 00:02:01              Up Transitions   : 2
+Last Down Time : 0d 00:00:28              Down Transitions : 1
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 2                        Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 1000                     Local Mult       : 3
+Last Sent (ms) : 1                        Local Min Rx     : 1000
+Type           : cpm-np                   Cfg Type         : auto
+Remote Discr   : 2                        Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 1000                     Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv (ms) : 0                        Remote Min Rx    : 1000
+===============================================================================
+Remote Address : 172.31.2.0
+Local Address  : 172.31.2.1
+Admin State    : Up                       Oper State       : Up
+Protocols      : bgp                      
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Recd Msgs      : 3942                     Sent Msgs        : 3946
+Up Time        : 0d 00:05:07              Up Transitions   : 1
+Last Down Time : 0d 00:00:01              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 5                        Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 100                      Local Mult       : 3
+Last Sent      : 10/25/2026 08:38:09      Local Min Rx     : 100
+Type           : iom                      Cfg Type         : auto
+Remote Discr   : 71                       Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 100                      Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv      : 10/25/2026 08:38:09      Remote Min Rx    : 100
+===============================================================================
+Remote Address : 10.12.1.0
+Local Address  : 10.12.1.1
+Admin State    : Up                       Oper State       : Up
+Protocols      : ospf2                    
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Up Time        : 0d 00:05:12              Up Transitions   : 1
+Last Down Time : 0d 00:00:01              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 3                        Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 1000                     Local Mult       : 3
+Last Sent (ms) : 1                        Local Min Rx     : 1000
+Type           : cpm-np                   Cfg Type         : auto
+Remote Discr   : 4                        Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 1000                     Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv (ms) : 1                        Remote Min Rx    : 1000
+===============================================================================
+Remote Address : 10.23.1.1
+Local Address  : 10.23.1.0
+Admin State    : Up                       Oper State       : Up
+Protocols      : ospf2                    
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Up Time        : 0d 00:02:01              Up Transitions   : 1
+Last Down Time : 0d 00:00:01              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 7                        Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 1000                     Local Mult       : 3
+Last Sent (ms) : 1                        Local Min Rx     : 1000
+Type           : cpm-np                   Cfg Type         : auto
+Remote Discr   : 11                       Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 1000                     Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv (ms) : 0                        Remote Min Rx    : 1000
+===============================================================================
+===============================================================================
+
+[/]
+A:admin@seg2-a# show router "100" bfd session detail
+
+===============================================================================
+BFD Session
+===============================================================================
+Remote Address : 172.30.2.0
+Local Address  : 172.30.2.1
+Admin State    : Up                       Oper State       : Up
+Protocols      : bgp                      
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Recd Msgs      : 3997                     Sent Msgs        : 3996
+Up Time        : 0d 00:05:11              Up Transitions   : 1
+Last Down Time : 0d 00:00:01              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 4                        Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 100                      Local Mult       : 3
+Last Sent      : 10/25/2026 08:38:09      Local Min Rx     : 100
+Type           : iom                      Cfg Type         : auto
+Remote Discr   : 69                       Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 100                      Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv      : 10/25/2026 08:38:09      Remote Min Rx    : 100
+===============================================================================
+===============================================================================
+
+[/]
+A:admin@seg2-a# logout
+
+
+[/]
+A:admin@seg2-a# /admin show configuration /configure router "Base" interface "system" ipv4 bfd
+    admin-state enable
+    transmit-interval 100
+    receive 100
+    multiplier 3
+
+[/]
+A:admin@seg2-a# logout
+
+
+NODE: seg3
+
+[/]
+A:admin@seg3-a# show router bfd session detail
+
+===============================================================================
+BFD Session
+===============================================================================
+Remote Address : 10.0.0.1
+Local Address  : 10.0.0.3
+Admin State    : Up                       Oper State       : Up
+Protocols      : mcIpsec                  
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Up Time        : 0d 00:02:01              Up Transitions   : 3
+Last Down Time : 0d 00:00:29              Down Transitions : 2
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 1                        Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 1000                     Local Mult       : 3
+Last Sent (ms) : 1                        Local Min Rx     : 1000
+Type           : cpm-np                   Cfg Type         : auto
+Remote Discr   : 2                        Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 1000                     Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv (ms) : 1                        Remote Min Rx    : 1000
+===============================================================================
+Remote Address : 10.0.0.2
+Local Address  : 10.0.0.3
+Admin State    : Up                       Oper State       : Up
+Protocols      : mcIpsec                  
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Up Time        : 0d 00:02:00              Up Transitions   : 3
+Last Down Time : 0d 00:00:29              Down Transitions : 2
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 2                        Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 1000                     Local Mult       : 3
+Last Sent (ms) : 1                        Local Min Rx     : 1000
+Type           : cpm-np                   Cfg Type         : auto
+Remote Discr   : 2                        Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 1000                     Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv (ms) : 0                        Remote Min Rx    : 1000
+===============================================================================
+Remote Address : 172.31.3.0
+Local Address  : 172.31.3.1
+Admin State    : Up                       Oper State       : Up
+Protocols      : bgp                      
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Recd Msgs      : 1604                     Sent Msgs        : 1607
+Up Time        : 0d 00:02:05              Up Transitions   : 1
+Last Down Time : 0d 00:00:01              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 12                       Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 100                      Local Mult       : 3
+Last Sent      : 10/25/2026 08:38:09      Local Min Rx     : 100
+Type           : iom                      Cfg Type         : auto
+Remote Discr   : 73                       Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 100                      Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv      : 10/25/2026 08:38:09      Remote Min Rx    : 100
+===============================================================================
+Remote Address : 10.13.1.0
+Local Address  : 10.13.1.1
+Admin State    : Up                       Oper State       : Up
+Protocols      : ospf2                    
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Up Time        : 0d 00:02:07              Up Transitions   : 1
+Last Down Time : 0d 00:00:01              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 9                        Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 1000                     Local Mult       : 3
+Last Sent (ms) : 1                        Local Min Rx     : 1000
+Type           : cpm-np                   Cfg Type         : auto
+Remote Discr   : 7                        Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 1000                     Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv (ms) : 1                        Remote Min Rx    : 1000
+===============================================================================
+Remote Address : 10.23.1.0
+Local Address  : 10.23.1.1
+Admin State    : Up                       Oper State       : Up
+Protocols      : ospf2                    
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Up Time        : 0d 00:02:01              Up Transitions   : 1
+Last Down Time : 0d 00:00:07              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 11                       Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 1000                     Local Mult       : 3
+Last Sent (ms) : 1                        Local Min Rx     : 1000
+Type           : cpm-np                   Cfg Type         : auto
+Remote Discr   : 7                        Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 1000                     Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv (ms) : 0                        Remote Min Rx    : 1000
+===============================================================================
+===============================================================================
+
+[/]
+A:admin@seg3-a# show router "100" bfd session detail
+
+===============================================================================
+BFD Session
+===============================================================================
+Remote Address : 172.30.3.0
+Local Address  : 172.30.3.1
+Admin State    : Up                       Oper State       : Up
+Protocols      : bgp                      
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Recd Msgs      : 1631                     Sent Msgs        : 1635
+Up Time        : 0d 00:02:07              Up Transitions   : 1
+Last Down Time : 0d 00:00:01              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 10                       Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 100                      Local Mult       : 3
+Last Sent      : 10/25/2026 08:38:09      Local Min Rx     : 100
+Type           : iom                      Cfg Type         : auto
+Remote Discr   : 72                       Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 100                      Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv      : 10/25/2026 08:38:09      Remote Min Rx    : 100
+===============================================================================
+===============================================================================
+
+[/]
+A:admin@seg3-a# logout
+
+
+[/]
+A:admin@seg3-a# /admin show configuration /configure router "Base" interface "system" ipv4 bfd
+    admin-state enable
+    transmit-interval 100
+    receive 100
+    multiplier 3
+
+[/]
+A:admin@seg3-a# logout
+
+
+NODE: ipmpls
+
+[/]
+A:admin@ipmpls# show router bfd session detail
+
+===============================================================================
+BFD Session
+===============================================================================
+Remote Address : 172.31.1.1
+Local Address  : 172.31.1.0
+Admin State    : Up                       Oper State       : Up
+Protocols      : bgp                      
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Recd Msgs      : 3974                     Sent Msgs        : 3969
+Up Time        : 0d 00:05:09              Up Transitions   : 1
+Last Down Time : 0d 00:00:01              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 70                       Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 100                      Local Mult       : 3
+Last Sent      : 10/25/2026 08:38:09      Local Min Rx     : 100
+Type           : iom                      Cfg Type         : auto
+Remote Discr   : 6                        Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 100                      Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv      : 10/25/2026 08:38:09      Remote Min Rx    : 100
+===============================================================================
+Remote Address : 172.31.2.1
+Local Address  : 172.31.2.0
+Admin State    : Up                       Oper State       : Up
+Protocols      : bgp                      
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Recd Msgs      : 3955                     Sent Msgs        : 3951
+Up Time        : 0d 00:05:08              Up Transitions   : 1
+Last Down Time : 0d 00:00:01              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 71                       Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 100                      Local Mult       : 3
+Last Sent      : 10/25/2026 08:38:09      Local Min Rx     : 100
+Type           : iom                      Cfg Type         : auto
+Remote Discr   : 5                        Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 100                      Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv      : 10/25/2026 08:38:09      Remote Min Rx    : 100
+===============================================================================
+Remote Address : 172.31.3.1
+Local Address  : 172.31.3.0
+Admin State    : Up                       Oper State       : Up
+Protocols      : bgp                      
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Recd Msgs      : 1613                     Sent Msgs        : 1609
+Up Time        : 0d 00:02:06              Up Transitions   : 1
+Last Down Time : 0d 00:00:01              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 73                       Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 100                      Local Mult       : 3
+Last Sent      : 10/25/2026 08:38:09      Local Min Rx     : 100
+Type           : iom                      Cfg Type         : auto
+Remote Discr   : 12                       Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 100                      Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv      : 10/25/2026 08:38:09      Remote Min Rx    : 100
+===============================================================================
+===============================================================================
+
+[/]
+A:admin@ipmpls# show router "100" bfd session detail
+
+===============================================================================
+BFD Session
+===============================================================================
+Remote Address : 172.30.1.1
+Local Address  : 172.30.1.0
+Admin State    : Up                       Oper State       : Up
+Protocols      : bgp                      
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Recd Msgs      : 4013                     Sent Msgs        : 4009
+Up Time        : 0d 00:05:12              Up Transitions   : 1
+Last Down Time : 0d 00:00:01              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 68                       Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 100                      Local Mult       : 3
+Last Sent      : 10/25/2026 08:38:09      Local Min Rx     : 100
+Type           : iom                      Cfg Type         : auto
+Remote Discr   : 5                        Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 100                      Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv      : 10/25/2026 08:38:09      Remote Min Rx    : 100
+===============================================================================
+Remote Address : 172.30.2.1
+Local Address  : 172.30.2.0
+Admin State    : Up                       Oper State       : Up
+Protocols      : bgp                      
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Recd Msgs      : 4004                     Sent Msgs        : 4005
+Up Time        : 0d 00:05:12              Up Transitions   : 1
+Last Down Time : 0d 00:00:01              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 69                       Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 100                      Local Mult       : 3
+Last Sent      : 10/25/2026 08:38:09      Local Min Rx     : 100
+Type           : iom                      Cfg Type         : auto
+Remote Discr   : 4                        Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 100                      Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv      : 10/25/2026 08:38:09      Remote Min Rx    : 100
+===============================================================================
+Remote Address : 172.30.3.1
+Local Address  : 172.30.3.0
+Admin State    : Up                       Oper State       : Up
+Protocols      : bgp                      
+Rx Interval    : 100                      Tx Interval      : 100
+Multiplier     : 3                        Echo Interval    : 0
+Recd Msgs      : 1640                     Sent Msgs        : 1637
+Up Time        : 0d 00:02:08              Up Transitions   : 1
+Last Down Time : 0d 00:00:01              Down Transitions : 0
+                                          Version Mismatch : 0
+ 
+Forwarding Information
+ 
+Local Discr    : 72                       Local State      : Up
+Local Diag     : 0 (None)                 Local Mode       : Async
+Local Min Tx   : 100                      Local Mult       : 3
+Last Sent      : 10/25/2026 08:38:09      Local Min Rx     : 100
+Type           : iom                      Cfg Type         : auto
+Remote Discr   : 10                       Remote State     : Up
+Remote Diag    : 0 (None)                 Remote Mode      : Async
+Remote Min Tx  : 100                      Remote Mult      : 3
+Remote C-flag  : 1                        
+Last Recv      : 10/25/2026 08:38:09      Remote Min Rx    : 100
+===============================================================================
+===============================================================================
+
+[/]
+A:admin@ipmpls# logout
+
+BFD OPERATIONAL BASELINE PASS

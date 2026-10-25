@@ -1,0 +1,17 @@
+[09:21:11] Second sequential failure: seg2 off while seg1 remains off
+[09:21:11] waiting: expected routes public=seg2, private=seg2
+[09:21:12] ready: expected routes public=seg2, private=seg2
+[09:21:16] before: domains={'seg1': {'act': 'down', 'prot': 'unknown', 'current': 'unknown', 'installed': 0}, 'seg2': {'act': 'active', 'prot': 'notReady', 'current': '10.0.0.2', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'notReady', 'current': '10.0.0.2', 'installed': 0}}, paths={'198.51.100.1/32': 'seg2', '10.100.1.1/32': 'seg2', '10.100.2.1/32': 'seg2'}, IKE=[('2f615c4e27de67ae_i*', 'f698fddfdae4a385_r'), ('28ad74b65f7fd9ae_i*', '96dbc8d7bc6293ab_r')]
+[09:21:17] waiting: 10 consecutive replies on each eNB
+[09:21:19] ready: 10 consecutive replies on each eNB
+[09:21:20] ACTION WINDOW START 1792916480.279028
+[09:21:23] kill seg2
+[09:21:23] waiting: seg3 unique OA with two installed tunnels
+[09:21:25] ready: seg3 unique OA with two installed tunnels
+[09:21:25] waiting: all three core routes through seg3
+[09:21:25] ready: all three core routes through seg3
+[09:21:25] waiting: traffic restored on seg3 while both DAs stay off
+[09:21:26] ready: traffic restored on seg3 while both DAs stay off
+[09:21:27] Observe 30 seconds of forwarding without additional loss
+[09:22:05] {"id": "T13b", "expected": "seg3", "actual": "seg3", "ike_kept": true, "verdict": "PASS", "traffic": [{"tx": 430, "rx": 406, "lost": 24, "max_gap_s": 2.785598, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 430, "stable_since": 1792916519.795029, "head_s": 0.012814, "tail_s": 0.025032, "explicit_window": true}, {"tx": 428, "rx": 405, "lost": 23, "max_gap_s": 2.693293, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 428, "stable_since": 1792916520.160886, "head_s": 0.013296, "tail_s": 0.054747, "explicit_window": true}]}
+[09:22:07] after: domains={'seg1': {'act': 'down', 'prot': 'unknown', 'current': 'unknown', 'installed': 0}, 'seg2': {'act': 'down', 'prot': 'unknown', 'current': 'unknown', 'installed': 0}, 'seg3': {'act': 'eligible', 'prot': 'notReady', 'current': '10.0.0.3', 'installed': 2}}, paths={'198.51.100.1/32': 'seg3', '10.100.1.1/32': 'seg3', '10.100.2.1/32': 'seg3'}, IKE=[('2f615c4e27de67ae_i*', 'f698fddfdae4a385_r'), ('28ad74b65f7fd9ae_i*', '96dbc8d7bc6293ab_r')]

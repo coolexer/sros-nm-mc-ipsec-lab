@@ -62,6 +62,25 @@ BGP connect-retry is 5 s; SecGW export-group MRAI is 1 s. Core peerings use BFD 
 the T7-noBFD control. Observe negotiated intervals with `show router bfd session`.
 Configured intervals and measured failure-detection time are distinct quantities.
 
+The accepted sequential-failure run records MC-IPsec BFD sessions as `cpm-np`, with
+operational transmit/receive intervals of 1000 ms and multiplier 3, although the system
+interface requests 100 ms. Core BGP BFD sessions are `iom`, operationally 100 ms × 3.
+Nokia's [CPM-NP simulation note](https://documentation.nokia.com/acg/24-7-2/books/mpls-classic/c079-mpls-tp.html)
+describes the same 1000-ms negotiation floor on simulated CPM-NP sessions. This is consistent
+with this lab's operational output; it is not a production MC-IPsec timer recommendation.
+Reducing a requested value that is already 100 ms cannot demonstrate faster MC-IPsec detection
+while the operational session remains at 1000 ms. Hardware timer validation is a separate test.
+
+## Sequential DA failure
+
+`T13` (normal pool) and `T14` (HA pool) deliberately keep seg1 off after seg2 takes over.
+The second failure waits for two installed tunnels on seg2, all three core routes through
+seg2, recovered traffic, bidirectional surviving MCS inSync and a 30-s loss-free observation.
+Whole-domain protection is notReady while seg1 is absent. The second injected failure
+therefore tests degraded operation; it is not an administrative switchover from nominal.
+Each mode records separate first-fault, second-fault and DA-return windows while requiring
+the same original IKE pairs across all three. No IKE or MCS reset is inserted between faults.
+
 ## Final operational acceptance
 
 The program finishes with:

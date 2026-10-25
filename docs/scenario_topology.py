@@ -37,6 +37,12 @@ ACTIONS = {
     'T9': ('Both DAs fail: HA pool', 'Kill seg1 and seg2 CPM/IOM components. Synchronized states are preloaded on the seg3 HA pool ISA.'),
     'T9r': ('Both DAs return: HA pool', 'Start seg1 and seg2 CPM/IOM components. In the accepted measurement, seg3 remains OA.'),
     'T12': ('Shunting on surviving member B', 'Disable seg1 port 1/1/1, switch OA to seg2 and pin public/private routes through seg1.'),
+    'T13a': ('Sequential failure: first DA, normal pool', 'Kill seg1 CPM/IOM. Keep seg1 off; verify seg2 forwarding and seg2/seg3 MCS inSync, then observe 30 s.'),
+    'T13b': ('Sequential failure: second DA, normal pool', 'With seg1 still off and seg2 forwarding verified, kill seg2 CPM/IOM. Observe traffic through seg3 for 30 s.'),
+    'T13r': ('DA return after sequential failure, normal pool', 'Start both DAs after seg1 → seg2 → seg3 failover. Record the election; require preserved IKE and nominal.'),
+    'T14a': ('Sequential failure: first DA, HA pool', 'Kill seg1 CPM/IOM with HA pool on seg3. Keep seg1 off; verify seg2 forwarding and MCS inSync, then observe 30 s.'),
+    'T14b': ('Sequential failure: second DA, HA pool', 'After verified seg2 operation, kill seg2 CPM/IOM while seg1 stays off. Observe HA pool takeover on seg3 for 30 s.'),
+    'T14r': ('DA return after sequential failure, HA pool', 'Start both DAs after sequential HA takeover on seg3. Record the election; require preserved IKE and nominal.'),
 }
 GALLERY = []
 
@@ -83,7 +89,8 @@ def draw_topology(test, active, public, private, down, isa, block, ports):
     else:
         title, action = ACTIONS[test]
     phase = ('Recovered path before seg1 restart' if test in ('T7', 'T7-noBFD') else
-             'Recovered path before both DAs restart' if test in ('T8', 'T9') else
+             'Recovered path before the second DA failure' if test in ('T13a', 'T14a') else
+             'Recovered path before both DAs restart' if test in ('T8', 'T9', 'T13b', 'T14b') else
              'Forwarding after the action')
     out = ['<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1160" viewBox="0 0 1600 1160" font-family="Arial, sans-serif">', '<defs>']
     for color in (FWD, REV, OFF, CONTROL):
@@ -168,9 +175,9 @@ def draw_topology(test, active, public, private, down, isa, block, ports):
             label(425, 824, '10.200.0.10', 17, GRAY, 'middle')]
     for node, (x, y) in NODES.items():
         dead, isa_off = node in down, node in isa
-        returned = (test in ('T8r', 'T9r') and node in ('seg1', 'seg2')) or (test in ('T3', 'T4') and node == 'seg1')
+        returned = (test in ('T8r', 'T9r', 'T13r', 'T14r') and node in ('seg1', 'seg2')) or (test in ('T3', 'T4') and node == 'seg1')
         color = OFF if dead else OA if node == active else GRAY
-        role = 'OA · eligible' if node == active and test in ('T8', 'T9') else 'OA' if node == active else 'OFF' if dead else 'standby'
+        role = 'OA · eligible' if node == active and test in ('T8', 'T9', 'T13b', 'T14b') else 'OA' if node == active else 'OFF' if dead else 'standby'
         designated = 'DA' if node != 'seg3' else 'DS'
         priority = 100 if node == 'seg2' else 200
         out += [rect(x, y, 280, 160, '#fff4f4' if dead else '#effaf4' if node == active else 'white', color, 2.5),
@@ -185,7 +192,7 @@ def draw_topology(test, active, public, private, down, isa, block, ports):
         out += [rect(x+140, y+62, 130, 87, '#fff0f0' if dead or isa_off else '#f1faf5', isa_color, 2, 6),
                 label(x+205, y+84, 'MS-ISA2 · 1/2', 15, isa_color, 'middle', 600),
                 label(x+205, y+111, 'OFF' if dead or isa_off else 'encrypt / decrypt' if node == active else 'UP', 14, isa_color, 'middle'),
-                label(x+205, y+135, 'RESTORED' if returned else 'pool HA' if node == 'seg3' and test.startswith('T9') else 'pool' if node == 'seg3' else 'tunnel-group 1', 12, isa_color, 'middle')]
+                label(x+205, y+135, 'RESTORED' if returned else 'pool HA' if node == 'seg3' and test.startswith(('T9', 'T14')) else 'pool' if node == 'seg3' else 'tunnel-group 1', 12, isa_color, 'middle')]
         if dead:
             out.append(cross(x+270, y+12, 8))
         if isa_off:
@@ -225,7 +232,7 @@ def draw_topology(test, active, public, private, down, isa, block, ports):
 
 
 def write_gallery():
-    assert len(GALLERY) == 23 and len({case for case, _, _ in GALLERY}) == 23
+    assert len(GALLERY) == 29 and len({case for case, _, _ in GALLERY}) == 29
     lines = ['# Per-test topology and traffic paths', '',
              'Each view shows the complete compact lab, the action and the resulting traffic path. '
              'Blue arrows carry requests to MME; orange arrows carry replies to the eNBs. '
@@ -236,7 +243,7 @@ def write_gallery():
              'Internal core switching is omitted; the request and reply sequences state the processing order. '
              'For T7-noBFD, the red dashed path shows the transient blackhole before hold expiry; '
              'the main arrows show recovered forwarding. '
-             'T8r/T9r show the accepted outcome with seg3 remaining OA. '
+             'T8r/T9r and T13r/T14r show the accepted outcome with seg3 remaining OA. '
              'Blocking in T10b/T11b is the expected negative-control result.', '',
              '[Detailed test program](TEST-PROGRAM.md) · [Results](../RESULTS.md)', '',
              '| Test | Action | Processing sequence |', '|---|---|---|']

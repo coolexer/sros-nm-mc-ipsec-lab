@@ -2,7 +2,7 @@
 
 Each view shows the complete compact lab, the action and the resulting traffic path. Blue arrows carry requests to MME; orange arrows carry replies to the eNBs. Green identifies the OA; red identifies a disabled component or a blocked path. The dashed teal path in T6 is MIMP/MCS reachability, separate from user traffic.
 
-Base and VPRN 100 are routing instances of one core router. Its external ports are labeled by SecGW number and routing instance: P = Base/public, V = VPRN/private. Internal core switching is omitted; the request and reply sequences state the processing order. For T7-noBFD, the red dashed path shows the transient blackhole before hold expiry; the main arrows show recovered forwarding. T8r/T9r show the accepted outcome with seg3 remaining OA. Blocking in T10b/T11b is the expected negative-control result.
+Base and VPRN 100 are routing instances of one core router. Its external ports are labeled by SecGW number and routing instance: P = Base/public, V = VPRN/private. Internal core switching is omitted; the request and reply sequences state the processing order. For T7-noBFD, the red dashed path shows the transient blackhole before hold expiry; the main arrows show recovered forwarding. T8r/T9r and T13r/T14r show the accepted outcome with seg3 remaining OA. Blocking in T10b/T11b is the expected negative-control result.
 
 [Detailed test program](TEST-PROGRAM.md) · [Results](../RESULTS.md)
 
@@ -31,6 +31,12 @@ Base and VPRN 100 are routing instances of one core router. Its external ports a
 | [T11-seg3](#t11-seg3) | Pin both inner /32 routes on the core through seg3; shunting profiles remain enabled. | [Packet processing](scenarios/T11-seg3.svg) |
 | [T11b-seg3](#t11b-seg3) | Keep routes pinned through seg3; remove only the private shunting profile on seg3. | [Packet processing](scenarios/T11b-seg3.svg) |
 | [T12](#t12) | Disable seg1 port 1/1/1, switch OA to seg2 and pin public/private routes through seg1. | [Packet processing](scenarios/T12.svg) |
+| [T13a](#t13a) | Kill seg1 CPM/IOM. Keep seg1 off; verify seg2 forwarding and seg2/seg3 MCS inSync, then observe 30 s. | [Packet processing](scenarios/T13a.svg) |
+| [T13b](#t13b) | With seg1 still off and seg2 forwarding verified, kill seg2 CPM/IOM. Observe traffic through seg3 for 30 s. | [Packet processing](scenarios/T13b.svg) |
+| [T13r](#t13r) | Start both DAs after seg1 → seg2 → seg3 failover. Record the election; require preserved IKE and nominal. | [Packet processing](scenarios/T13r.svg) |
+| [T14a](#t14a) | Kill seg1 CPM/IOM with HA pool on seg3. Keep seg1 off; verify seg2 forwarding and MCS inSync, then observe 30 s. | [Packet processing](scenarios/T14a.svg) |
+| [T14b](#t14b) | After verified seg2 operation, kill seg2 CPM/IOM while seg1 stays off. Observe HA pool takeover on seg3 for 30 s. | [Packet processing](scenarios/T14b.svg) |
+| [T14r](#t14r) | Start both DAs after sequential HA takeover on seg3. Record the election; require preserved IKE and nominal. | [Packet processing](scenarios/T14r.svg) |
 
 ## T0
 
@@ -169,3 +175,39 @@ Base and VPRN 100 are routing instances of one core router. Its external ports a
 **Shunting on surviving member B.** Disable seg1 port 1/1/1, switch OA to seg2 and pin public/private routes through seg1.
 
 ![T12: Shunting on surviving member B](topology-scenarios/T12-paths.svg)
+
+## T13a
+
+**Sequential failure: first DA, normal pool.** Kill seg1 CPM/IOM. Keep seg1 off; verify seg2 forwarding and seg2/seg3 MCS inSync, then observe 30 s.
+
+![T13a: Sequential failure: first DA, normal pool](topology-scenarios/T13a-paths.svg)
+
+## T13b
+
+**Sequential failure: second DA, normal pool.** With seg1 still off and seg2 forwarding verified, kill seg2 CPM/IOM. Observe traffic through seg3 for 30 s.
+
+![T13b: Sequential failure: second DA, normal pool](topology-scenarios/T13b-paths.svg)
+
+## T13r
+
+**DA return after sequential failure, normal pool.** Start both DAs after seg1 → seg2 → seg3 failover. Record the election; require preserved IKE and nominal.
+
+![T13r: DA return after sequential failure, normal pool](topology-scenarios/T13r-paths.svg)
+
+## T14a
+
+**Sequential failure: first DA, HA pool.** Kill seg1 CPM/IOM with HA pool on seg3. Keep seg1 off; verify seg2 forwarding and MCS inSync, then observe 30 s.
+
+![T14a: Sequential failure: first DA, HA pool](topology-scenarios/T14a-paths.svg)
+
+## T14b
+
+**Sequential failure: second DA, HA pool.** After verified seg2 operation, kill seg2 CPM/IOM while seg1 stays off. Observe HA pool takeover on seg3 for 30 s.
+
+![T14b: Sequential failure: second DA, HA pool](topology-scenarios/T14b-paths.svg)
+
+## T14r
+
+**DA return after sequential failure, HA pool.** Start both DAs after sequential HA takeover on seg3. Record the election; require preserved IKE and nominal.
+
+![T14r: DA return after sequential failure, HA pool](topology-scenarios/T14r-paths.svg)

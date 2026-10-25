@@ -551,6 +551,87 @@ def T8(ha=False):
         prepare_pool(False)
 
 
+def peer_in_sync(source, target):
+    text = op(source, 'show redundancy multi-chassis sync')
+    for block in re.split(r'Peer IP Address\s*:\s*', text)[1:]:
+        if block.split()[0] == f'10.0.0.{target[-1]}':
+            return bool(re.search(r'Sync Oper State\s*:\s*Up\b', block) and
+                        re.search(r'DB Sync State\s*:\s*inSync\b', block))
+    return False
+
+
+def observe_stable(seconds=30):
+    before = [metrics(docker(f'enb{n}', 'cat', ping_path(n) + '.ping')) for n in (1, 2)]
+    log(f'Observe {seconds} seconds of forwarding without additional loss')
+    time.sleep(seconds)
+    if not traffic_stable():
+        raise LabError('Traffic did not remain recovered during the observation')
+    for n in (1, 2):
+        after = metrics(docker(f'enb{n}', 'cat', ping_path(n) + '.ping'))
+        missing = set(range(before[n-1]['last_reply_seq']+1, after['last_reply_seq']+1)) - set(after['received_sequences'])
+        if missing:
+            raise LabError(f'Observation lost {len(missing)} packets on enb{n}')
+
+
+def sequential_failure(ha=False):
+    prepare_pool(ha)
+    number = 'T14' if ha else 'T13'
+
+    def evidence(label, nodes):
+        for node in nodes:
+            text = op(node, 'show redundancy multi-chassis ipsec-domain 1',
+                      'show redundancy multi-chassis sync', 'show isa tunnel-group',
+                      'show router bfd session', 'show router "100" bfd session')
+            (RUN / f'{CASE}-{label}-{node}.log').write_text(text)
+        text = op('ipmpls', 'show router route-table 198.51.100.1/32',
+                  'show router "100" route-table 10.100.1.1/32',
+                  'show router "100" route-table 10.100.2.1/32',
+                  'show router bfd session', 'show router "100" bfd session')
+        (RUN / f'{CASE}-{label}-core.log').write_text(text)
+
+    begin(number+'a', 'Sequential failure: seg1 off; verify sustained forwarding through seg2; HA=' + str(ha))
+    original_ike = SPI_BEFORE
+    evidence('before', SEGS)
+    node_power(('seg1',), 'kill')
+    wait('seg2 unique OA with two installed tunnels',
+         lambda: owner() == 'seg2' and domain('seg2')['installed'] == 2, 120)
+    wait('all three core routes through seg2', lambda: routes_to('seg2', 'seg2'), 150)
+    wait('traffic restored on seg2 while seg1 stays off', traffic_stable, 180)
+    wait('surviving seg2/seg3 MCS inSync in both directions',
+         lambda: peer_in_sync('seg2', 'seg3') and peer_in_sync('seg3', 'seg2'), 120)
+    observe_stable()
+    evidence('recovered', ('seg2', 'seg3'))
+    finish('seg2')
+
+    begin(number+'b', 'Second sequential failure: seg2 off while seg1 remains off',
+          pub='seg2', private='seg2', require_nominal=False)
+    if SPI_BEFORE != original_ike or running('seg1'):
+        raise LabError('Sequential boundary requires original IKE and seg1 still off')
+    node_power(('seg2',), 'kill')
+    wait('seg3 unique OA with two installed tunnels',
+         lambda: owner() == 'seg3' and domain('seg3')['installed'] == 2, 120)
+    wait('all three core routes through seg3', lambda: routes_to('seg3', 'seg3'), 150)
+    wait('traffic restored on seg3 while both DAs stay off', traffic_stable, 180)
+    observe_stable()
+    evidence('recovered', ('seg3',))
+    finish('seg3')
+
+    begin(number+'r', 'Both DAs return after sequential failure; preserve original IKE',
+          pub='seg3', private='seg3', require_nominal=False)
+    if SPI_BEFORE != original_ike:
+        raise LabError('Original IKE changed before DA return')
+    node_power(('seg1', 'seg2'), 'start')
+    for node in ('seg1', 'seg2'):
+        wait(node + ' CLI after sequential failure', lambda node=node: cli_up(node), 480)
+    wait('nominal after sequential failure and DA return', nominal, 420)
+    wait('traffic recovered after sequential DA return', traffic_stable, 180)
+    evidence('returned', SEGS)
+    finish('unique', 'none' if owner() == 'seg3' else 'any')
+    if ha:
+        baseline()
+        prepare_pool(False)
+
+
 def shunting(side):
     number = 'T10' if side == 'public' else 'T11'
     context = '/configure service ies "public" interface "pub"' if side == 'public' else '/configure service vprn "mobile" interface "priv"'
@@ -636,7 +717,8 @@ def main():
     cases = dict(T0=T0, T1=T1, T2=T2, T4=T4, T5=T5, T6=T6,
                  T7=node_failure, **{'T7-noBFD': lambda: node_failure(True)},
                  T8=T8, T9=lambda: T8(True), T10=lambda: shunting('public'),
-                 T11=lambda: shunting('private'), T12=T12)
+                 T11=lambda: shunting('private'), T12=T12,
+                 T13=sequential_failure, T14=lambda: sequential_failure(True))
     selected = list(cases) if sys.argv[1:] == ['all'] else sys.argv[1:]
     if not selected or any(t not in cases for t in selected):
         raise SystemExit('Usage: tests/nm_tests.sh all | ' + ' '.join(cases))
