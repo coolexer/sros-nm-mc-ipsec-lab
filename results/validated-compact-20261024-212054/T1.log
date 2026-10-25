@@ -1,0 +1,26 @@
+[21:22:29] Planned auto switchover: DA preferred over DS
+[21:22:29] waiting: nominal before test
+[21:22:31] ready: nominal before test
+[21:22:31] waiting: expected routes public=seg1, private=seg1
+[21:22:31] ready: expected routes public=seg1, private=seg1
+[21:22:34] before: domains={'seg1': {'act': 'active', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg2': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 0}}, paths={'198.51.100.1/32': 'seg1', '10.100.1.1/32': 'seg1', '10.100.2.1/32': 'seg1'}, IKE=[('f1821a37f66822ee_i*', '26f56e0848a8e8fa_r'), ('742623a80fa72753_i*', 'fba8afadb3ab7da8_r')]
+[21:22:35] waiting: 10 consecutive replies on each eNB
+[21:22:39] ready: 10 consecutive replies on each eNB
+[21:22:39] ACTION WINDOW START 1792869759.9915004
+[21:22:39] waiting: nominal before planned switchover
+[21:22:41] ready: nominal before planned switchover
+[21:22:42] waiting: forwarding routes on switchover target seg2
+[21:22:42] ready: forwarding routes on switchover target seg2
+[21:22:43] 
+[/]
+A:admin@seg1-a# tools perform redundancy multi-chassis mc-ipsec force-switchover domain 1 auto now
+
+[/]
+A:admin@seg1-a# logout
+
+[21:22:43] waiting: unique OA seg2
+[21:22:44] ready: unique OA seg2
+[21:22:44] waiting: traffic recovered
+[21:22:45] ready: traffic recovered
+[21:22:49] {"id": "T1", "expected": "seg2", "actual": "seg2", "ike_kept": true, "verdict": "PASS", "traffic": [{"tx": 103, "rx": 100, "lost": 3, "max_gap_s": 0.440472, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 103, "stable_since": 1792869764.608025, "head_s": 0.009176, "tail_s": 0.040152, "explicit_window": true}, {"tx": 104, "rx": 101, "lost": 3, "max_gap_s": 0.440497, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 104, "stable_since": 1792869764.990933, "head_s": 0.011071, "tail_s": 0.00224, "explicit_window": true}]}
+[21:22:52] after: domains={'seg1': {'act': 'notEligible', 'prot': 'notReady', 'current': '10.0.0.2', 'installed': 0}, 'seg2': {'act': 'active', 'prot': 'notReady', 'current': '10.0.0.2', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'notReady', 'current': '10.0.0.2', 'installed': 0}}, paths={'198.51.100.1/32': 'seg2', '10.100.1.1/32': 'seg2', '10.100.2.1/32': 'seg2'}, IKE=[('f1821a37f66822ee_i*', '26f56e0848a8e8fa_r'), ('742623a80fa72753_i*', 'fba8afadb3ab7da8_r')]

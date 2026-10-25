@@ -1,0 +1,39 @@
+[07:08:38] LAG member failure followed by switchover and pinned shunt routes
+[07:08:38] waiting: nominal before test
+[07:08:40] ready: nominal before test
+[07:08:40] waiting: expected routes public=seg1, private=seg1
+[07:08:40] ready: expected routes public=seg1, private=seg1
+[07:08:42] before: domains={'seg1': {'act': 'active', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg2': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 0}}, paths={'198.51.100.1/32': 'seg1', '10.100.1.1/32': 'seg1', '10.100.2.1/32': 'seg1'}, IKE=[('bc7fee581da40d2a_i*', 'd903f8dd961f3401_r'), ('b77c45ed962ca8b7_i*', 'b03608c5a8e8c910_r')]
+[07:08:43] waiting: 10 consecutive replies on each eNB
+[07:08:46] ready: 10 consecutive replies on each eNB
+[07:08:47] ACTION WINDOW START 1792908527.4767747
+[07:08:47] cfg seg1: /configure port 1/1/1 admin-state disable
+[07:08:47] waiting: nominal before planned switchover
+[07:08:49] ready: nominal before planned switchover
+[07:08:50] waiting: forwarding routes on switchover target seg2
+[07:08:50] ready: forwarding routes on switchover target seg2
+[07:08:50] 
+[/]
+A:admin@seg1-a# tools perform redundancy multi-chassis mc-ipsec force-switchover domain 1 to 10.0.0.2 now
+
+[/]
+A:admin@seg1-a# logout
+
+[07:08:50] waiting: unique OA seg2
+[07:08:51] ready: unique OA seg2
+[07:08:51] waiting: traffic recovered with member A disabled
+[07:08:52] ready: traffic recovered with member A disabled
+[07:08:53] cfg ipmpls: /configure policy-options prefix-list "test-pin-public" prefix 198.51.100.1/32 type exact; /configure policy-options policy-statement "test-pin-public" entry 10 from prefix-list ["test-pin-public"]; /configure policy-options policy-statement "test-pin-public" entry 10 action action-type reject; /configure policy-options policy-statement "test-pin-public" default-action action-type accept
+[07:08:53] cfg ipmpls: delete /configure router "Base" bgp neighbor "172.31.1.1" import; /configure router "Base" bgp neighbor "172.31.1.1" import policy ["accept-all"]
+[07:08:54] cfg ipmpls: delete /configure router "Base" bgp neighbor "172.31.2.1" import; /configure router "Base" bgp neighbor "172.31.2.1" import policy ["test-pin-public"]
+[07:08:54] cfg ipmpls: delete /configure router "Base" bgp neighbor "172.31.3.1" import; /configure router "Base" bgp neighbor "172.31.3.1" import policy ["test-pin-public"]
+[07:08:54] cfg ipmpls: /configure policy-options prefix-list "test-pin-private" prefix 10.100.0.0/16 type longer; /configure policy-options policy-statement "test-pin-private" entry 10 from prefix-list ["test-pin-private"]; /configure policy-options policy-statement "test-pin-private" entry 10 action action-type reject; /configure policy-options policy-statement "test-pin-private" default-action action-type accept
+[07:08:55] cfg ipmpls: delete /configure service vprn "mobile" bgp neighbor "172.30.1.1" import; /configure service vprn "mobile" bgp neighbor "172.30.1.1" import policy ["accept-all"]
+[07:08:55] cfg ipmpls: delete /configure service vprn "mobile" bgp neighbor "172.30.2.1" import; /configure service vprn "mobile" bgp neighbor "172.30.2.1" import policy ["test-pin-private"]
+[07:08:56] cfg ipmpls: delete /configure service vprn "mobile" bgp neighbor "172.30.3.1" import; /configure service vprn "mobile" bgp neighbor "172.30.3.1" import policy ["test-pin-private"]
+[07:08:56] waiting: routes pinned to former OA
+[07:08:59] ready: routes pinned to former OA
+[07:09:09] waiting: shunting through surviving member B
+[07:09:09] ready: shunting through surviving member B
+[07:09:13] {"id": "T12", "expected": "seg2", "actual": "seg2", "ike_kept": true, "verdict": "PASS", "traffic": [{"tx": 271, "rx": 270, "lost": 1, "max_gap_s": 0.205262, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 271, "stable_since": 1792908549.187088, "head_s": 0.007706, "tail_s": 0.054433, "explicit_window": true}, {"tx": 271, "rx": 269, "lost": 2, "max_gap_s": 0.313828, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 271, "stable_since": 1792908549.436838, "head_s": 0.006546, "tail_s": 0.063561, "explicit_window": true}]}
+[07:09:15] after: domains={'seg1': {'act': 'standby', 'prot': 'notReady', 'current': '10.0.0.2', 'installed': 2}, 'seg2': {'act': 'active', 'prot': 'notReady', 'current': '10.0.0.2', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'notReady', 'current': '10.0.0.2', 'installed': 0}}, paths={'198.51.100.1/32': 'seg1', '10.100.1.1/32': 'seg1', '10.100.2.1/32': 'seg1'}, IKE=[('bc7fee581da40d2a_i*', 'd903f8dd961f3401_r'), ('b77c45ed962ca8b7_i*', 'b03608c5a8e8c910_r')]

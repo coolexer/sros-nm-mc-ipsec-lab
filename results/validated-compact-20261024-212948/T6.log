@@ -1,0 +1,12 @@
+[21:41:59] Both direct members lost; control connectivity via seg3
+[21:41:59] waiting: nominal before test
+[21:42:01] ready: nominal before test
+[21:42:01] waiting: expected routes public=seg1, private=seg1
+[21:42:01] ready: expected routes public=seg1, private=seg1
+[21:42:04] before: domains={'seg1': {'act': 'active', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg2': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 0}}, paths={'198.51.100.1/32': 'seg1', '10.100.1.1/32': 'seg1', '10.100.2.1/32': 'seg1'}, IKE=[('f1821a37f66822ee_i*', '26f56e0848a8e8fa_r'), ('742623a80fa72753_i*', 'fba8afadb3ab7da8_r')]
+[21:42:05] waiting: 10 consecutive replies on each eNB
+[21:42:09] ready: 10 consecutive replies on each eNB
+[21:42:10] ACTION WINDOW START 1792870930.2909884
+[21:42:10] cfg seg1: /configure port 1/1/1 admin-state disable; /configure port 1/1/2 admin-state disable
+[21:42:37] {"id": "T6", "expected": "seg1", "actual": "seg1", "ike_kept": true, "verdict": "PASS", "traffic": [{"tx": 277, "rx": 277, "lost": 0, "max_gap_s": 0.106942, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 277, "stable_since": 1792870952.025598, "head_s": 0.01759, "tail_s": 0.063472, "explicit_window": true}, {"tx": 278, "rx": 278, "lost": 0, "max_gap_s": 0.109457, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 278, "stable_since": 1792870952.479104, "head_s": 0.011518, "tail_s": 0.008822, "explicit_window": true}]}
+[21:42:39] after: domains={'seg1': {'act': 'active', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg2': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 0}}, paths={'198.51.100.1/32': 'seg1', '10.100.1.1/32': 'seg1', '10.100.2.1/32': 'seg1'}, IKE=[('f1821a37f66822ee_i*', '26f56e0848a8e8fa_r'), ('742623a80fa72753_i*', 'fba8afadb3ab7da8_r')]

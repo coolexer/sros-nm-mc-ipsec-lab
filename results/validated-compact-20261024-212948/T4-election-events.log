@@ -1,0 +1,54 @@
+
+[/]
+A:admin@seg1-a# show log log-id 99 application mc_redundancy count 14 descending
+
+===============================================================================
+Event Log 99 log-name 99
+===============================================================================
+Description : Default System Log
+Memory Log contents  [size=500   next event=220  (not wrapped)]
+
+219 2026/10/24 19:35:32.265 UTC WARNING: MC_REDUNDANCY #2047 Base MC-IPSEC-DOMAIN 1
+"Protection status for the multi-chassis ipsec domain 1 changed to notReady"
+
+218 2026/10/24 19:35:32.265 UTC WARNING: MC_REDUNDANCY #2046 Base MC-IPSEC-DOMAIN 1
+"Multi-chassis ipsec domain 1 local activity state changed from standby to active because a revertive switchover occurred. The active router in the domain is 10.0.0.1."
+
+217 2026/10/24 19:33:31.290 UTC WARNING: MC_REDUNDANCY #2047 Base MC-IPSEC-DOMAIN 1
+"Protection status for the multi-chassis ipsec domain 1 changed to nominal"
+
+216 2026/10/24 19:33:19.181 UTC WARNING: MC_REDUNDANCY #2006 Base  
+"ipsec back in sync with peer 10.0.0.3."
+
+215 2026/10/24 19:33:19.181 UTC WARNING: MC_REDUNDANCY #2006 Base  
+"ipsec back in sync with peer 10.0.0.2."
+
+213 2026/10/24 19:33:17.434 UTC WARNING: MC_REDUNDANCY #2046 Base MC-IPSEC-DOMAIN 1
+"Multi-chassis ipsec domain 1 local activity state changed from notEligible to standby because the local isa tunnel group became eligible. The active router in the domain is 10.0.0.2."
+
+202 2026/10/24 19:33:07.647 UTC WARNING: MC_REDUNDANCY #2046 Base MC-IPSEC-DOMAIN 1
+"Multi-chassis ipsec domain 1 local activity state changed from discovery to notEligible because peer contact was established while the local isa tunnel group is down. The active router in the domain is 10.0.0.2."
+
+199 2026/10/24 19:33:03.532 UTC WARNING: MC_REDUNDANCY #2005 Base  
+"ipsec lost sync with peer 10.0.0.3."
+
+198 2026/10/24 19:33:03.532 UTC WARNING: MC_REDUNDANCY #2005 Base  
+"ipsec lost sync with peer 10.0.0.2."
+
+181 2026/10/24 19:33:02.512 UTC WARNING: MC_REDUNDANCY #2046 Base MC-IPSEC-DOMAIN 1
+"Multi-chassis ipsec domain 1 local activity state changed from notEligible to discovery because configuration was administratively enabled."
+
+171 2026/10/24 19:33:02.506 UTC WARNING: MC_REDUNDANCY #2047 Base MC-IPSEC-DOMAIN 1
+"Protection status for the multi-chassis ipsec domain 1 changed to notReady"
+
+166 2026/10/24 19:33:02.505 UTC WARNING: MC_REDUNDANCY #2046 Base MC-IPSEC-DOMAIN 1
+"Multi-chassis ipsec domain 1 local activity state changed from standby to notEligible because configuration was administratively disabled."
+
+165 2026/10/24 19:32:07.417 UTC WARNING: MC_REDUNDANCY #2047 Base MC-IPSEC-DOMAIN 1
+"Protection status for the multi-chassis ipsec domain 1 changed to nominal"
+
+161 2026/10/24 19:30:49.748 UTC WARNING: MC_REDUNDANCY #2046 Base MC-IPSEC-DOMAIN 1
+"Multi-chassis ipsec domain 1 local activity state changed from notEligible to standby because the local isa tunnel group became eligible. The active router in the domain is 10.0.0.2."
+
+[/]
+A:admin@seg1-a# logout

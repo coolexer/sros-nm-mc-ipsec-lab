@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" font-family="Arial, sans-serif">
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8z" fill="#2563eb"/></marker><marker id="arrow-blocked" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8z" fill="#c42b32"/></marker></defs>
+<rect width="1200" height="720" fill="white"/>
+<text x="40" y="38" font-size="23" fill="#17233c" text-anchor="start">T11-seg2  Private routes pinned to seg2</text>
+<text x="40" y="65" font-size="15" fill="#64748b" text-anchor="start">Logical paths after the action; Base and VPRN 100 are instances of the same ipmpls router</text>
+<rect x="40" y="92" width="340" height="85" rx="9" fill="#f4f8f6" stroke="#14804a" stroke-width="2"/>
+<text x="210.0" y="129.0" font-size="16" fill="#14804a" text-anchor="middle">seg1  DA  priority 200</text>
+<text x="210.0" y="150.0" font-size="16" fill="#14804a" text-anchor="middle">OA  encrypt / decrypt</text>
+<rect x="430" y="92" width="340" height="85" rx="9" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+<text x="600.0" y="129.0" font-size="16" fill="#64748b" text-anchor="middle">seg2  DA  priority 100</text>
+<text x="600.0" y="150.0" font-size="16" fill="#64748b" text-anchor="middle">standby</text>
+<rect x="820" y="92" width="340" height="85" rx="9" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+<text x="990.0" y="129.0" font-size="16" fill="#64748b" text-anchor="middle">seg3  DS  priority 200</text>
+<text x="990.0" y="150.0" font-size="16" fill="#64748b" text-anchor="middle">standby</text>
+<text x="40" y="211" font-size="19" fill="#17233c" text-anchor="start">Forward  eNB to MME</text>
+<rect x="40.0" y="232" width="201.6" height="70" rx="9" fill="#f1f5ff" stroke="#2563eb" stroke-width="2"/>
+<text x="140.8" y="261.5" font-size="16" fill="#2563eb" text-anchor="middle">eNB1 / eNB2</text>
+<text x="140.8" y="282.5" font-size="16" fill="#2563eb" text-anchor="middle">10.100.x.1</text>
+<path d="M 244.6 267 h 20" stroke="#2563eb" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="269.6" y="232" width="201.6" height="70" rx="9" fill="#f1f5ff" stroke="#2563eb" stroke-width="2"/>
+<text x="370.40000000000003" y="261.5" font-size="16" fill="#2563eb" text-anchor="middle">ipmpls Base</text>
+<text x="370.40000000000003" y="282.5" font-size="16" fill="#2563eb" text-anchor="middle">ESP to GW /32</text>
+<path d="M 474.20000000000005 267 h 20" stroke="#2563eb" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="499.2" y="232" width="201.6" height="70" rx="9" fill="#f1f5ff" stroke="#2563eb" stroke-width="2"/>
+<text x="600.0" y="261.5" font-size="16" fill="#2563eb" text-anchor="middle">seg1</text>
+<text x="600.0" y="282.5" font-size="16" fill="#2563eb" text-anchor="middle">ISA decrypt</text>
+<path d="M 703.8 267 h 20" stroke="#2563eb" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="728.8" y="232" width="201.6" height="70" rx="9" fill="#f1f5ff" stroke="#2563eb" stroke-width="2"/>
+<text x="829.5999999999999" y="261.5" font-size="16" fill="#2563eb" text-anchor="middle">ipmpls VPRN</text>
+<text x="829.5999999999999" y="282.5" font-size="16" fill="#2563eb" text-anchor="middle">clear inner IP</text>
+<path d="M 933.4 267 h 20" stroke="#2563eb" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="958.4" y="232" width="201.6" height="70" rx="9" fill="#f1f5ff" stroke="#2563eb" stroke-width="2"/>
+<text x="1059.2" y="261.5" font-size="16" fill="#2563eb" text-anchor="middle">MME</text>
+<text x="1059.2" y="282.5" font-size="16" fill="#2563eb" text-anchor="middle">10.200.0.10</text>
+<text x="40" y="337" font-size="15" fill="#64748b" text-anchor="start">ESP: eNB → gateway 198.51.100.1; after ISA decryption: inner IP → 10.200.0.10</text>
+<text x="40" y="382" font-size="19" fill="#17233c" text-anchor="start">Return  MME to eNB</text>
+<rect x="40.0" y="403" width="163.33333333333334" height="70" rx="9" fill="#f1f5ff" stroke="#2563eb" stroke-width="2"/>
+<text x="121.66666666666667" y="432.5" font-size="16" fill="#2563eb" text-anchor="middle">MME</text>
+<text x="121.66666666666667" y="453.5" font-size="16" fill="#2563eb" text-anchor="middle">10.200.0.10</text>
+<path d="M 206.33333333333334 438 h 20" stroke="#2563eb" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="231.33333333333334" y="403" width="163.33333333333334" height="70" rx="9" fill="#f1f5ff" stroke="#2563eb" stroke-width="2"/>
+<text x="313.0" y="432.5" font-size="16" fill="#2563eb" text-anchor="middle">ipmpls VPRN</text>
+<text x="313.0" y="453.5" font-size="16" fill="#2563eb" text-anchor="middle">10.100.x.1 /32</text>
+<path d="M 397.6666666666667 438 h 20" stroke="#2563eb" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="422.6666666666667" y="403" width="163.33333333333334" height="70" rx="9" fill="#f1f5ff" stroke="#2563eb" stroke-width="2"/>
+<text x="504.33333333333337" y="432.5" font-size="16" fill="#2563eb" text-anchor="middle">seg2</text>
+<text x="504.33333333333337" y="453.5" font-size="16" fill="#2563eb" text-anchor="middle">private ingress</text>
+<path d="M 589.0 438 h 20" stroke="#2563eb" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="614.0" y="403" width="163.33333333333334" height="70" rx="9" fill="#f1f5ff" stroke="#2563eb" stroke-width="2"/>
+<text x="695.6666666666666" y="432.5" font-size="16" fill="#2563eb" text-anchor="middle">seg1</text>
+<text x="695.6666666666666" y="453.5" font-size="16" fill="#2563eb" text-anchor="middle">ISA encrypt</text>
+<path d="M 780.3333333333334 438 h 20" stroke="#2563eb" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="805.3333333333334" y="403" width="163.33333333333334" height="70" rx="9" fill="#f1f5ff" stroke="#2563eb" stroke-width="2"/>
+<text x="887.0" y="432.5" font-size="16" fill="#2563eb" text-anchor="middle">ipmpls Base</text>
+<text x="887.0" y="453.5" font-size="16" fill="#2563eb" text-anchor="middle">ESP to eNB</text>
+<path d="M 971.6666666666667 438 h 20" stroke="#2563eb" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+<rect x="996.6666666666667" y="403" width="163.33333333333334" height="70" rx="9" fill="#f1f5ff" stroke="#2563eb" stroke-width="2"/>
+<text x="1078.3333333333335" y="432.5" font-size="16" fill="#2563eb" text-anchor="middle">eNB1 / eNB2</text>
+<text x="1078.3333333333335" y="453.5" font-size="16" fill="#2563eb" text-anchor="middle">10.100.x.1</text>
+<text x="40" y="507" font-size="15" fill="#64748b" text-anchor="start">Inner IP reaches the OA before encryption; the encrypted return packet uses the public Base instance</text>
+<text x="40" y="577" font-size="16" fill="#2563eb" text-anchor="start">Private shunt: seg2 → seg1; inner IP is forwarded to the active ISA</text>
+<text x="40" y="620" font-size="16" fill="#64748b" text-anchor="start">MIMP/MCS full mesh; all peers reachable</text>
+</svg>

@@ -1,0 +1,112 @@
+START 1792869755.4772756
+PING 10.200.0.10 (10.200.0.10) from 10.100.2.1 : 56(84) bytes of data.
+[1792869755.488347] 64 bytes from 10.200.0.10: icmp_seq=1 ttl=62 time=6.22 ms
+[1792869755.587769] 64 bytes from 10.200.0.10: icmp_seq=2 ttl=62 time=5.11 ms
+[1792869755.688373] 64 bytes from 10.200.0.10: icmp_seq=3 ttl=62 time=5.28 ms
+[1792869755.791165] 64 bytes from 10.200.0.10: icmp_seq=4 ttl=62 time=7.47 ms
+[1792869755.890403] 64 bytes from 10.200.0.10: icmp_seq=5 ttl=62 time=5.87 ms
+[1792869755.990612] 64 bytes from 10.200.0.10: icmp_seq=6 ttl=62 time=5.89 ms
+[1792869756.091310] 64 bytes from 10.200.0.10: icmp_seq=7 ttl=62 time=6.37 ms
+[1792869756.190755] 64 bytes from 10.200.0.10: icmp_seq=8 ttl=62 time=5.10 ms
+[1792869756.291872] 64 bytes from 10.200.0.10: icmp_seq=9 ttl=62 time=5.75 ms
+[1792869756.392917] 64 bytes from 10.200.0.10: icmp_seq=10 ttl=62 time=5.72 ms
+[1792869756.494055] 64 bytes from 10.200.0.10: icmp_seq=11 ttl=62 time=5.79 ms
+[1792869756.593888] 64 bytes from 10.200.0.10: icmp_seq=12 ttl=62 time=4.56 ms
+[1792869756.695891] 64 bytes from 10.200.0.10: icmp_seq=13 ttl=62 time=5.71 ms
+[1792869756.798636] 64 bytes from 10.200.0.10: icmp_seq=14 ttl=62 time=7.44 ms
+[1792869756.896930] 64 bytes from 10.200.0.10: icmp_seq=15 ttl=62 time=4.97 ms
+[1792869756.996760] 64 bytes from 10.200.0.10: icmp_seq=16 ttl=62 time=4.49 ms
+[1792869757.097423] 64 bytes from 10.200.0.10: icmp_seq=17 ttl=62 time=4.39 ms
+[1792869757.202292] 64 bytes from 10.200.0.10: icmp_seq=18 ttl=62 time=8.57 ms
+[1792869757.299632] 64 bytes from 10.200.0.10: icmp_seq=19 ttl=62 time=4.97 ms
+[1792869757.400865] 64 bytes from 10.200.0.10: icmp_seq=20 ttl=62 time=5.90 ms
+[1792869757.500016] 64 bytes from 10.200.0.10: icmp_seq=21 ttl=62 time=4.83 ms
+[1792869757.601635] 64 bytes from 10.200.0.10: icmp_seq=22 ttl=62 time=5.37 ms
+[1792869757.701007] 64 bytes from 10.200.0.10: icmp_seq=23 ttl=62 time=4.09 ms
+[1792869757.805428] 64 bytes from 10.200.0.10: icmp_seq=24 ttl=62 time=8.12 ms
+[1792869757.905090] 64 bytes from 10.200.0.10: icmp_seq=25 ttl=62 time=7.36 ms
+[1792869758.003282] 64 bytes from 10.200.0.10: icmp_seq=26 ttl=62 time=4.87 ms
+[1792869758.103376] 64 bytes from 10.200.0.10: icmp_seq=27 ttl=62 time=4.88 ms
+[1792869758.203983] 64 bytes from 10.200.0.10: icmp_seq=28 ttl=62 time=5.29 ms
+[1792869758.304854] 64 bytes from 10.200.0.10: icmp_seq=29 ttl=62 time=5.44 ms
+[1792869758.409387] 64 bytes from 10.200.0.10: icmp_seq=30 ttl=62 time=9.20 ms
+[1792869758.518664] 64 bytes from 10.200.0.10: icmp_seq=31 ttl=62 time=17.6 ms
+[1792869758.607552] 64 bytes from 10.200.0.10: icmp_seq=32 ttl=62 time=6.53 ms
+[1792869758.707262] 64 bytes from 10.200.0.10: icmp_seq=33 ttl=62 time=5.38 ms
+[1792869758.809053] 64 bytes from 10.200.0.10: icmp_seq=34 ttl=62 time=6.50 ms
+[1792869758.909151] 64 bytes from 10.200.0.10: icmp_seq=35 ttl=62 time=5.73 ms
+[1792869759.012782] 64 bytes from 10.200.0.10: icmp_seq=36 ttl=62 time=8.22 ms
+[1792869759.111349] 64 bytes from 10.200.0.10: icmp_seq=37 ttl=62 time=6.21 ms
+[1792869759.211044] 64 bytes from 10.200.0.10: icmp_seq=38 ttl=62 time=5.35 ms
+[1792869759.312295] 64 bytes from 10.200.0.10: icmp_seq=39 ttl=62 time=5.78 ms
+[1792869759.412666] 64 bytes from 10.200.0.10: icmp_seq=40 ttl=62 time=6.08 ms
+[1792869759.513534] 64 bytes from 10.200.0.10: icmp_seq=41 ttl=62 time=6.46 ms
+[1792869759.612331] 64 bytes from 10.200.0.10: icmp_seq=42 ttl=62 time=4.43 ms
+[1792869759.713548] 64 bytes from 10.200.0.10: icmp_seq=43 ttl=62 time=4.92 ms
+[1792869759.813006] 64 bytes from 10.200.0.10: icmp_seq=44 ttl=62 time=4.13 ms
+[1792869759.913896] 64 bytes from 10.200.0.10: icmp_seq=45 ttl=62 time=4.63 ms
+[1792869760.016045] 64 bytes from 10.200.0.10: icmp_seq=46 ttl=62 time=5.84 ms
+[1792869760.117393] 64 bytes from 10.200.0.10: icmp_seq=47 ttl=62 time=6.04 ms
+[1792869760.217658] 64 bytes from 10.200.0.10: icmp_seq=48 ttl=62 time=5.97 ms
+[1792869760.317050] 64 bytes from 10.200.0.10: icmp_seq=49 ttl=62 time=5.05 ms
+[1792869760.419108] 64 bytes from 10.200.0.10: icmp_seq=50 ttl=62 time=6.76 ms
+[1792869760.544348] 64 bytes from 10.200.0.10: icmp_seq=51 ttl=62 time=20.9 ms
+[1792869760.630017] 64 bytes from 10.200.0.10: icmp_seq=52 ttl=62 time=6.37 ms
+[1792869760.733412] 64 bytes from 10.200.0.10: icmp_seq=53 ttl=62 time=9.01 ms
+[1792869760.831134] 64 bytes from 10.200.0.10: icmp_seq=54 ttl=62 time=6.33 ms
+[1792869760.931105] 64 bytes from 10.200.0.10: icmp_seq=55 ttl=62 time=5.56 ms
+[1792869761.033098] 64 bytes from 10.200.0.10: icmp_seq=56 ttl=62 time=6.64 ms
+[1792869761.132072] 64 bytes from 10.200.0.10: icmp_seq=57 ttl=62 time=4.69 ms
+[1792869761.233357] 64 bytes from 10.200.0.10: icmp_seq=58 ttl=62 time=4.89 ms
+[1792869761.333646] 64 bytes from 10.200.0.10: icmp_seq=59 ttl=62 time=4.95 ms
+[1792869761.433170] 64 bytes from 10.200.0.10: icmp_seq=60 ttl=62 time=4.26 ms
+[1792869761.534012] 64 bytes from 10.200.0.10: icmp_seq=61 ttl=62 time=4.49 ms
+[1792869761.634154] 64 bytes from 10.200.0.10: icmp_seq=62 ttl=62 time=3.90 ms
+[1792869761.734406] 64 bytes from 10.200.0.10: icmp_seq=63 ttl=62 time=4.04 ms
+[1792869761.835075] 64 bytes from 10.200.0.10: icmp_seq=64 ttl=62 time=4.37 ms
+[1792869761.936126] 64 bytes from 10.200.0.10: icmp_seq=65 ttl=62 time=4.80 ms
+[1792869762.037761] 64 bytes from 10.200.0.10: icmp_seq=66 ttl=62 time=5.29 ms
+[1792869762.137346] 64 bytes from 10.200.0.10: icmp_seq=67 ttl=62 time=4.33 ms
+[1792869762.239925] 64 bytes from 10.200.0.10: icmp_seq=68 ttl=62 time=6.28 ms
+[1792869762.339397] 64 bytes from 10.200.0.10: icmp_seq=69 ttl=62 time=5.16 ms
+[1792869762.440019] 64 bytes from 10.200.0.10: icmp_seq=70 ttl=62 time=5.24 ms
+[1792869762.541786] 64 bytes from 10.200.0.10: icmp_seq=71 ttl=62 time=6.48 ms
+[1792869762.640247] 64 bytes from 10.200.0.10: icmp_seq=72 ttl=62 time=4.17 ms
+[1792869762.739588] 64 bytes from 10.200.0.10: icmp_seq=73 ttl=62 time=3.07 ms
+[1792869762.840522] 64 bytes from 10.200.0.10: icmp_seq=74 ttl=62 time=3.70 ms
+[1792869762.942854] 64 bytes from 10.200.0.10: icmp_seq=75 ttl=62 time=5.05 ms
+[1792869763.042336] 64 bytes from 10.200.0.10: icmp_seq=76 ttl=62 time=4.18 ms
+[1792869763.255393] no answer yet for icmp_seq=77
+[1792869763.365408] no answer yet for icmp_seq=78
+[1792869763.475513] no answer yet for icmp_seq=79
+[1792869763.482833] 64 bytes from 10.200.0.10: icmp_seq=80 ttl=61 time=7.17 ms
+[1792869763.581612] 64 bytes from 10.200.0.10: icmp_seq=81 ttl=62 time=5.40 ms
+[1792869763.681195] 64 bytes from 10.200.0.10: icmp_seq=82 ttl=62 time=4.32 ms
+[1792869763.782529] 64 bytes from 10.200.0.10: icmp_seq=83 ttl=62 time=5.00 ms
+[1792869763.881897] 64 bytes from 10.200.0.10: icmp_seq=84 ttl=62 time=4.07 ms
+[1792869763.981839] 64 bytes from 10.200.0.10: icmp_seq=85 ttl=62 time=3.67 ms
+[1792869764.082750] 64 bytes from 10.200.0.10: icmp_seq=86 ttl=62 time=3.72 ms
+[1792869764.184345] 64 bytes from 10.200.0.10: icmp_seq=87 ttl=62 time=4.34 ms
+[1792869764.285267] 64 bytes from 10.200.0.10: icmp_seq=88 ttl=62 time=4.62 ms
+[1792869764.386968] 64 bytes from 10.200.0.10: icmp_seq=89 ttl=62 time=5.39 ms
+[1792869764.487734] 64 bytes from 10.200.0.10: icmp_seq=90 ttl=62 time=5.44 ms
+[1792869764.588596] 64 bytes from 10.200.0.10: icmp_seq=91 ttl=62 time=5.49 ms
+[1792869764.689043] 64 bytes from 10.200.0.10: icmp_seq=92 ttl=62 time=5.12 ms
+[1792869764.791552] 64 bytes from 10.200.0.10: icmp_seq=93 ttl=62 time=7.15 ms
+[1792869764.890822] 64 bytes from 10.200.0.10: icmp_seq=94 ttl=62 time=5.83 ms
+[1792869764.990933] 64 bytes from 10.200.0.10: icmp_seq=95 ttl=62 time=5.78 ms
+[1792869765.093220] 64 bytes from 10.200.0.10: icmp_seq=96 ttl=62 time=6.90 ms
+[1792869765.193281] 64 bytes from 10.200.0.10: icmp_seq=97 ttl=62 time=6.75 ms
+[1792869765.294010] 64 bytes from 10.200.0.10: icmp_seq=98 ttl=62 time=6.30 ms
+[1792869765.394197] 64 bytes from 10.200.0.10: icmp_seq=99 ttl=62 time=5.81 ms
+[1792869765.495870] 64 bytes from 10.200.0.10: icmp_seq=100 ttl=62 time=6.34 ms
+[1792869765.595153] 64 bytes from 10.200.0.10: icmp_seq=101 ttl=62 time=4.93 ms
+[1792869765.696192] 64 bytes from 10.200.0.10: icmp_seq=102 ttl=62 time=5.68 ms
+[1792869765.797268] 64 bytes from 10.200.0.10: icmp_seq=103 ttl=62 time=5.65 ms
+[1792869765.898465] 64 bytes from 10.200.0.10: icmp_seq=104 ttl=62 time=5.87 ms
+
+--- 10.200.0.10 ping statistics ---
+104 packets transmitted, 101 received, 2.88462% packet loss, time 10410ms
+rtt min/avg/max/mdev = 3.065/5.816/20.925/2.242 ms
+
+STOP 1792869765.900705

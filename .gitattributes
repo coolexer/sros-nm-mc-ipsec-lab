@@ -1,2 +1,4 @@
-* text=auto eol=lf
-*.png binary
+# Preserve measurement bytes, including CLI table padding.
+results/**/*.log -text -whitespace
+results/**/*.ping -text -whitespace
+*.svg text eol=lf

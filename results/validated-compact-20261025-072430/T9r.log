@@ -1,0 +1,18 @@
+[07:29:00] Both DAs return: observe election, verify stateful recovery
+[07:29:00] waiting: expected routes public=seg3, private=seg3
+[07:29:00] ready: expected routes public=seg3, private=seg3
+[07:29:02] before: domains={'seg1': {'act': 'down', 'prot': 'unknown', 'current': 'unknown', 'installed': 0}, 'seg2': {'act': 'down', 'prot': 'unknown', 'current': 'unknown', 'installed': 0}, 'seg3': {'act': 'eligible', 'prot': 'notReady', 'current': '10.0.0.3', 'installed': 2}}, paths={'198.51.100.1/32': 'seg3', '10.100.1.1/32': 'seg3', '10.100.2.1/32': 'seg3'}, IKE=[('2f615c4e27de67ae_i*', 'f698fddfdae4a385_r'), ('28ad74b65f7fd9ae_i*', '96dbc8d7bc6293ab_r')]
+[07:29:03] waiting: 10 consecutive replies on each eNB
+[07:29:06] ready: 10 consecutive replies on each eNB
+[07:29:07] ACTION WINDOW START 1792909747.3977063
+[07:29:08] start seg1,seg2
+[07:29:08] waiting: seg1 CLI
+[07:29:23] ready: seg1 CLI
+[07:29:23] waiting: seg2 CLI
+[07:29:23] ready: seg2 CLI
+[07:29:23] waiting: nominal after both DAs return
+[07:30:34] ready: nominal after both DAs return
+[07:30:34] waiting: traffic recovered after both DAs return
+[07:30:35] ready: traffic recovered after both DAs return
+[07:30:39] {"id": "T9r", "expected": "unique", "actual": "seg3", "ike_kept": true, "verdict": "PASS", "traffic": [{"tx": 933, "rx": 933, "lost": 0, "max_gap_s": 0.104986, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 933, "stable_since": 1792909835.712928, "head_s": 0.005533, "tail_s": 0.071214, "explicit_window": true}, {"tx": 933, "rx": 933, "lost": 0, "max_gap_s": 0.105354, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 933, "stable_since": 1792909835.96626, "head_s": 0.007457, "tail_s": 0.07448, "explicit_window": true}]}
+[07:30:41] after: domains={'seg1': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.3', 'installed': 2}, 'seg2': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.3', 'installed': 2}, 'seg3': {'act': 'active', 'prot': 'nominal', 'current': '10.0.0.3', 'installed': 2}}, paths={'198.51.100.1/32': 'seg3', '10.100.1.1/32': 'seg3', '10.100.2.1/32': 'seg3'}, IKE=[('2f615c4e27de67ae_i*', 'f698fddfdae4a385_r'), ('28ad74b65f7fd9ae_i*', '96dbc8d7bc6293ab_r')]

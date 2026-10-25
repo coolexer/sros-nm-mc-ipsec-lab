@@ -1,0 +1,14 @@
+[21:33:02] Revertive ISA restoration; configuration toggle is outside action window
+[21:33:02] waiting: expected routes public=seg2, private=seg2
+[21:33:02] ready: expected routes public=seg2, private=seg2
+[21:33:06] before: domains={'seg1': {'act': 'discovery', 'prot': 'notReady', 'current': '0.0.0.0', 'installed': 0}, 'seg2': {'act': 'active', 'prot': 'nominal', 'current': '10.0.0.2', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.2', 'installed': 0}}, paths={'198.51.100.1/32': 'seg2', '10.100.1.1/32': 'seg2', '10.100.2.1/32': 'seg2'}, IKE=[('f1821a37f66822ee_i*', '26f56e0848a8e8fa_r'), ('742623a80fa72753_i*', 'fba8afadb3ab7da8_r')]
+[21:33:07] waiting: 10 consecutive replies on each eNB
+[21:33:12] ready: 10 consecutive replies on each eNB
+[21:33:12] ACTION WINDOW START 1792870392.8334324
+[21:33:13] cfg seg1: /configure card 1 mda 2 admin-state enable
+[21:33:13] waiting: seg1 automatically becomes OA
+[21:35:36] ready: seg1 automatically becomes OA
+[21:35:36] waiting: traffic recovered
+[21:35:37] ready: traffic recovered
+[21:35:42] {"id": "T4", "expected": "seg1", "actual": "seg1", "ike_kept": true, "verdict": "PASS", "traffic": [{"tx": 1498, "rx": 1495, "lost": 3, "max_gap_s": 0.425915, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 1498, "stable_since": 1792870537.131581, "head_s": 0.015491, "tail_s": 0.051509, "explicit_window": true}, {"tx": 1497, "rx": 1494, "lost": 3, "max_gap_s": 0.431496, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 1497, "stable_since": 1792870537.512322, "head_s": 0.016459, "tail_s": 0.026488, "explicit_window": true}]}
+[21:35:45] after: domains={'seg1': {'act': 'active', 'prot': 'notReady', 'current': '10.0.0.1', 'installed': 2}, 'seg2': {'act': 'notEligible', 'prot': 'notReady', 'current': '10.0.0.1', 'installed': 0}, 'seg3': {'act': 'standby', 'prot': 'notReady', 'current': '10.0.0.1', 'installed': 0}}, paths={'198.51.100.1/32': 'seg1', '10.100.1.1/32': 'seg1', '10.100.2.1/32': 'seg1'}, IKE=[('f1821a37f66822ee_i*', '26f56e0848a8e8fa_r'), ('742623a80fa72753_i*', 'fba8afadb3ab7da8_r')]

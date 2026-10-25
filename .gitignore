@@ -8,4 +8,6 @@ clab-*/
 results/*.md
 results/*.ping
 results/*.log
+results/20*/
+work/
 __pycache__/

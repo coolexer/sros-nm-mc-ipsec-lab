@@ -1,0 +1,107 @@
+[
+  {
+    "id": "T0",
+    "expected": "seg1",
+    "actual": "seg1",
+    "ike_kept": true,
+    "verdict": "PASS",
+    "traffic": [
+      {
+        "tx": 147,
+        "rx": 147,
+        "lost": 0,
+        "max_gap_s": 0.1032,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 147,
+        "stable_since": 1792910059.917126,
+        "head_s": 0.007031,
+        "tail_s": 0.007602,
+        "explicit_window": true
+      },
+      {
+        "tx": 147,
+        "rx": 147,
+        "lost": 0,
+        "max_gap_s": 0.103114,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 147,
+        "stable_since": 1792910060.161796,
+        "head_s": 0.00617,
+        "tail_s": 0.025096,
+        "explicit_window": true
+      }
+    ]
+  },
+  {
+    "id": "T9",
+    "expected": "seg3",
+    "actual": "seg3",
+    "ike_kept": true,
+    "verdict": "PASS",
+    "traffic": [
+      {
+        "tx": 114,
+        "rx": 90,
+        "lost": 24,
+        "max_gap_s": 2.811016,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 114,
+        "stable_since": 1792909734.456863,
+        "head_s": 0.006135,
+        "tail_s": 0.030754,
+        "explicit_window": true
+      },
+      {
+        "tx": 114,
+        "rx": 92,
+        "lost": 22,
+        "max_gap_s": 2.602319,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 114,
+        "stable_since": 1792909734.678115,
+        "head_s": 0.005929,
+        "tail_s": 0.067875,
+        "explicit_window": true
+      }
+    ]
+  },
+  {
+    "id": "T9r",
+    "expected": "unique",
+    "actual": "seg3",
+    "ike_kept": true,
+    "verdict": "PASS",
+    "traffic": [
+      {
+        "tx": 933,
+        "rx": 933,
+        "lost": 0,
+        "max_gap_s": 0.104986,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 933,
+        "stable_since": 1792909835.712928,
+        "head_s": 0.005533,
+        "tail_s": 0.071214,
+        "explicit_window": true
+      },
+      {
+        "tx": 933,
+        "rx": 933,
+        "lost": 0,
+        "max_gap_s": 0.105354,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 933,
+        "stable_since": 1792909835.96626,
+        "head_s": 0.007457,
+        "tail_s": 0.07448,
+        "explicit_window": true
+      }
+    ]
+  }
+]

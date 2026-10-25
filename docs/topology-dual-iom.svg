@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 910" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#16A34A"/>
+    </marker>
+    <filter id="sh" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0F172A" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="910" fill="#FFFFFF"/>
+
+  <!-- title -->
+  <text x="30" y="42" font-size="24" font-weight="700" fill="#001135">N:M MC-IPsec security gateway lab &#8212; topology</text>
+  <text x="30" y="68" font-size="14" fill="#475569">containerlab &#183; Nokia SR-SIM 26.7.R2 &#183; 3&#215; 7750 SR-7, one MS-ISA2 (isa2-tunnel) each &#183; single tunnel group / ipsec-domain 1</text>
+
+  <!-- groups -->
+  <rect x="20" y="95" width="170" height="545" rx="14" fill="#F8FAFC" stroke="#94A3B8" stroke-width="1.5"/>
+  <text x="34" y="120" font-size="14" font-weight="600" fill="#475569">RAN (eNB emulators)</text>
+
+  <rect x="210" y="95" width="235" height="545" rx="14" fill="#ECFDF5" stroke="#00A36C" stroke-width="1.5"/>
+  <text x="224" y="120" font-size="14" font-weight="600" fill="#00A36C">IP/MPLS core</text>
+
+  <rect x="465" y="95" width="715" height="545" rx="14" fill="#EAF2FF" stroke="#005AFF" stroke-width="1.5"/>
+  <text x="480" y="120" font-size="14" font-weight="600" fill="#005AFF">N:M redundancy domain 1 &#183; tunnel-group 1 &#183; ipsec-gw 198.51.100.1 (same on all nodes)</text>
+
+  <!-- seg3 uplinks (drawn first, under everything) -->
+  <path d="M 990 470 L 990 612 L 402 612 L 402 400" fill="none" stroke="#2563EB" stroke-width="2.5"/>
+  <path d="M 1004 470 L 1004 624 L 390 624 L 390 400" fill="none" stroke="#F97316" stroke-width="2.5"/>
+
+  <!-- seg1 / seg2 uplinks -->
+  <line x1="540" y1="200" x2="420" y2="305" stroke="#2563EB" stroke-width="2.5"/>
+  <line x1="540" y1="216" x2="428" y2="318" stroke="#F97316" stroke-width="2.5"/>
+  <line x1="540" y1="500" x2="425" y2="372" stroke="#2563EB" stroke-width="2.5"/>
+  <line x1="540" y1="516" x2="416" y2="384" stroke="#F97316" stroke-width="2.5"/>
+
+  <!-- inter-SeGW links: 2 per pair -->
+  <g stroke="#001135" stroke-width="3">
+    <line x1="640" y1="292" x2="640" y2="438"/>
+    <line x1="660" y1="292" x2="660" y2="438"/>
+    <line x1="792" y1="205" x2="898" y2="320"/>
+    <line x1="792" y1="225" x2="898" y2="340"/>
+    <line x1="792" y1="505" x2="898" y2="420"/>
+    <line x1="792" y1="485" x2="898" y2="400"/>
+  </g>
+  <rect x="672" y="350" width="150" height="40" rx="6" fill="#FFFFFF" stroke="#001135" stroke-width="1"/>
+  <text x="747" y="366" font-size="12" font-weight="600" fill="#001135" text-anchor="middle">2-member LACP LAG</text>
+  <text x="747" y="382" font-size="10" fill="#475569" text-anchor="middle">OSPF+BFD, MCS and shunt</text>
+  <text x="852" y="250" font-size="12" font-weight="600" fill="#001135">2&#215;</text>
+  <text x="852" y="470" font-size="12" font-weight="600" fill="#001135">2&#215;</text>
+
+  <!-- eNB and mme links -->
+  <line x1="165" y1="240" x2="285" y2="318" stroke="#64748B" stroke-width="2.5"/>
+  <line x1="165" y1="480" x2="285" y2="372" stroke="#64748B" stroke-width="2.5"/>
+  <line x1="300" y1="520" x2="315" y2="398" stroke="#64748B" stroke-width="2.5"/>
+
+  <!-- cloud -->
+  <g filter="url(#sh)">
+    <path d="M 270 395 C 235 395 232 350 262 343 C 255 305 300 288 322 305 C 338 278 392 280 398 315 C 430 312 445 352 420 372 C 440 392 420 410 395 400 Z"
+          fill="#FFFFFF" stroke="#00A36C" stroke-width="2.5"/>
+  </g>
+  <text x="335" y="345" font-size="16" font-weight="700" fill="#001135" text-anchor="middle">ipmpls</text>
+  <text x="335" y="365" font-size="12" fill="#475569" text-anchor="middle">7750 SR-1</text>
+  <text x="222" y="606" font-size="11" fill="#065F46">Base = public  &#183;  AS 65000</text>
+  <text x="222" y="620" font-size="11" fill="#065F46">VPRN "mobile" = private</text>
+  <text x="222" y="634" font-size="11" fill="#065F46">eBGP + BFD to every SecGW</text>
+
+  <!-- eNBs -->
+  <g filter="url(#sh)">
+    <rect x="45" y="195" width="120" height="95" rx="10" fill="#FFFFFF" stroke="#124191" stroke-width="2"/>
+    <rect x="45" y="435" width="120" height="95" rx="10" fill="#FFFFFF" stroke="#124191" stroke-width="2"/>
+  </g>
+  <g stroke="#124191" stroke-width="2" fill="none">
+    <path d="M 75 255 L 82 215 L 89 255 M 78 240 L 86 240 M 70 222 Q 82 208 94 222 M 65 216 Q 82 198 99 216"/>
+    <path d="M 75 495 L 82 455 L 89 495 M 78 480 L 86 480 M 70 462 Q 82 448 94 462 M 65 456 Q 82 438 99 456"/>
+  </g>
+  <text x="108" y="232" font-size="15" font-weight="700" fill="#001135">enb1</text>
+  <text x="105" y="250" font-size="10" fill="#475569">strongSwan</text>
+  <text x="55" y="272" font-size="10" fill="#475569">100.64.1.2</text>
+  <text x="55" y="284" font-size="10" fill="#475569">inner 10.100.1.1</text>
+  <text x="108" y="472" font-size="15" font-weight="700" fill="#001135">enb2</text>
+  <text x="105" y="490" font-size="10" fill="#475569">strongSwan</text>
+  <text x="55" y="512" font-size="10" fill="#475569">100.64.2.2</text>
+  <text x="55" y="524" font-size="10" fill="#475569">inner 10.100.2.1</text>
+
+  <!-- mme -->
+  <g filter="url(#sh)">
+    <rect x="245" y="520" width="110" height="70" rx="8" fill="#FFFFFF" stroke="#64748B" stroke-width="2"/>
+  </g>
+  <rect x="258" y="532" width="28" height="9" rx="2" fill="#94A3B8"/>
+  <rect x="258" y="545" width="28" height="9" rx="2" fill="#94A3B8"/>
+  <rect x="258" y="558" width="28" height="9" rx="2" fill="#94A3B8"/>
+  <text x="295" y="546" font-size="14" font-weight="700" fill="#001135">mme</text>
+  <text x="295" y="562" font-size="10" fill="#475569">10.200.0.10</text>
+  <text x="258" y="582" font-size="10" fill="#475569">traffic target</text>
+
+  <!-- seg1 -->
+  <g filter="url(#sh)"><rect x="540" y="140" width="252" height="152" rx="12" fill="#0B2A6F"/></g>
+  <text x="556" y="166" font-size="16" font-weight="700" fill="#FFFFFF">seg1</text>
+  <text x="604" y="166" font-size="12" fill="#C7D2FE">7750 SR-7 &#183; system 10.0.0.1</text>
+  <rect x="556" y="180" width="105" height="44" rx="6" fill="#E5E7EB"/>
+  <text x="608" y="198" font-size="11" font-weight="600" fill="#1F2937" text-anchor="middle">IOM 1 + 2</text>
+  <text x="608" y="213" font-size="10" fill="#1F2937" text-anchor="middle">10&#215;10GE</text>
+  <rect x="671" y="180" width="105" height="44" rx="6" fill="#22C55E"/>
+  <text x="723" y="198" font-size="11" font-weight="700" fill="#052E16" text-anchor="middle">MS-ISA2 1/2</text>
+  <text x="723" y="213" font-size="10" fill="#052E16" text-anchor="middle">tunnels active</text>
+  <rect x="556" y="238" width="220" height="40" rx="8" fill="#00A36C"/>
+  <text x="666" y="256" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">DA &#183; priority 200</text>
+  <text x="666" y="271" font-size="11" fill="#ECFDF5" text-anchor="middle">operational ACTIVE (OA)</text>
+
+  <!-- seg2 -->
+  <g filter="url(#sh)"><rect x="540" y="438" width="252" height="152" rx="12" fill="#0B2A6F"/></g>
+  <text x="556" y="464" font-size="16" font-weight="700" fill="#FFFFFF">seg2</text>
+  <text x="604" y="464" font-size="12" fill="#C7D2FE">7750 SR-7 &#183; system 10.0.0.2</text>
+  <rect x="556" y="478" width="105" height="44" rx="6" fill="#E5E7EB"/>
+  <text x="608" y="496" font-size="11" font-weight="600" fill="#1F2937" text-anchor="middle">IOM 1 + 2</text>
+  <text x="608" y="511" font-size="10" fill="#1F2937" text-anchor="middle">10&#215;10GE</text>
+  <rect x="671" y="478" width="105" height="44" rx="6" fill="#BBF7D0"/>
+  <text x="723" y="496" font-size="11" font-weight="700" fill="#052E16" text-anchor="middle">MS-ISA2 1/2</text>
+  <text x="723" y="511" font-size="10" fill="#052E16" text-anchor="middle">states pre-loaded</text>
+  <rect x="556" y="536" width="220" height="40" rx="8" fill="#2563EB"/>
+  <text x="666" y="554" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">DA &#183; priority 100</text>
+  <text x="666" y="569" font-size="11" fill="#DBEAFE" text-anchor="middle">operational STANDBY (hot)</text>
+
+  <!-- seg3 -->
+  <g filter="url(#sh)"><rect x="898" y="290" width="262" height="180" rx="12" fill="#0B2A6F"/></g>
+  <text x="914" y="316" font-size="16" font-weight="700" fill="#FFFFFF">seg3</text>
+  <text x="962" y="316" font-size="12" fill="#C7D2FE">7750 SR-7 &#183; system 10.0.0.3</text>
+  <rect x="914" y="336" width="100" height="56" rx="6" fill="#E5E7EB"/>
+  <text x="964" y="360" font-size="11" font-weight="600" fill="#1F2937" text-anchor="middle">IOM 1 + 2</text>
+  <text x="964" y="375" font-size="10" fill="#1F2937" text-anchor="middle">10&#215;10GE</text>
+  <rect x="1024" y="330" width="122" height="68" rx="8" fill="none" stroke="#CBD5E1" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="1085" y="345" font-size="10" fill="#CBD5E1" text-anchor="middle">tunnel-member-pool</text>
+  <rect x="1034" y="351" width="102" height="40" rx="6" fill="#E5E7EB"/>
+  <text x="1085" y="368" font-size="11" font-weight="700" fill="#1F2937" text-anchor="middle">MS-ISA2 1/2</text>
+  <text x="1085" y="382" font-size="10" fill="#1F2937" text-anchor="middle">states on CPM</text>
+  <rect x="914" y="414" width="232" height="40" rx="8" fill="#64748B"/>
+  <text x="1030" y="432" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">DS &#183; priority 200</text>
+  <text x="1030" y="447" font-size="11" fill="#F1F5F9" text-anchor="middle">operational STANDBY (cold)</text>
+
+  <!-- logical IPsec tunnels -->
+  <path d="M 165 222 C 260 135 520 125 671 192" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-dasharray="8 6" marker-end="url(#arrG)"/>
+  <path d="M 165 462 C 330 400 420 250 671 212" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-dasharray="8 6" marker-end="url(#arrG)"/>
+  <rect x="206" y="131" width="246" height="20" rx="5" fill="#FFFFFF" stroke="#16A34A" stroke-width="1"/>
+  <text x="329" y="145" font-size="11.5" font-weight="600" fill="#16A34A" text-anchor="middle">IKEv2 / ESP to 198.51.100.1 &#8594; on the OA</text>
+
+  <!-- legend -->
+  <rect x="20" y="660" width="1160" height="80" rx="12" fill="#F8FAFC" stroke="#E2E8F0"/>
+  <g font-size="12" fill="#1F2937">
+    <line x1="40" y1="690" x2="80" y2="690" stroke="#001135" stroke-width="3"/>
+    <text x="90" y="694">direct SecGW links (Base, OSPF+BFD): MIMPv2 / MCS / shunt</text>
+    <line x1="470" y1="690" x2="510" y2="690" stroke="#2563EB" stroke-width="2.5"/>
+    <text x="520" y="694">1/1/9 public (Base) &#8212; eBGP+BFD, MED by MIMP state</text>
+    <line x1="870" y1="690" x2="910" y2="690" stroke="#F97316" stroke-width="2.5"/>
+    <text x="920" y="694">1/1/10 private (VPRN mobile)</text>
+    <line x1="40" y1="720" x2="80" y2="720" stroke="#16A34A" stroke-width="2.5" stroke-dasharray="8 6"/>
+    <text x="90" y="724">logical IPsec tunnel (responder-only SecGW, DPD reply-only)</text>
+    <rect x="470" y="711" width="18" height="14" rx="3" fill="#22C55E"/>
+    <text x="496" y="723">ISA active</text>
+    <rect x="580" y="711" width="18" height="14" rx="3" fill="#BBF7D0"/>
+    <text x="606" y="723">ISA with synced states (DA standby)</text>
+    <rect x="850" y="711" width="18" height="14" rx="3" fill="#E5E7EB"/>
+    <text x="876" y="723">ISA in pool, states kept on CPM (DS)</text>
+  </g>
+
+  <!-- management NTP reference -->
+  <rect x="20" y="765" width="1160" height="125" rx="12" fill="#FAF5FF" stroke="#9333EA"/>
+  <rect x="40" y="782" width="270" height="70" rx="9" fill="#6B21A8"/>
+  <text x="175" y="808" font-size="17" fill="white" text-anchor="middle">ntp  172.20.30.123</text>
+  <text x="175" y="832" font-size="13" fill="white" text-anchor="middle">chronyd -x  local stratum 10</text>
+  <path d="M 310 817 H 430" stroke="#9333EA" stroke-width="3"/>
+  <text x="370" y="801" font-size="12" fill="#6B21A8" text-anchor="middle">NTP UDP 123</text>
+  <rect x="430" y="782" width="730" height="70" rx="9" fill="white" stroke="#9333EA"/>
+  <text x="795" y="809" font-size="17" fill="#6B21A8" text-anchor="middle">management network 172.20.30.0/24</text>
+  <text x="795" y="833" font-size="14" fill="#6B21A8" text-anchor="middle">seg1 / seg2 / seg3 / ipmpls use the same clock reference</text>
+  <text x="40" y="875" font-size="13" fill="#6B21A8">NTP uses container management interfaces; it is separate from public/private forwarding and does not set the host clock.</text>
+</svg>

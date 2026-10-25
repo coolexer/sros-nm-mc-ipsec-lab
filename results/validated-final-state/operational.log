@@ -1,0 +1,914 @@
+seg1
+show redundancy multi-chassis ipsec-domain 1
+
+[/]
+A:admin@seg1-a# show redundancy multi-chassis ipsec-domain 1
+
+===============================================================================
+Multi-Chassis IPsec Domain: 1
+===============================================================================
+Designated Role    : active             Priority           : 200
+Tunnel Group       : 1                  Revertive          : false
+Admin State        : Up                 Protection Status  : nominal
+Router Id          : 10.0.0.1           Current Active     : 10.0.0.1
+Activity State     : active                                                     
+===============================================================================
+
+===============================================================================
+Domain 1 Adjacencies
+===============================================================================
+Peer                                        Oper    Remote       Remote
+  Router-Id                                 State   Activity     Designated
+                                                    State        Role
+-------------------------------------------------------------------------------
+10.0.0.2                                    Up      standby      active
+  10.0.0.2
+10.0.0.3                                    Up      standby      standby
+  10.0.0.3
+-------------------------------------------------------------------------------
+Domain Adjacency Entries found: 2
+===============================================================================
+
+===============================================================================
+Multi-Chassis Tunnel Statistics
+===============================================================================
+                              Static              Dynamic
+-------------------------------------------------------------------------------
+Installed                     0                   2
+Installing                    0                   0
+Standby Dormant               0                   0
+Awaiting Config               0                   0
+Failed                        0                   0
+===============================================================================
+
+[/]
+A:admin@seg1-a# logout
+
+seg1
+show redundancy multi-chassis sync
+
+[/]
+A:admin@seg1-a# show redundancy multi-chassis sync
+
+===============================================================================
+Multi-chassis Peer Table
+===============================================================================
+Peer
+-------------------------------------------------------------------------------
+Peer IP Address         : 10.0.0.2
+Peer Name               : seg2
+Description             : (Not Specified)
+Authentication          : Disabled
+Source IP Address       : 10.0.0.1
+Admin State             : Enabled
+Warm standby            : No
+Remote warm standby     : No
+Sub-mgmt options        : 
+  DHCP lease threshold  : Inactive
+    Local / Remote      : -- / --
+-------------------------------------------------------------------------------
+Sync-status
+-------------------------------------------------------------------------------
+Client Applications     : IPsec
+Sync Admin State        : Up
+Sync Oper State         : Up
+DB Sync State           : inSync
+Num Entries             : 4
+Lcl Deleted Entries     : 0
+Alarm Entries           : 0
+OMCR Standby Entries    : 0
+OMCR Alarm Entries      : 0
+Rem Num Entries         : 4
+Rem Lcl Deleted Entries : 0
+Rem Alarm Entries       : 0
+Rem OMCR Standby Entries: 0
+Rem OMCR Alarm Entries  : 0
+===============================================================================
+Peer
+-------------------------------------------------------------------------------
+Peer IP Address         : 10.0.0.3
+Peer Name               : seg3
+Description             : (Not Specified)
+Authentication          : Disabled
+Source IP Address       : 10.0.0.1
+Admin State             : Enabled
+Warm standby            : No
+Remote warm standby     : No
+Sub-mgmt options        : 
+  DHCP lease threshold  : Inactive
+    Local / Remote      : -- / --
+-------------------------------------------------------------------------------
+Sync-status
+-------------------------------------------------------------------------------
+Client Applications     : IPsec
+Sync Admin State        : Up
+Sync Oper State         : Up
+DB Sync State           : inSync
+Num Entries             : 4
+Lcl Deleted Entries     : 0
+Alarm Entries           : 0
+OMCR Standby Entries    : 0
+OMCR Alarm Entries      : 0
+Rem Num Entries         : 4
+Rem Lcl Deleted Entries : 0
+Rem Alarm Entries       : 0
+Rem OMCR Standby Entries: 0
+Rem OMCR Alarm Entries  : 0
+===============================================================================
+===============================================================================
+
+[/]
+A:admin@seg1-a# logout
+
+seg1
+show lag
+
+[/]
+A:admin@seg1-a# show lag
+
+===============================================================================
+Lag Data
+===============================================================================
+Lag-id         Adm     Opr     Weighted Threshold Up-Count MC Act/Stdby
+    name                                                   
+-------------------------------------------------------------------------------
+12             up      up      No       0         2        N/A
+    lag-12
+13             up      up      No       0         2        N/A
+    lag-13
+-------------------------------------------------------------------------------
+Total Lag-ids: 2       Single Chassis: 2        MC Act: 0       MC Stdby: 0
+===============================================================================
+
+[/]
+A:admin@seg1-a# logout
+
+seg1
+show mda
+
+[/]
+A:admin@seg1-a# show mda
+
+===============================================================================
+MDA Summary
+===============================================================================
+Slot  Mda   Provisioned Type                            Admin     Operational
+                Equipped Type (if different)            State     State
+-------------------------------------------------------------------------------
+1     1     me10-10gb-sfp+                              up        up
+      2     isa2-tunnel                                 up        up
+                me-isa2-ms                                            
+===============================================================================
+
+[/]
+A:admin@seg1-a# logout
+
+seg1
+show system ntp all
+
+[/]
+A:admin@seg1-a# show system ntp all
+
+===============================================================================
+NTP Status
+===============================================================================
+Configured         : Yes                Stratum              : 11
+Admin Status       : up                 Oper Status          : up
+Server Enabled     : No                 Server Authenticate  : No
+Clock Source       : 172.20.30.123
+Auth Check         : Yes                
+Auth Keychain      :                    
+Current Date & Time: 2026/10/25 06:35:16 UTC
+===============================================================================
+
+===============================================================================
+NTP Active Associations
+===============================================================================
+State                     Reference ID    St Type  A  Poll Reach     Offset(ms)
+    Router         Remote                                            
+-------------------------------------------------------------------------------
+chosen                    127.127.1.1     10 srvr  -  64   .YYYYYYY  -0.039
+    management     172.20.30.123
+===============================================================================
+
+===============================================================================
+NTP Clients
+===============================================================================
+vRouter                                                    Time Last Request Rx
+    Address                                                
+-------------------------------------------------------------------------------
+===============================================================================
+
+[/]
+A:admin@seg1-a# logout
+
+seg2
+show redundancy multi-chassis ipsec-domain 1
+
+[/]
+A:admin@seg2-a# show redundancy multi-chassis ipsec-domain 1
+
+===============================================================================
+Multi-Chassis IPsec Domain: 1
+===============================================================================
+Designated Role    : active             Priority           : 100
+Tunnel Group       : 1                  Revertive          : false
+Admin State        : Up                 Protection Status  : nominal
+Router Id          : 10.0.0.2           Current Active     : 10.0.0.1
+Activity State     : standby                                                    
+===============================================================================
+
+===============================================================================
+Domain 1 Adjacencies
+===============================================================================
+Peer                                        Oper    Remote       Remote
+  Router-Id                                 State   Activity     Designated
+                                                    State        Role
+-------------------------------------------------------------------------------
+10.0.0.1                                    Up      active       active
+  10.0.0.1
+10.0.0.3                                    Up      standby      standby
+  10.0.0.3
+-------------------------------------------------------------------------------
+Domain Adjacency Entries found: 2
+===============================================================================
+
+===============================================================================
+Multi-Chassis Tunnel Statistics
+===============================================================================
+                              Static              Dynamic
+-------------------------------------------------------------------------------
+Installed                     0                   2
+Installing                    0                   0
+Standby Dormant               0                   0
+Awaiting Config               0                   0
+Failed                        0                   0
+===============================================================================
+
+[/]
+A:admin@seg2-a# logout
+
+seg2
+show redundancy multi-chassis sync
+
+[/]
+A:admin@seg2-a# show redundancy multi-chassis sync
+
+===============================================================================
+Multi-chassis Peer Table
+===============================================================================
+Peer
+-------------------------------------------------------------------------------
+Peer IP Address         : 10.0.0.1
+Peer Name               : seg1
+Description             : (Not Specified)
+Authentication          : Disabled
+Source IP Address       : 10.0.0.2
+Admin State             : Enabled
+Warm standby            : No
+Remote warm standby     : No
+Sub-mgmt options        : 
+  DHCP lease threshold  : Inactive
+    Local / Remote      : -- / --
+-------------------------------------------------------------------------------
+Sync-status
+-------------------------------------------------------------------------------
+Client Applications     : IPsec
+Sync Admin State        : Up
+Sync Oper State         : Up
+DB Sync State           : inSync
+Num Entries             : 4
+Lcl Deleted Entries     : 0
+Alarm Entries           : 0
+OMCR Standby Entries    : 0
+OMCR Alarm Entries      : 0
+Rem Num Entries         : 4
+Rem Lcl Deleted Entries : 0
+Rem Alarm Entries       : 0
+Rem OMCR Standby Entries: 0
+Rem OMCR Alarm Entries  : 0
+===============================================================================
+Peer
+-------------------------------------------------------------------------------
+Peer IP Address         : 10.0.0.3
+Peer Name               : seg3
+Description             : (Not Specified)
+Authentication          : Disabled
+Source IP Address       : 10.0.0.2
+Admin State             : Enabled
+Warm standby            : No
+Remote warm standby     : No
+Sub-mgmt options        : 
+  DHCP lease threshold  : Inactive
+    Local / Remote      : -- / --
+-------------------------------------------------------------------------------
+Sync-status
+-------------------------------------------------------------------------------
+Client Applications     : IPsec
+Sync Admin State        : Up
+Sync Oper State         : Up
+DB Sync State           : inSync
+Num Entries             : 4
+Lcl Deleted Entries     : 0
+Alarm Entries           : 0
+OMCR Standby Entries    : 0
+OMCR Alarm Entries      : 0
+Rem Num Entries         : 4
+Rem Lcl Deleted Entries : 0
+Rem Alarm Entries       : 0
+Rem OMCR Standby Entries: 0
+Rem OMCR Alarm Entries  : 0
+===============================================================================
+===============================================================================
+
+[/]
+A:admin@seg2-a# logout
+
+seg2
+show lag
+
+[/]
+A:admin@seg2-a# show lag
+
+===============================================================================
+Lag Data
+===============================================================================
+Lag-id         Adm     Opr     Weighted Threshold Up-Count MC Act/Stdby
+    name                                                   
+-------------------------------------------------------------------------------
+12             up      up      No       0         2        N/A
+    lag-12
+23             up      up      No       0         2        N/A
+    lag-23
+-------------------------------------------------------------------------------
+Total Lag-ids: 2       Single Chassis: 2        MC Act: 0       MC Stdby: 0
+===============================================================================
+
+[/]
+A:admin@seg2-a# logout
+
+seg2
+show mda
+
+[/]
+A:admin@seg2-a# show mda
+
+===============================================================================
+MDA Summary
+===============================================================================
+Slot  Mda   Provisioned Type                            Admin     Operational
+                Equipped Type (if different)            State     State
+-------------------------------------------------------------------------------
+1     1     me10-10gb-sfp+                              up        up
+      2     isa2-tunnel                                 up        up
+                me-isa2-ms                                            
+===============================================================================
+
+[/]
+A:admin@seg2-a# logout
+
+seg2
+show system ntp all
+
+[/]
+A:admin@seg2-a# show system ntp all
+
+===============================================================================
+NTP Status
+===============================================================================
+Configured         : Yes                Stratum              : 11
+Admin Status       : up                 Oper Status          : up
+Server Enabled     : No                 Server Authenticate  : No
+Clock Source       : 172.20.30.123
+Auth Check         : Yes                
+Auth Keychain      :                    
+Current Date & Time: 2026/10/25 06:35:17 UTC
+===============================================================================
+
+===============================================================================
+NTP Active Associations
+===============================================================================
+State                     Reference ID    St Type  A  Poll Reach     Offset(ms)
+    Router         Remote                                            
+-------------------------------------------------------------------------------
+chosen                    127.127.1.1     10 srvr  -  64   .YYYYYYY  -0.036
+    management     172.20.30.123
+===============================================================================
+
+===============================================================================
+NTP Clients
+===============================================================================
+vRouter                                                    Time Last Request Rx
+    Address                                                
+-------------------------------------------------------------------------------
+===============================================================================
+
+[/]
+A:admin@seg2-a# logout
+
+seg3
+show redundancy multi-chassis ipsec-domain 1
+
+[/]
+A:admin@seg3-a# show redundancy multi-chassis ipsec-domain 1
+
+===============================================================================
+Multi-Chassis IPsec Domain: 1
+===============================================================================
+Designated Role    : standby            Priority           : 200
+Tunnel Group       : 1                  Revertive          : false
+Admin State        : Up                 Protection Status  : nominal
+Router Id          : 10.0.0.3           Current Active     : 10.0.0.1
+Activity State     : standby                                                    
+===============================================================================
+
+===============================================================================
+Domain 1 Adjacencies
+===============================================================================
+Peer                                        Oper    Remote       Remote
+  Router-Id                                 State   Activity     Designated
+                                                    State        Role
+-------------------------------------------------------------------------------
+10.0.0.1                                    Up      active       active
+  10.0.0.1
+10.0.0.2                                    Up      standby      active
+  10.0.0.2
+-------------------------------------------------------------------------------
+Domain Adjacency Entries found: 2
+===============================================================================
+
+===============================================================================
+Multi-Chassis Tunnel Statistics
+===============================================================================
+                              Static              Dynamic
+-------------------------------------------------------------------------------
+Installed                     0                   0
+Installing                    0                   0
+Standby Dormant               0                   2
+Awaiting Config               0                   0
+Failed                        0                   0
+===============================================================================
+
+[/]
+A:admin@seg3-a# logout
+
+seg3
+show redundancy multi-chassis sync
+
+[/]
+A:admin@seg3-a# show redundancy multi-chassis sync
+
+===============================================================================
+Multi-chassis Peer Table
+===============================================================================
+Peer
+-------------------------------------------------------------------------------
+Peer IP Address         : 10.0.0.1
+Peer Name               : seg1
+Description             : (Not Specified)
+Authentication          : Disabled
+Source IP Address       : 10.0.0.3
+Admin State             : Enabled
+Warm standby            : No
+Remote warm standby     : No
+Sub-mgmt options        : 
+  DHCP lease threshold  : Inactive
+    Local / Remote      : -- / --
+-------------------------------------------------------------------------------
+Sync-status
+-------------------------------------------------------------------------------
+Client Applications     : IPsec
+Sync Admin State        : Up
+Sync Oper State         : Up
+DB Sync State           : inSync
+Num Entries             : 4
+Lcl Deleted Entries     : 0
+Alarm Entries           : 0
+OMCR Standby Entries    : 0
+OMCR Alarm Entries      : 0
+Rem Num Entries         : 4
+Rem Lcl Deleted Entries : 0
+Rem Alarm Entries       : 0
+Rem OMCR Standby Entries: 0
+Rem OMCR Alarm Entries  : 0
+===============================================================================
+Peer
+-------------------------------------------------------------------------------
+Peer IP Address         : 10.0.0.2
+Peer Name               : seg2
+Description             : (Not Specified)
+Authentication          : Disabled
+Source IP Address       : 10.0.0.3
+Admin State             : Enabled
+Warm standby            : No
+Remote warm standby     : No
+Sub-mgmt options        : 
+  DHCP lease threshold  : Inactive
+    Local / Remote      : -- / --
+-------------------------------------------------------------------------------
+Sync-status
+-------------------------------------------------------------------------------
+Client Applications     : IPsec
+Sync Admin State        : Up
+Sync Oper State         : Up
+DB Sync State           : inSync
+Num Entries             : 4
+Lcl Deleted Entries     : 0
+Alarm Entries           : 0
+OMCR Standby Entries    : 0
+OMCR Alarm Entries      : 0
+Rem Num Entries         : 4
+Rem Lcl Deleted Entries : 0
+Rem Alarm Entries       : 0
+Rem OMCR Standby Entries: 0
+Rem OMCR Alarm Entries  : 0
+===============================================================================
+===============================================================================
+
+[/]
+A:admin@seg3-a# logout
+
+seg3
+show lag
+
+[/]
+A:admin@seg3-a# show lag
+
+===============================================================================
+Lag Data
+===============================================================================
+Lag-id         Adm     Opr     Weighted Threshold Up-Count MC Act/Stdby
+    name                                                   
+-------------------------------------------------------------------------------
+13             up      up      No       0         2        N/A
+    lag-13
+23             up      up      No       0         2        N/A
+    lag-23
+-------------------------------------------------------------------------------
+Total Lag-ids: 2       Single Chassis: 2        MC Act: 0       MC Stdby: 0
+===============================================================================
+
+[/]
+A:admin@seg3-a# logout
+
+seg3
+show mda
+
+[/]
+A:admin@seg3-a# show mda
+
+===============================================================================
+MDA Summary
+===============================================================================
+Slot  Mda   Provisioned Type                            Admin     Operational
+                Equipped Type (if different)            State     State
+-------------------------------------------------------------------------------
+1     1     me10-10gb-sfp+                              up        up
+      2     isa2-tunnel                                 up        up
+                me-isa2-ms                                            
+===============================================================================
+
+[/]
+A:admin@seg3-a# logout
+
+seg3
+show system ntp all
+
+[/]
+A:admin@seg3-a# show system ntp all
+
+===============================================================================
+NTP Status
+===============================================================================
+Configured         : Yes                Stratum              : 11
+Admin Status       : up                 Oper Status          : up
+Server Enabled     : No                 Server Authenticate  : No
+Clock Source       : 172.20.30.123
+Auth Check         : Yes                
+Auth Keychain      :                    
+Current Date & Time: 2026/10/25 06:35:18 UTC
+===============================================================================
+
+===============================================================================
+NTP Active Associations
+===============================================================================
+State                     Reference ID    St Type  A  Poll Reach     Offset(ms)
+    Router         Remote                                            
+-------------------------------------------------------------------------------
+chosen                    127.127.1.1     10 srvr  -  64   YYYYYYYY  -0.028
+    management     172.20.30.123
+===============================================================================
+
+===============================================================================
+NTP Clients
+===============================================================================
+vRouter                                                    Time Last Request Rx
+    Address                                                
+-------------------------------------------------------------------------------
+===============================================================================
+
+[/]
+A:admin@seg3-a# logout
+
+seg1
+/configure router "Base"
+
+[/]
+A:admin@seg1-a# /admin show configuration /configure router "Base" bgp group "core"
+    connect-retry 5
+    min-route-advertisement 1
+    peer-as 65000
+    bfd-liveness true
+    import {
+        policy ["accept-all"]
+    }
+    export {
+        policy ["export-ipsec"]
+    }
+
+[/]
+A:admin@seg1-a# logout
+
+seg1
+/configure service vprn "mobile"
+
+[/]
+A:admin@seg1-a# /admin show configuration /configure service vprn "mobile" bgp group "core"
+    connect-retry 5
+    min-route-advertisement 1
+    peer-as 65000
+    bfd-liveness true
+    import {
+        policy ["accept-all"]
+    }
+    export {
+        policy ["export-ipsec"]
+    }
+
+[/]
+A:admin@seg1-a# logout
+
+seg2
+/configure router "Base"
+
+[/]
+A:admin@seg2-a# /admin show configuration /configure router "Base" bgp group "core"
+    connect-retry 5
+    min-route-advertisement 1
+    peer-as 65000
+    bfd-liveness true
+    import {
+        policy ["accept-all"]
+    }
+    export {
+        policy ["export-ipsec"]
+    }
+
+[/]
+A:admin@seg2-a# logout
+
+seg2
+/configure service vprn "mobile"
+
+[/]
+A:admin@seg2-a# /admin show configuration /configure service vprn "mobile" bgp group "core"
+    connect-retry 5
+    min-route-advertisement 1
+    peer-as 65000
+    bfd-liveness true
+    import {
+        policy ["accept-all"]
+    }
+    export {
+        policy ["export-ipsec"]
+    }
+
+[/]
+A:admin@seg2-a# logout
+
+seg3
+/configure router "Base"
+
+[/]
+A:admin@seg3-a# /admin show configuration /configure router "Base" bgp group "core"
+    connect-retry 5
+    min-route-advertisement 1
+    peer-as 65000
+    bfd-liveness true
+    import {
+        policy ["accept-all"]
+    }
+    export {
+        policy ["export-ipsec"]
+    }
+
+[/]
+A:admin@seg3-a# logout
+
+seg3
+/configure service vprn "mobile"
+
+[/]
+A:admin@seg3-a# /admin show configuration /configure service vprn "mobile" bgp group "core"
+    connect-retry 5
+    min-route-advertisement 1
+    peer-as 65000
+    bfd-liveness true
+    import {
+        policy ["accept-all"]
+    }
+    export {
+        policy ["export-ipsec"]
+    }
+
+[/]
+A:admin@seg3-a# logout
+
+ipmpls
+/configure router "Base"
+
+[/]
+A:admin@ipmpls# /admin show configuration /configure router "Base" bgp group "segw"
+    connect-retry 5
+    peer-as 64512
+    bfd-liveness true
+    import {
+        policy ["accept-all"]
+    }
+    export {
+        policy ["export-direct"]
+    }
+
+[/]
+A:admin@ipmpls# logout
+
+ipmpls
+/configure service vprn "mobile"
+
+[/]
+A:admin@ipmpls# /admin show configuration /configure service vprn "mobile" bgp group "segw"
+    connect-retry 5
+    peer-as 64512
+    bfd-liveness true
+    import {
+        policy ["accept-all"]
+    }
+    export {
+        policy ["export-direct"]
+    }
+
+[/]
+A:admin@ipmpls# logout
+
+ipmpls NTP 
+[/]
+A:admin@ipmpls# show system ntp all
+
+===============================================================================
+NTP Status
+===============================================================================
+Configured         : Yes                Stratum              : 11
+Admin Status       : up                 Oper Status          : up
+Server Enabled     : No                 Server Authenticate  : No
+Clock Source       : 172.20.30.123
+Auth Check         : Yes                
+Auth Keychain      :                    
+Current Date & Time: 2026/10/25 06:35:20 UTC
+===============================================================================
+
+===============================================================================
+NTP Active Associations
+===============================================================================
+State                     Reference ID    St Type  A  Poll Reach     Offset(ms)
+    Router         Remote                                            
+-------------------------------------------------------------------------------
+chosen                    127.127.1.1     10 srvr  -  64   YYYYYYYY  -0.035
+    management     172.20.30.123
+===============================================================================
+
+===============================================================================
+NTP Clients
+===============================================================================
+vRouter                                                    Time Last Request Rx
+    Address                                                
+-------------------------------------------------------------------------------
+===============================================================================
+
+[/]
+A:admin@ipmpls# logout
+
+Core final BGP /configure router "Base" 
+[/]
+A:admin@ipmpls# /admin show configuration /configure router "Base" bgp
+    group "segw" {
+        connect-retry 5
+        peer-as 64512
+        bfd-liveness true
+        import {
+            policy ["accept-all"]
+        }
+        export {
+            policy ["export-direct"]
+        }
+    }
+    neighbor "172.31.1.1" {
+        group "segw"
+    }
+    neighbor "172.31.2.1" {
+        group "segw"
+    }
+    neighbor "172.31.3.1" {
+        group "segw"
+    }
+
+[/]
+A:admin@ipmpls# logout
+
+Core final BGP /configure service vprn "mobile" 
+[/]
+A:admin@ipmpls# /admin show configuration /configure service vprn "mobile" bgp
+    group "segw" {
+        connect-retry 5
+        peer-as 64512
+        bfd-liveness true
+        import {
+            policy ["accept-all"]
+        }
+        export {
+            policy ["export-direct"]
+        }
+    }
+    neighbor "172.30.1.1" {
+        group "segw"
+    }
+    neighbor "172.30.2.1" {
+        group "segw"
+    }
+    neighbor "172.30.3.1" {
+        group "segw"
+    }
+
+[/]
+A:admin@ipmpls# logout
+
+
+[/]
+A:admin@seg3-a# show isa tunnel-member-pool pool1 detail
+
+===============================================================================
+ISA Tunnel Member Pool : pool1
+Description            : (Not Specified)
+High Availability      : (Not Specified)
+Associated Tunnel Grps : 1
+Last Config Change     : 10/25/2026 06:32:44
+
+===============================================================================
+Member                        Weight      Hash Slots  Active In Group
+-------------------------------------------------------------------------------
+1/2                                                   
+-------------------------------------------------------------------------------
+Number of Configured Entries: 1
+Number of Active Entries: 0
+===============================================================================
+
+[/]
+A:admin@seg3-a# logout
+
+{
+  "domains": {
+    "seg1": {
+      "act": "active",
+      "prot": "nominal",
+      "current": "10.0.0.1",
+      "installed": 2
+    },
+    "seg2": {
+      "act": "standby",
+      "prot": "nominal",
+      "current": "10.0.0.1",
+      "installed": 2
+    },
+    "seg3": {
+      "act": "standby",
+      "prot": "nominal",
+      "current": "10.0.0.1",
+      "installed": 0
+    }
+  },
+  "paths": {
+    "198.51.100.1/32": "seg1",
+    "10.100.1.1/32": "seg1",
+    "10.100.2.1/32": "seg1"
+  },
+  "ike": [
+    [
+      "2f615c4e27de67ae_i*",
+      "f698fddfdae4a385_r"
+    ],
+    [
+      "28ad74b65f7fd9ae_i*",
+      "96dbc8d7bc6293ab_r"
+    ]
+  ]
+}
+FINAL OPERATIONAL ACCEPTANCE PASS

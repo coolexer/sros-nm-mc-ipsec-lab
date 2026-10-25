@@ -1,0 +1,36 @@
+[07:28:39] Double failure to DS; HA=True
+[07:28:39] waiting: nominal before test
+[07:28:40] ready: nominal before test
+[07:28:40] waiting: expected routes public=seg1, private=seg1
+[07:28:41] ready: expected routes public=seg1, private=seg1
+[07:28:43] before: domains={'seg1': {'act': 'active', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg2': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 0}}, paths={'198.51.100.1/32': 'seg1', '10.100.1.1/32': 'seg1', '10.100.2.1/32': 'seg1'}, IKE=[('2f615c4e27de67ae_i*', 'f698fddfdae4a385_r'), ('28ad74b65f7fd9ae_i*', '96dbc8d7bc6293ab_r')]
+[07:28:43] waiting: 10 consecutive replies on each eNB
+[07:28:47] ready: 10 consecutive replies on each eNB
+[07:28:48] ACTION WINDOW START 1792909728.1354387
+[07:28:48] 
+[/]
+A:admin@seg3-a# /admin show configuration /configure isa
+    tunnel-group 1 {
+        admin-state enable
+        isa-scale-mode tunnel-limit-2k
+        ipsec-responder-only true
+        multi-active {
+            active-isa-number 1
+            member-pool "pool1"
+        }
+    }
+    tunnel-member-pool "pool1" {
+        high-availability tunnel-limit-32k
+        isa 1/2 { }
+    }
+
+[/]
+A:admin@seg3-a# logout
+
+[07:28:49] kill seg1,seg2
+[07:28:49] waiting: seg3 unique OA
+[07:28:54] ready: seg3 unique OA
+[07:28:54] waiting: traffic recovered on DS
+[07:28:55] ready: traffic recovered on DS
+[07:28:58] {"id": "T9", "expected": "seg3", "actual": "seg3", "ike_kept": true, "verdict": "PASS", "traffic": [{"tx": 114, "rx": 90, "lost": 24, "max_gap_s": 2.811016, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 114, "stable_since": 1792909734.456863, "head_s": 0.006135, "tail_s": 0.030754, "explicit_window": true}, {"tx": 114, "rx": 92, "lost": 22, "max_gap_s": 2.602319, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 114, "stable_since": 1792909734.678115, "head_s": 0.005929, "tail_s": 0.067875, "explicit_window": true}]}
+[07:29:00] after: domains={'seg1': {'act': 'down', 'prot': 'unknown', 'current': 'unknown', 'installed': 0}, 'seg2': {'act': 'down', 'prot': 'unknown', 'current': 'unknown', 'installed': 0}, 'seg3': {'act': 'eligible', 'prot': 'notReady', 'current': '10.0.0.3', 'installed': 2}}, paths={'198.51.100.1/32': 'seg3', '10.100.1.1/32': 'seg3', '10.100.2.1/32': 'seg3'}, IKE=[('2f615c4e27de67ae_i*', 'f698fddfdae4a385_r'), ('28ad74b65f7fd9ae_i*', '96dbc8d7bc6293ab_r')]

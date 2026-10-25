@@ -54,7 +54,7 @@
     },
     {
       "id": "mesh-note",
-      "text": "Full-mesh MIMPv2 + MCS (system 10.0.0.1-3)\n2 direct links per pair, OSPF ECMP + BFD 100ms x3\nlink A also carries shunt (Base :1, VPRN :3)",
+      "text": "Full-mesh MIMPv2 + MCS (system 10.0.0.1-3)\n2-member LACP per pair (compact: one IOM)\nControl + public/private shunting share redundant LAGs",
       "position": {
         "x": 760,
         "y": 560
@@ -102,6 +102,18 @@
       "fontFamily": "monospace",
       "fontColor": "#475569",
       "backgroundColor": "transparent",
+      "textAlign": "left"
+    },
+    {
+      "id": "ntp-note",
+      "text": "Common NTP via management\nchronyd -x, local stratum 10\nSecGWs + ipmpls; no data-plane link",
+      "position": {
+        "x": 470,
+        "y": 690
+      },
+      "fontSize": 12,
+      "fontColor": "#6B21A8",
+      "backgroundColor": "#FAF5FF",
       "textAlign": "left"
     }
   ],
@@ -243,6 +255,18 @@
       "groupId": "segw-grp",
       "labelPosition": "bottom",
       "interfacePattern": "1/1/{n}"
+    },
+    {
+      "id": "ntp",
+      "position": {
+        "x": 320,
+        "y": 700
+      },
+      "label": "ntp\n172.20.30.123\nmanagement only",
+      "icon": "server",
+      "iconColor": "#9333EA",
+      "labelPosition": "bottom",
+      "interfacePattern": "eth{n}"
     }
   ],
   "edgeAnnotations": [],

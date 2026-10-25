@@ -1,0 +1,11 @@
+[07:34:02] Baseline and stateful IKE/CHILD availability
+[07:34:02] waiting: nominal before test
+[07:34:03] ready: nominal before test
+[07:34:03] waiting: expected routes public=seg1, private=seg1
+[07:34:03] ready: expected routes public=seg1, private=seg1
+[07:34:05] before: domains={'seg1': {'act': 'active', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg2': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 0}}, paths={'198.51.100.1/32': 'seg1', '10.100.1.1/32': 'seg1', '10.100.2.1/32': 'seg1'}, IKE=[('2f615c4e27de67ae_i*', 'f698fddfdae4a385_r'), ('28ad74b65f7fd9ae_i*', '96dbc8d7bc6293ab_r')]
+[07:34:06] waiting: 10 consecutive replies on each eNB
+[07:34:10] ready: 10 consecutive replies on each eNB
+[07:34:10] ACTION WINDOW START 1792910050.572772
+[07:34:24] {"id": "T0", "expected": "seg1", "actual": "seg1", "ike_kept": true, "verdict": "PASS", "traffic": [{"tx": 147, "rx": 147, "lost": 0, "max_gap_s": 0.1032, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 147, "stable_since": 1792910059.917126, "head_s": 0.007031, "tail_s": 0.007602, "explicit_window": true}, {"tx": 147, "rx": 147, "lost": 0, "max_gap_s": 0.103114, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 147, "stable_since": 1792910060.161796, "head_s": 0.00617, "tail_s": 0.025096, "explicit_window": true}]}
+[07:34:26] after: domains={'seg1': {'act': 'active', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg2': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 0}}, paths={'198.51.100.1/32': 'seg1', '10.100.1.1/32': 'seg1', '10.100.2.1/32': 'seg1'}, IKE=[('2f615c4e27de67ae_i*', 'f698fddfdae4a385_r'), ('28ad74b65f7fd9ae_i*', '96dbc8d7bc6293ab_r')]

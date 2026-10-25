@@ -1,0 +1,83 @@
+
+[/]
+A:admin@seg1-a# show router route-table 10.0.0.2/32
+
+===============================================================================
+Route Table (Router: Base)
+===============================================================================
+Dest Prefix[Flags]                            Type    Proto     Age        Pref
+      Next Hop[Interface Name]                                    Metric   
+-------------------------------------------------------------------------------
+10.0.0.2/32                                   Remote  OSPF      00h00m20s  10
+       10.13.1.1                                                    10
+-------------------------------------------------------------------------------
+No. of Routes: 1
+Flags: n = Number of times nexthop is repeated
+       B = BGP backup route available
+       L = LFA nexthop available
+       S = Sticky ECMP requested
+===============================================================================
+
+[/]
+A:admin@seg1-a# show lag 12 detail
+
+===============================================================================
+LAG Details
+===============================================================================
+Description        : N/A
+-------------------------------------------------------------------------------
+Details
+-------------------------------------------------------------------------------
+Lag-id              : 12                    Mode                 : hybrid
+Lag-name            : lag-12                
+Adm                 : up                    Opr                  : down
+Thres. Last Cleared : 10/24/2026 19:20:19   Thres. Exceeded Cnt  : 0
+Dynamic Cost        : false                 Encap Type           : dot1q
+Configured Address  : 1c:18:05:00:01:4c     Lag-IfIndex          : 1342177292
+Hardware Address    : 1c:18:05:00:01:4c     Adapt Qos (access)   : distribute
+Hold-time Down      : 0.0 sec               Port Type            : standard
+Per-Link-Hash       : disabled              
+Include-Egr-Hash-Cfg: disabled              Forced               : -
+Per FP Ing Queuing  : disabled              Per FP Egr Queuing   : disabled
+Per FP SAP Instance : disabled              
+Access Bandwidth    : N/A                   Access Booking Factor: 100
+Access Available BW : 0                     
+Access Booked BW    : 0                     
+LACP                : enabled               Mode                 : active
+LACP Transmit Intvl : fast                  LACP xmit stdby      : enabled
+Selection Criteria  : highest-count         Slave-to-partner     : disabled
+MUX control         : coupled               
+Subgrp hold time    : 0.0 sec               Remaining time       : 0.0 sec
+Subgrp selected     : 1                     Subgrp candidate     : -
+Subgrp count        : 1                     
+LACP fallback       : none                  
+Fallback timeout    : N/A                   Fallback remain.time : N/A
+System Id           : 1c:18:05:00:00:00     System Priority      : 32768
+Admin Key           : 12                    Oper Key             : 12
+Prtr System Id      : 00:00:00:00:00:00     Prtr System Priority : 0
+Prtr Oper Key       : 0                     
+Standby Signaling   : lacp                  
+Port hashing        : port-speed            
+Ports Up            : 0                     
+Hash-Weights Up     : 0                     
+Monitor oper group  : N/A
+LAG Oper Group      : N/A
+Adaptive loadbal.   : disabled              Tolerance            : N/A
+
+-------------------------------------------------------------------------------
+Port-id         Adm     Act/Stdby Opr     Primary  Sub-group     Forced  Prio 
+-------------------------------------------------------------------------------
+1/1/1           down    active    down    yes      1             -       32768
+1/1/2           down    active    down             1             -       32768
+
+-------------------------------------------------------------------------------
+Port-id         Role      Exp   Def   Dist  Col   Syn   Aggr  Timeout  Activity
+-------------------------------------------------------------------------------
+1/1/1           actor     No    No    No    No    No    Yes   Yes      Yes
+1/1/1           partner   No    No    Yes   Yes   No    Yes   Yes      Yes
+1/1/2           actor     No    No    No    No    No    Yes   Yes      Yes
+1/1/2           partner   No    No    Yes   Yes   No    Yes   Yes      Yes
+===============================================================================
+
+[/]
+A:admin@seg1-a# logout

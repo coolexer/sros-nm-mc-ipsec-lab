@@ -59,6 +59,14 @@ topology:
         - configs/enb-start.sh:/enb-start.sh:ro
       exec:
         - sh /enb-start.sh 2
+    ntp:
+      kind: linux
+      image: enb-strongswan:local
+      mgmt-ipv4: 172.20.30.123
+      binds:
+        - configs/chrony.conf:/etc/chrony/lab.conf:ro
+      exec:
+        - chronyd -x -f /etc/chrony/lab.conf
     mme:
       kind: linux
       exec:

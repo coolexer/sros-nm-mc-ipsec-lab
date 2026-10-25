@@ -1,0 +1,12 @@
+[21:41:09] One LAG member failure; control and shunt transport survive
+[21:41:09] waiting: nominal before test
+[21:41:10] ready: nominal before test
+[21:41:10] waiting: expected routes public=seg1, private=seg1
+[21:41:10] ready: expected routes public=seg1, private=seg1
+[21:41:14] before: domains={'seg1': {'act': 'active', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg2': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 0}}, paths={'198.51.100.1/32': 'seg1', '10.100.1.1/32': 'seg1', '10.100.2.1/32': 'seg1'}, IKE=[('f1821a37f66822ee_i*', '26f56e0848a8e8fa_r'), ('742623a80fa72753_i*', 'fba8afadb3ab7da8_r')]
+[21:41:14] waiting: 10 consecutive replies on each eNB
+[21:41:18] ready: 10 consecutive replies on each eNB
+[21:41:19] ACTION WINDOW START 1792870879.5578308
+[21:41:20] cfg seg1: /configure port 1/1/1 admin-state disable
+[21:41:40] {"id": "T5", "expected": "seg1", "actual": "seg1", "ike_kept": true, "verdict": "PASS", "traffic": [{"tx": 210, "rx": 210, "lost": 0, "max_gap_s": 0.119342, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 210, "stable_since": 1792870894.466675, "head_s": 0.009951, "tail_s": 0.028311, "explicit_window": true}, {"tx": 210, "rx": 210, "lost": 0, "max_gap_s": 0.134289, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 210, "stable_since": 1792870894.83327, "head_s": 0.010237, "tail_s": 0.006559, "explicit_window": true}]}
+[21:41:42] after: domains={'seg1': {'act': 'active', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg2': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 0}}, paths={'198.51.100.1/32': 'seg1', '10.100.1.1/32': 'seg1', '10.100.2.1/32': 'seg1'}, IKE=[('f1821a37f66822ee_i*', '26f56e0848a8e8fa_r'), ('742623a80fa72753_i*', 'fba8afadb3ab7da8_r')]

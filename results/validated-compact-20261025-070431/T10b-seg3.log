@@ -1,0 +1,12 @@
+[07:06:01] Negative control: public shunting removed on seg3
+[07:06:01] waiting: nominal before test
+[07:06:02] ready: nominal before test
+[07:06:02] waiting: expected routes public=seg3, private=seg1
+[07:06:03] ready: expected routes public=seg3, private=seg1
+[07:06:05] before: domains={'seg1': {'act': 'active', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg2': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 0}}, paths={'198.51.100.1/32': 'seg3', '10.100.1.1/32': 'seg1', '10.100.2.1/32': 'seg1'}, IKE=[('bc7fee581da40d2a_i*', 'd903f8dd961f3401_r'), ('b77c45ed962ca8b7_i*', 'b03608c5a8e8c910_r')]
+[07:06:05] waiting: 10 consecutive replies on each eNB
+[07:06:09] ready: 10 consecutive replies on each eNB
+[07:06:09] ACTION WINDOW START 1792908369.9344482
+[07:06:10] cfg seg3: delete /configure service ies "public" interface "pub" multi-chassis-shunting-profile
+[07:06:23] {"id": "T10b-seg3", "expected": "seg1", "actual": "seg1", "ike_kept": true, "verdict": "PASS", "traffic": [{"tx": 139, "rx": 47, "lost": 92, "max_gap_s": 10.507489, "recovered": false, "first_reply_seq": 1, "last_reply_seq": 47, "stable_since": 1792908369.220325, "head_s": 0.0079, "tail_s": 10.507489, "explicit_window": true}, {"tx": 140, "rx": 44, "lost": 96, "max_gap_s": 10.827042, "recovered": false, "first_reply_seq": 1, "last_reply_seq": 44, "stable_since": 1792908369.148927, "head_s": 0.006065, "tail_s": 10.827042, "explicit_window": true}]}
+[07:06:25] after: domains={'seg1': {'act': 'active', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg2': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 0}}, paths={'198.51.100.1/32': 'seg3', '10.100.1.1/32': 'seg1', '10.100.2.1/32': 'seg1'}, IKE=[('bc7fee581da40d2a_i*', 'd903f8dd961f3401_r'), ('b77c45ed962ca8b7_i*', 'b03608c5a8e8c910_r')]

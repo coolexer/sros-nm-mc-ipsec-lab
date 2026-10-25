@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Generate SR OS partial configs and strongSwan configs for the N:M SecGW lab."""
 from pathlib import Path
+import argparse
 
 OUT = Path(__file__).parent / "configs"
 
@@ -14,7 +15,7 @@ SEGW = {
     3: {"role": "standby", "prio": 200},
 }
 
-# Two MIMPv2/MCS links per SeGW pair, (lower-node port, higher-node port) for link A and link B.
+# Two physical LAG members per pair. --dual-iom moves member B to IOM 2.
 # Must match the links in nm-mc-ipsec.clab.yml.
 LINKS = {
     (1, 2): [("1/1/1", "1/1/1"), ("1/1/2", "1/1/2")],
@@ -49,6 +50,18 @@ def segw(n):
     port_cfg = "\n".join(
         f"    port {pt} {{ admin-state enable ethernet {{ mode hybrid encap-type dot1q }} }}" for pt in ports
     )
+    lag_cfg = []
+    for peer in peers:
+        lag_id = f"{min(n, peer)}{max(n, peer)}"
+        members = [link[2] for link in links if link[0] == peer]
+        lag_cfg.append(f'''    lag "lag-{lag_id}" {{
+        admin-state enable
+        mode hybrid
+        encap-type dot1q
+        lacp {{ mode active administrative-key {lag_id} }}
+        port {members[0]} {{ }}
+        port {members[1]} {{ }}
+    }}''')
 
     if p["role"] == "active":
         isa = """    isa {
@@ -81,6 +94,9 @@ def segw(n):
     base_if = []
     ospf_if = []
     for peer, idx, port, lip, _pip, _sl, _sp in links:
+        if idx != 1:
+            continue
+        port = f"lag-{min(n, peer)}{max(n, peer)}"
         name = f"to-seg{peer}-{'ab'[idx - 1]}"
         base_if.append(
             f'        interface "{name}" {{ port {port}:1 ipv4 {{ primary {{ address {lip} prefix-length 31 }} {BFD} }} }}'
@@ -94,6 +110,7 @@ def segw(n):
     for peer, idx, port, lip, pip, sl, sp in links:
         if idx != 1:
             continue
+        port = f"lag-{min(n, peer)}{max(n, peer)}"
         shunt_pub_if.append(
             f'            multi-chassis-shunt-interface "to-seg{peer}-a" {{ next-hop {{ address {pip} }} }}'
         )
@@ -128,6 +145,8 @@ def segw(n):
     nl = "\n"
     return f"""configure {{
 {port_cfg}
+{nl.join(lag_cfg)}
+    system {{ time {{ ntp {{ admin-state enable server 172.20.30.123 router-instance "management" {{ prefer true }} }} }} }}
     port 1/1/9 {{ admin-state enable ethernet {{ mode network }} }}
     port 1/1/10 {{ admin-state enable ethernet {{ mode access }} }}
 {isa}
@@ -198,6 +217,8 @@ def segw(n):
         bgp {{
             group "core" {{
                 peer-as {CORE_AS}
+                connect-retry 5
+                min-route-advertisement 1
                 bfd-liveness true
                 import {{ policy ["accept-all"] }}
                 export {{ policy ["export-ipsec"] }}
@@ -233,6 +254,8 @@ def segw(n):
             bgp {{
                 group "core" {{
                     peer-as {CORE_AS}
+                    connect-retry 5
+                    min-route-advertisement 1
                     bfd-liveness true
                     import {{ policy ["accept-all"] }}
                     export {{ policy ["export-ipsec"] }}
@@ -269,6 +292,7 @@ def ipmpls():
     priv = {1: "1/1/c2", 2: "1/1/c4", 3: "1/1/c6"}
     edge = {"enb1": "1/2/c1", "enb2": "1/2/c2", "mme": "1/2/c3"}
     lines = ["configure {"]
+    lines.append('    system { time { ntp { admin-state enable server 172.20.30.123 router-instance "management" { prefer true } } } }')
     for c in list(pub.values()) + list(priv.values()) + list(edge.values()):
         lines.append(f"    port {c} {{ admin-state enable connector {{ breakout c1-100g }} }}")
     for c in list(pub.values()) + [edge["enb1"], edge["enb2"]]:
@@ -295,6 +319,7 @@ def ipmpls():
     lines.append(f"""        bgp {{
             group "segw" {{
                 peer-as {SEGW_AS}
+                connect-retry 5
                 bfd-liveness true
                 import {{ policy ["accept-all"] }}
                 export {{ policy ["export-direct"] }}
@@ -317,6 +342,7 @@ def ipmpls():
     lines.append(f"""            bgp {{
                 group "segw" {{
                     peer-as {SEGW_AS}
+                    connect-retry 5
                     bfd-liveness true
                     import {{ policy ["accept-all"] }}
                     export {{ policy ["export-direct"] }}
@@ -370,14 +396,21 @@ secrets {{
 
 
 def main():
+    global LINKS
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--dual-iom', action='store_true', help='Generate for profiles/dual-iom.clab.yml')
+    if parser.parse_args().dual_iom:
+        moved = {'1/1/2': '2/1/1', '1/1/4': '2/1/3'}
+        LINKS = {pair: [(moved.get(a, a), moved.get(b, b)) for a, b in links]
+                 for pair, links in LINKS.items()}
     OUT.mkdir(exist_ok=True)
     for n in SEGW:
-        (OUT / f"seg{n}.partial.cfg").write_text(segw(n))
-    (OUT / "ipmpls.partial.cfg").write_text(ipmpls())
+        (OUT / f"seg{n}.partial.cfg").write_text(segw(n), encoding="utf-8", newline="\n")
+    (OUT / "ipmpls.partial.cfg").write_text(ipmpls(), encoding="utf-8", newline="\n")
     for n in (1, 2):
         d = OUT / f"enb{n}"
         d.mkdir(exist_ok=True)
-        (d / "swanctl.conf").write_text(swanctl(n))
+        (d / "swanctl.conf").write_text(swanctl(n), encoding="utf-8", newline="\n")
     print("configs written to", OUT)
 
 

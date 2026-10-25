@@ -1,0 +1,10 @@
+{
+  "topology": "/home/clab/tmo-cz-secgw-nm/tmo-secgw-nm.clab.yml",
+  "lab": "tmo-secgw-nm",
+  "started": 1792909470.5062582,
+  "tests": [
+    "T9",
+    "T0"
+  ],
+  "runner_sha256": "7950b4594b49b7a86681f5174cd0ce284a6af7c5ec8a928b8e72ea13b38e0332"
+}

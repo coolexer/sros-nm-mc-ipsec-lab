@@ -1,0 +1,72 @@
+[
+  {
+    "id": "T8",
+    "expected": "seg3",
+    "actual": "seg3",
+    "ike_kept": true,
+    "verdict": "PASS",
+    "traffic": [
+      {
+        "tx": 113,
+        "rx": 88,
+        "lost": 25,
+        "max_gap_s": 2.948076,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 113,
+        "stable_since": 1792871916.006942,
+        "head_s": 0.006649,
+        "tail_s": 0.077193,
+        "explicit_window": true
+      },
+      {
+        "tx": 113,
+        "rx": 87,
+        "lost": 26,
+        "max_gap_s": 3.033308,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 113,
+        "stable_since": 1792871916.237762,
+        "head_s": 0.00851,
+        "tail_s": 0.097091,
+        "explicit_window": true
+      }
+    ]
+  },
+  {
+    "id": "T8r",
+    "expected": "unique",
+    "actual": "seg3",
+    "ike_kept": true,
+    "verdict": "PASS",
+    "traffic": [
+      {
+        "tx": 978,
+        "rx": 978,
+        "lost": 0,
+        "max_gap_s": 0.184367,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 978,
+        "stable_since": 1792872021.552509,
+        "head_s": 0.005719,
+        "tail_s": 0.078262,
+        "explicit_window": true
+      },
+      {
+        "tx": 980,
+        "rx": 980,
+        "lost": 0,
+        "max_gap_s": 0.154362,
+        "recovered": true,
+        "first_reply_seq": 1,
+        "last_reply_seq": 980,
+        "stable_since": 1792872021.990406,
+        "head_s": 0.006401,
+        "tail_s": 0.000809,
+        "explicit_window": true
+      }
+    ]
+  }
+]

@@ -1,0 +1,12 @@
+[07:07:05] Negative control: private shunting removed on seg2
+[07:07:05] waiting: nominal before test
+[07:07:06] ready: nominal before test
+[07:07:06] waiting: expected routes public=seg1, private=seg2
+[07:07:06] ready: expected routes public=seg1, private=seg2
+[07:07:09] before: domains={'seg1': {'act': 'active', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg2': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 0}}, paths={'198.51.100.1/32': 'seg1', '10.100.1.1/32': 'seg2', '10.100.2.1/32': 'seg2'}, IKE=[('bc7fee581da40d2a_i*', 'd903f8dd961f3401_r'), ('b77c45ed962ca8b7_i*', 'b03608c5a8e8c910_r')]
+[07:07:09] waiting: 10 consecutive replies on each eNB
+[07:07:13] ready: 10 consecutive replies on each eNB
+[07:07:13] ACTION WINDOW START 1792908433.9270515
+[07:07:14] cfg seg2: delete /configure service vprn "mobile" interface "priv" multi-chassis-shunting-profile
+[07:07:27] {"id": "T11b-seg2", "expected": "seg1", "actual": "seg1", "ike_kept": true, "verdict": "PASS", "traffic": [{"tx": 140, "rx": 47, "lost": 93, "max_gap_s": 10.581953, "recovered": false, "first_reply_seq": 1, "last_reply_seq": 47, "stable_since": 1792908433.173673, "head_s": 0.009272, "tail_s": 10.581953, "explicit_window": true}, {"tx": 140, "rx": 45, "lost": 95, "max_gap_s": 10.799917, "recovered": false, "first_reply_seq": 1, "last_reply_seq": 45, "stable_since": 1792908433.216879, "head_s": 0.007801, "tail_s": 10.799917, "explicit_window": true}]}
+[07:07:29] after: domains={'seg1': {'act': 'active', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg2': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 0}}, paths={'198.51.100.1/32': 'seg1', '10.100.1.1/32': 'seg2', '10.100.2.1/32': 'seg2'}, IKE=[('bc7fee581da40d2a_i*', 'd903f8dd961f3401_r'), ('b77c45ed962ca8b7_i*', 'b03608c5a8e8c910_r')]

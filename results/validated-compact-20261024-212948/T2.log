@@ -1,0 +1,16 @@
+[21:30:12] ISA failure, stateful failover and ISA recovery
+[21:30:12] waiting: nominal before test
+[21:30:14] ready: nominal before test
+[21:30:14] waiting: expected routes public=seg1, private=seg1
+[21:30:14] ready: expected routes public=seg1, private=seg1
+[21:30:17] before: domains={'seg1': {'act': 'active', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg2': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 0}}, paths={'198.51.100.1/32': 'seg1', '10.100.1.1/32': 'seg1', '10.100.2.1/32': 'seg1'}, IKE=[('f1821a37f66822ee_i*', '26f56e0848a8e8fa_r'), ('742623a80fa72753_i*', 'fba8afadb3ab7da8_r')]
+[21:30:18] waiting: 10 consecutive replies on each eNB
+[21:30:22] ready: 10 consecutive replies on each eNB
+[21:30:23] ACTION WINDOW START 1792870223.6675453
+[21:30:25] cfg seg1: /configure card 1 mda 2 admin-state disable
+[21:30:25] waiting: seg2 OA
+[21:30:29] ready: seg2 OA
+[21:30:29] waiting: traffic recovered before ISA restoration
+[21:30:30] ready: traffic recovered before ISA restoration
+[21:30:35] {"id": "T2", "expected": "seg2", "actual": "seg2", "ike_kept": true, "verdict": "PASS", "traffic": [{"tx": 125, "rx": 122, "lost": 3, "max_gap_s": 0.436189, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 125, "stable_since": 1792870230.050754, "head_s": 0.010493, "tail_s": 0.000671, "explicit_window": true}, {"tx": 126, "rx": 123, "lost": 3, "max_gap_s": 0.460925, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 126, "stable_since": 1792870230.477136, "head_s": 0.01028, "tail_s": 0.062376, "explicit_window": true}]}
+[21:30:38] after: domains={'seg1': {'act': 'notEligible', 'prot': 'notReady', 'current': '10.0.0.2', 'installed': 0}, 'seg2': {'act': 'active', 'prot': 'notReady', 'current': '10.0.0.2', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'notReady', 'current': '10.0.0.2', 'installed': 0}}, paths={'198.51.100.1/32': 'seg2', '10.100.1.1/32': 'seg2', '10.100.2.1/32': 'seg2'}, IKE=[('f1821a37f66822ee_i*', '26f56e0848a8e8fa_r'), ('742623a80fa72753_i*', 'fba8afadb3ab7da8_r')]

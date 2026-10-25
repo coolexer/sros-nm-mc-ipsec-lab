@@ -1,0 +1,25 @@
+[21:42:56] Continuous traffic across OA failure and node return
+[21:42:56] waiting: nominal before test
+[21:42:58] ready: nominal before test
+[21:42:58] waiting: expected routes public=seg1, private=seg1
+[21:42:58] ready: expected routes public=seg1, private=seg1
+[21:43:01] before: domains={'seg1': {'act': 'active', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg2': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.1', 'installed': 0}}, paths={'198.51.100.1/32': 'seg1', '10.100.1.1/32': 'seg1', '10.100.2.1/32': 'seg1'}, IKE=[('f1821a37f66822ee_i*', '26f56e0848a8e8fa_r'), ('742623a80fa72753_i*', 'fba8afadb3ab7da8_r')]
+[21:43:02] waiting: 10 consecutive replies on each eNB
+[21:43:06] ready: 10 consecutive replies on each eNB
+[21:43:06] ACTION WINDOW START 1792870986.940146
+[21:43:08] kill seg1
+[21:43:08] waiting: seg2 OA
+[21:43:14] ready: seg2 OA
+[21:43:14] waiting: traffic restored BEFORE restarting failed node
+[21:43:15] ready: traffic restored BEFORE restarting failed node
+[21:43:17] failover recovered: domains={'seg1': {'act': 'down', 'prot': 'unknown', 'current': 'unknown', 'installed': 0}, 'seg2': {'act': 'active', 'prot': 'notReady', 'current': '10.0.0.2', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'notReady', 'current': '10.0.0.2', 'installed': 0}}, paths={'198.51.100.1/32': 'seg2', '10.100.1.1/32': 'seg2', '10.100.2.1/32': 'seg2'}, IKE=[('f1821a37f66822ee_i*', '26f56e0848a8e8fa_r'), ('742623a80fa72753_i*', 'fba8afadb3ab7da8_r')]
+[21:43:18] NODE RETURN WINDOW START 1792870998.3499496
+[21:43:19] start seg1
+[21:43:19] waiting: seg1 CLI
+[21:43:40] ready: seg1 CLI
+[21:43:40] waiting: nominal after node return
+[21:44:55] ready: nominal after node return
+[21:44:55] waiting: stable after return
+[21:44:56] ready: stable after return
+[21:45:02] {"id": "T7", "expected": "seg2", "actual": "seg2", "ike_kept": true, "verdict": "PASS", "traffic": [{"tx": 1145, "rx": 1120, "lost": 25, "max_gap_s": 2.947024, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 1145, "stable_since": 1792871096.677024, "head_s": 0.010608, "tail_s": 0.093492, "explicit_window": true}, {"tx": 1146, "rx": 1121, "lost": 25, "max_gap_s": 2.95339, "recovered": true, "first_reply_seq": 1, "last_reply_seq": 1146, "stable_since": 1792871097.066652, "head_s": 0.009794, "tail_s": 0.083639, "explicit_window": true}]}
+[21:45:04] after: domains={'seg1': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.2', 'installed': 2}, 'seg2': {'act': 'active', 'prot': 'nominal', 'current': '10.0.0.2', 'installed': 2}, 'seg3': {'act': 'standby', 'prot': 'nominal', 'current': '10.0.0.2', 'installed': 0}}, paths={'198.51.100.1/32': 'seg2', '10.100.1.1/32': 'seg2', '10.100.2.1/32': 'seg2'}, IKE=[('f1821a37f66822ee_i*', '26f56e0848a8e8fa_r'), ('742623a80fa72753_i*', 'fba8afadb3ab7da8_r')]
