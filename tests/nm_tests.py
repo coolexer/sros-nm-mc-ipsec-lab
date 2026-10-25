@@ -312,18 +312,27 @@ def verdict(expected, loss_class, actual, kept, data):
     return 'PASS'
 
 
-def finish(expected, loss_class='any'):
+def finish(expected, loss_class='any', pub=None, private=None):
     data = stop_traffic()
     for item in data:
         item.pop('received_sequences')
-    actual = owner()
-    kept = SPI_BEFORE is not None and sas() == SPI_BEFORE
+    states = domains()
+    actual = owner(states)
+    table = paths()
+    ike = sas()
+    kept = SPI_BEFORE is not None and ike == SPI_BEFORE
+    pub, private = pub or actual, private or actual
+    routes_ok = table['198.51.100.1/32'] == pub and all(table[f'10.100.{n}.1/32'] == private for n in (1, 2))
+    installed = states.get(actual, {}).get('installed', 0)
     status = verdict(expected, loss_class, actual, kept, data)
-    row = dict(id=CASE, expected=expected, actual=actual, ike_kept=kept, verdict=status, traffic=data)
+    if status == 'PASS' and (not routes_ok or installed != 2):
+        status = 'FAIL'
+    row = dict(id=CASE, expected=expected, actual=actual, ike_kept=kept, verdict=status, traffic=data,
+               forwarding=dict(public=pub, private=private, paths=table, installed=installed))
     RESULTS.append(row)
     save_results()
     log(json.dumps(row))
-    snapshot('after')
+    log(f'after: domains={states}, paths={table}, IKE={ike}')
     if status != 'PASS':
         raise LabError('Test failed: ' + CASE)
 
@@ -641,11 +650,11 @@ def shunting(side):
         pub, private = (target, 'seg1') if side == 'public' else ('seg1', target)
         begin(number + '-' + target, f'{side} shunting through {target}', pub, private)
         time.sleep(10)
-        finish('seg1', 'none')
+        finish('seg1', 'none', pub=pub, private=private)
         begin(number + 'b-' + target, f'Negative control: {side} shunting removed on {target}', pub, private)
         cfg(target, f'delete {context} multi-chassis-shunting-profile')
         time.sleep(10)
-        finish('seg1', 'blocked')
+        finish('seg1', 'blocked', pub=pub, private=private)
         cfg(target, f'{context} multi-chassis-shunting-profile "{profile}"')
         wait('both CHILD SAs after shunt restoration', lambda: sas() is not None, 120)
     unpin()
@@ -661,7 +670,7 @@ def T12():
     wait('routes pinned to former OA', lambda: routes_to('seg1', 'seg1'), 120)
     time.sleep(10)
     wait('shunting through surviving member B', traffic_stable, 30)
-    finish('seg2')
+    finish('seg2', pub='seg1', private='seg1')
     unpin()
     cfg('seg1', '/configure port 1/1/1 admin-state enable')
 

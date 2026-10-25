@@ -4,7 +4,7 @@ license*.txt
 # containerlab runtime directories
 clab-*/
 .*.clab.yml.bak
-# local test output (published results live in results/raw)
+# local test output (published evidence lives in results/validated-*)
 results/*.md
 results/*.ping
 results/*.log

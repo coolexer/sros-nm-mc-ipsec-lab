@@ -67,7 +67,7 @@ python3 gen_configs.py                                  # (re)generates configs/
 sudo containerlab deploy -t nm-mc-ipsec.clab.yml --reconfigure  # fresh generated config; resets saved device config
 python3 -m unittest discover -s tests -v
 ./tests/nm_tests.sh T0                                  # baseline check
-./tests/nm_tests.sh all                                 # full program, ~1.5-2 h on a laptop
+./tests/nm_tests.sh all                                 # full 29-window program; includes offline HA preparation
 latest=$(find results -mindepth 1 -maxdepth 1 -type d -name '20*' | sort | tail -1)
 cat "$latest/SUMMARY.md"
 ```

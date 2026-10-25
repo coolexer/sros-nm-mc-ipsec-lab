@@ -274,3 +274,29 @@ Full protocol: [operational.log](results/validated-final-state/operational.log).
 The scenarios and configuration were checked against the
 [Nokia SR OS 26.7 IP tunnels guide](https://documentation.nokia.com/sr/26-7/7750-sr/books/ms-isa-esa/ip-tunnels.html)
 and the command references listed in the [test program](TEST-PROGRAM.md).
+
+## Repository consistency audit
+
+An offline repository audit on 25 October 2026 checked the source, generated artifacts
+and published evidence. The accepted measurement files retain their original bytes and
+source-invocation metadata; this audit does not introduce a new live failover measurement.
+
+| Check | Verified result |
+|---|---|
+| Configuration generation | The compact generator reproduces all six committed configuration files byte for byte. Both topology profiles have 15 links with unique endpoints and matching two-member LAG bindings. |
+| Nokia design basis | DA/DS election order, full-mesh peering, direct public/private shunting, normal/HA pool behavior, responder-only operation, DPD, lifetimes and shared NTP agree with the documented functional design. |
+| Runner regression | 30 offline regression tests, including replay of all 29 accepted windows through the OA, IKE, installed-tunnel and expected-route checks. |
+| Measurement integrity | All 58 original ping traces reproduce the stored metrics; all 142 evidence-file SHA-256 checksums match. |
+| Documentation | Five English Markdown documents in the repository root; local links, image references and heading fragments resolve. |
+| Diagrams | All 61 SVGs parse and render; marker/filter references resolve. The generators reproduce all 58 scenario SVGs and the topology gallery byte for byte. |
+| Windows/WSL checkout | Executable text uses LF; published evidence preserves its exact bytes, including metadata, when Git uses automatic Windows line-ending conversion. |
+| Shell helpers | ShellCheck passes; an absent or empty configuration file is rejected before the CLI helper is called. |
+
+The current runner records and validates forwarding explicitly. Replaying the archived
+after-action snapshots confirms that the existing accepted windows meet these checks too.
+Their original runner checksums describe the measurement-time version and are retained.
+
+Audit scope is the GitHub repository and its published evidence. The compact profile's
+shared IOM/MDA, two-tunnel scale and simulated BFD timing remain the stated test conditions.
+The dual-IOM profile is a reference layout; hardware failure domains, congestion/QoS behavior
+and production numerical SLAs require their own acceptance program.

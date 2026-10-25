@@ -1,6 +1,12 @@
-"""Regression checks for failures that previously produced misleading PASS/gaps."""
+"""Offline regression checks for measurement validity and forwarding acceptance."""
 import unittest
+import ast
+import hashlib
+import json
 from pathlib import Path
+import re
+import shutil
+import subprocess
 import tempfile
 from unittest.mock import patch
 from ping_metrics import metrics
@@ -17,6 +23,70 @@ def trace(sequences, tx=20, stop=2.1):
 
 
 class RunnerChecks(unittest.TestCase):
+    def test_published_evidence_checksums(self):
+        manifest = json.loads((lab.ROOT/'results/validated-evidence-sha256.json').read_text())
+        published = {path.relative_to(lab.ROOT).as_posix()
+                     for folder in (lab.ROOT/'results').glob('validated-*') if folder.is_dir()
+                     for path in folder.rglob('*') if path.is_file()}
+        self.assertEqual(set(manifest), published)
+        for name, expected in manifest.items():
+            with self.subTest(file=name):
+                self.assertEqual(hashlib.sha256((lab.ROOT/name).read_bytes()).hexdigest(), expected)
+
+    def test_finish_rejects_wrong_routes_or_missing_tunnels(self):
+        good = metrics(trace(set(range(1, 21))))
+        expected_paths = {'198.51.100.1/32': 'seg1', '10.100.1.1/32': 'seg1', '10.100.2.1/32': 'seg1'}
+        for installed, table in [(1, expected_paths), (2, dict(expected_paths, **{'10.100.2.1/32': 'seg2'}))]:
+            with self.subTest(installed=installed, table=table), \
+                 patch.object(lab, 'stop_traffic', return_value=[dict(good), dict(good)]), \
+                 patch.object(lab, 'domains', return_value={'seg1': {'act': 'active', 'installed': installed}}), \
+                 patch.object(lab, 'paths', return_value=table), patch.object(lab, 'sas', return_value=[('i', 'r')]), \
+                 patch.object(lab, 'SPI_BEFORE', [('i', 'r')]), patch.object(lab, 'RESULTS', []), \
+                 patch.object(lab, 'save_results'), patch.object(lab, 'log'):
+                with self.assertRaisesRegex(lab.LabError, 'Test failed'):
+                    lab.finish('seg1', 'none')
+                self.assertEqual(lab.RESULTS[-1]['verdict'], 'FAIL')
+
+    def test_published_windows_replay_with_forwarding_checks(self):
+        rows = json.loads((lab.ROOT/'results/validated-compact-index.json').read_text())
+        self.assertEqual(len(rows), 29)
+        self.assertEqual(len({row['id'] for row in rows}), 29)
+        for row in rows:
+            case = row['id']
+            folder = lab.ROOT/'results'/('validated-compact-'+row['run'])
+            text = (folder/(case+'.log')).read_text()
+            after = re.search(r'after: domains=(.*), paths=(.*), IKE=(.*)', text)
+            before = re.search(r'before: domains=.*?, IKE=(.*)', text)
+            states, table, ike = [ast.literal_eval(value) for value in after.groups()]
+            data = [metrics((folder/f'{case}-enb{n}.ping').read_text()) for n in (1, 2)]
+            self.assertEqual([{k: v for k, v in d.items() if k != 'received_sequences'} for d in data], row['traffic'])
+            pub = case.split('-')[-1] if case.startswith(('T10-', 'T10b-')) else 'seg1' if case == 'T12' else row['actual']
+            private = case.split('-')[-1] if case.startswith(('T11-', 'T11b-')) else 'seg1' if case == 'T12' else row['actual']
+            no_loss = case in ('T0', 'T3', 'T5', 'T6', 'T8r', 'T9r', 'T13r', 'T14r') or case.startswith(('T10-', 'T11-'))
+            loss = 'blocked' if case.startswith(('T10b-', 'T11b-')) else 'none' if no_loss else 'any'
+            with self.subTest(case=case), patch.object(lab, 'CASE', case), \
+                 patch.object(lab, 'stop_traffic', return_value=data), patch.object(lab, 'domains', return_value=states), \
+                 patch.object(lab, 'paths', return_value=table), patch.object(lab, 'sas', return_value=ike), \
+                 patch.object(lab, 'SPI_BEFORE', ast.literal_eval(before[1])), patch.object(lab, 'RESULTS', []), \
+                 patch.object(lab, 'save_results'), patch.object(lab, 'log'):
+                lab.finish(row['expected'], loss, pub=pub, private=private)
+                self.assertEqual(lab.RESULTS[-1]['verdict'], 'PASS')
+
+    def test_apply_config_rejects_missing_or_empty_file_before_cli(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            shutil.copy2(lab.ROOT/'apply_cfg.sh', root/'apply_cfg.sh')
+            helper = root/'sros.sh'
+            helper.write_text('#!/bin/sh\ncat >/dev/null\ntouch contacted\nprintf "commit accepted\\n"\n')
+            helper.chmod(0o755)
+            empty = root/'empty.cfg'
+            empty.touch()
+            for path in (root/'missing.cfg', empty):
+                result = subprocess.run(['bash', str(root/'apply_cfg.sh'), str(path), 'seg1'], capture_output=True, text=True)
+                self.assertEqual(result.returncode, 1)
+                self.assertIn('missing, unreadable or empty', result.stderr)
+                self.assertFalse((root/'contacted').exists())
+
     def test_peer_sync_must_match_the_surviving_peer(self):
         text = ('Peer IP Address : 10.0.0.1\nSync Oper State : Up\nDB Sync State : inSync\n'
                 'Peer IP Address : 10.0.0.3\nSync Oper State : Down\nDB Sync State : notReady\n')

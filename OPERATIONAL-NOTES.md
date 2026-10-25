@@ -19,7 +19,7 @@ stratum 10 and runs with `-x`, providing a common WSL-based time reference witho
 the host clock. Production uses an agreed external time source. Verify `show system ntp all`
 and the selected Clock Source on each router.
 
-## HA pool preparation before T9
+## HA pool preparation before T9 and T14
 
 Preparation is separate from the measured fault. Start with OA on seg1 or seg2, an agreed
 Current Active and nominal on all participants.
@@ -33,7 +33,7 @@ Current Active and nominal on all participants.
 5. Observe the operational ISA for 60 s. Start the DAs sequentially, checking each CLI
    and its forwarding routes.
 6. Wait for both IKE/CHILD sessions, successful readiness probes, nominal and normal routes
-   through seg1. Capture T9's reference SPI pairs only after preparation is complete.
+   through seg1. Capture the test's reference SPI pairs only after preparation is complete.
 
 These are this lab's operating conditions, not Nokia hardware capacity specifications.
 HA 32k defines the pool limit; the program uses two IPsec tunnels. `prepare_pool()` implements
@@ -41,9 +41,9 @@ the procedure; pool-preparation logs in the final evidence group record the actu
 
 ## Return to normal mode
 
-After T9r, return OA to seg1 and maintain standby seg3: disable ISA, set
+After T9r or T14r, return OA to seg1 and maintain standby seg3: disable ISA, set
 `high-availability none`, save configuration, restart the IOM, enable ISA and save its
-enabled state. Run readiness probes and verify nominal. This maintenance is outside T9/T9r.
+enabled state. Run readiness probes and verify nominal. This maintenance is outside the measured windows.
 
 Keep core and eNB containers running during pool maintenance. Distributed SecGW namespace
 helpers also remain running, preserving data links while CPM/IOM components restart.

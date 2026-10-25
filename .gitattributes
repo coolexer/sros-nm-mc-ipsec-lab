@@ -1,4 +1,4 @@
-# Preserve measurement bytes, including CLI table padding.
-results/**/*.log -text -whitespace
-results/**/*.ping -text -whitespace
-*.svg text eol=lf
+# Keep Linux/WSL scripts and generated configuration portable on Windows checkouts.
+* text=auto eol=lf
+# Preserve every published evidence byte, including metadata and CLI table padding.
+results/** -text -whitespace

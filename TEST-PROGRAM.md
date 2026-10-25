@@ -137,6 +137,12 @@ CHILD SAs must be installed. CHILD rekey during switchover is expected: Nokia de
 rekey to reset ESP sequence numbers. The program therefore preserves IKE identity while
 allowing CHILD SPI changes.
 
+Before declaring PASS, the runner also checks that the OA has two installed tunnels and
+that the core selects the expected public gateway /32 and both private /32 next-hops.
+Normal cases require routes through the OA. Shunting cases require their explicitly
+pinned next-hops, including both directions through seg1 in T12. New result records
+retain this forwarding snapshot alongside the traffic metrics.
+
 | Check | Acceptance |
 |---|---|
 | Stateful failover | Expected unique OA; both IKE pairs preserved; both flows recover |
