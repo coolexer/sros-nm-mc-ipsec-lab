@@ -5,8 +5,8 @@ all 29 accepted measurement windows meet their functional criteria. Coverage inc
 stateful DA switchover, normal/HA DS takeover, sequential DA failures, node return, public/private shunting and
 forwarding over a surviving LAG member.
 
-The [customer test program](docs/TEST-PROGRAM.md) describes each action, both traffic
-directions, acceptance and restoration. The [per-test topology gallery](docs/TOPOLOGY-TESTS.md)
+The [customer test program](TEST-PROGRAM.md) describes each action, both traffic
+directions, acceptance and restoration. The [per-test topology gallery](TOPOLOGY-TESTS.md)
 shows the complete lab, disabled components and traffic arrows for every window.
 
 ![Validated lab topology](docs/topology.svg)
@@ -183,7 +183,7 @@ OA, all participants reach nominal, both IKE pairs survive and neither eNB loses
 Each eNB receives all 933 replies in the final T9r window.
 
 HA preparation is completed before the measured fault, as specified in the
-[operational conditions](docs/operational-notes.md). The group ends with OA seg1 and
+[operational conditions](OPERATIONAL-NOTES.md). The group ends with OA seg1 and
 normal pool mode none.
 
 ### Sequential DA failures: verified seg1 → seg2 → seg3
@@ -273,4 +273,4 @@ on all four routers. Temporary neighbor route pins are removed and configuration
 Full protocol: [operational.log](results/validated-final-state/operational.log).
 The scenarios and configuration were checked against the
 [Nokia SR OS 26.7 IP tunnels guide](https://documentation.nokia.com/sr/26-7/7750-sr/books/ms-isa-esa/ip-tunnels.html)
-and the command references listed in the [test program](docs/TEST-PROGRAM.md).
+and the command references listed in the [test program](TEST-PROGRAM.md).

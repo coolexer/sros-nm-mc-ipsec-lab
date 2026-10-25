@@ -245,10 +245,10 @@ def write_gallery():
              'the main arrows show recovered forwarding. '
              'T8r/T9r and T13r/T14r show the accepted outcome with seg3 remaining OA. '
              'Blocking in T10b/T11b is the expected negative-control result.', '',
-             '[Detailed test program](TEST-PROGRAM.md) · [Results](../RESULTS.md)', '',
+             '[Detailed test program](TEST-PROGRAM.md) · [Results](RESULTS.md)', '',
              '| Test | Action | Processing sequence |', '|---|---|---|']
     for case, title, action in GALLERY:
-        lines.append(f'| [{case}](#{case.lower()}) | {action} | [Packet processing](scenarios/{case}.svg) |')
+        lines.append(f'| [{case}](#{case.lower()}) | {action} | [Packet processing](docs/scenarios/{case}.svg) |')
     for case, title, action in GALLERY:
-        lines += ['', f'## {case}', '', f'**{title}.** {action}', '', f'![{case}: {title}](topology-scenarios/{case}-paths.svg)']
-    (OUT.parent/'TOPOLOGY-TESTS.md').write_text('\n'.join(lines)+'\n', encoding='utf-8', newline='\n')
+        lines += ['', f'## {case}', '', f'**{title}.** {action}', '', f'![{case}: {title}](docs/topology-scenarios/{case}-paths.svg)']
+    (OUT.parent.parent/'TOPOLOGY-TESTS.md').write_text('\n'.join(lines)+'\n', encoding='utf-8', newline='\n')

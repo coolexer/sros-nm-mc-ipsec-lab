@@ -1,7 +1,7 @@
 # Lab operating conditions and restoration
 
 These notes supplement the [test program](TEST-PROGRAM.md) and
-[accepted results](../RESULTS.md). Published measurements use the SR-SIM 26.7.R2 compact profile.
+[accepted results](RESULTS.md). Published measurements use the SR-SIM 26.7.R2 compact profile.
 
 ## Resources and time
 
@@ -10,7 +10,7 @@ Intel i5-1245U host with 32 GiB RAM. Keep the host awake throughout measurement.
 resources with the host's other workloads in mind; swap does not replace physical memory headroom.
 
 Compact uses one IOM and one MS-ISA2 per SecGW. Each pair has two LACP members on one
-network MDA, validating port/link failures. The [reference profile](../profiles/dual-iom.clab.yml)
+network MDA, validating port/link failures. The [reference profile](profiles/dual-iom.clab.yml)
 places member B on IOM 2 for separate IOM/MDA failure domains. The accepted measurements
 apply to compact.
 
@@ -95,7 +95,7 @@ The program finishes with:
 - Pool mode none and selected NTP on all four SR OS nodes.
 - Saved configuration on every router.
 
-The protocol is published as [operational.log](../results/validated-final-state/operational.log).
+The protocol is published as [operational.log](results/validated-final-state/operational.log).
 
 ## Nokia documentation
 

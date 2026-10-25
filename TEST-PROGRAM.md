@@ -3,14 +3,14 @@
 This program validates stateful switchover, recovery and shunting for a three-node SecGW
 on SR-SIM 26.7.R2. Each scenario identifies the initial state, the component or setting changed,
 the expected roles and routes, both packet directions, acceptance criteria and restoration.
-Accepted measurements are in [RESULTS.md](../RESULTS.md).
+Accepted measurements are in [RESULTS.md](RESULTS.md).
 
 The program uses two IPsec tunnels. Measured SR-SIM gaps describe this lab; hardware acceptance
 loads, scale and numerical SLA thresholds are agreed separately.
 
 ## Lab and roles
 
-![Physical lab topology](topology.svg)
+![Physical lab topology](docs/topology.svg)
 
 | Node | Purpose | Designated role | Priority | System address |
 |---|---|---|---|---|
@@ -64,7 +64,7 @@ Base and VPRN 100 are instances of **one** ipmpls router. They are not separate 
 The banner states the action and the resulting role. Return tests mark restored components.
 The T7-noBFD map includes the transient path toward the failed node before BGP hold expiry;
 its main arrows show the recovered path. T8r/T9r illustrate the accepted outcome with seg3 as OA.
-The original [packet-processing diagrams](scenarios/) remain available as companion views.
+The original [packet-processing diagrams](docs/scenarios/) remain available as companion views.
 
 ## Link redundancy
 
@@ -81,7 +81,7 @@ reachability does not replace the direct shunting data path.
 | 23 | seg2–seg3 | 1/1/3 and 1/1/4 on both nodes |
 
 Compact uses one IOM per SecGW, with both pair members on one network MDA. T5/T6/T12 validate
-port/link failures in this profile. The [dual-IOM reference profile](../profiles/dual-iom.clab.yml)
+port/link failures in this profile. The [dual-IOM reference profile](profiles/dual-iom.clab.yml)
 moves member B from 1/1/2 to 2/1/1, and from 1/1/4 to 2/1/3, to model separate IOM placement.
 Generate it with `python3 gen_configs.py --dual-iom` and set
 `TOPOLOGY=profiles/dual-iom.clab.yml`. Regenerate without `--dual-iom` before returning to compact.
@@ -89,7 +89,7 @@ Deploy one profile at a time in the management network. Published measurements u
 
 ## Normal user-traffic path
 
-![T0: complete topology and normal traffic in both directions](topology-scenarios/T0-paths.svg)
+![T0: complete topology and normal traffic in both directions](docs/topology-scenarios/T0-paths.svg)
 
 An eNB1 request has inner source 10.100.1.1 and destination 10.200.0.10. StrongSwan encrypts it.
 The core Base instance selects the gateway /32 toward the OA. The active ISA decrypts ESP;
@@ -112,7 +112,7 @@ Before each independent scenario, require:
 Outside measurement, readiness probes retry batches of 20 packets per eNB for at most 90 s,
 until each eNB receives 20/20. SA listings before and after the probes are retained. This does
 not reset IKE or peer domains. Nominal protection is checked separately. See
-[operational conditions](operational-notes.md) for resource and pool-maintenance requirements.
+[operational conditions](OPERATIONAL-NOTES.md) for resource and pool-maintenance requirements.
 
 Each eNB then runs:
 
@@ -176,7 +176,7 @@ T8, T8r, T9, T9r, four public-shunting windows, four private-shunting windows, T
 and three phases each for T13 and T14 (first fault, second fault and DA return).
 Each invocation writes `results/YYYYMMDD-HHMMSS/` with metadata, runner SHA-256, step logs,
 original ping traces, JSON metrics and SUMMARY. Accepted evidence is published in
-`results/validated-*`; [RESULTS.md](../RESULTS.md) identifies the source group for each window.
+`results/validated-*`; [RESULTS.md](RESULTS.md) identifies the source group for each window.
 
 The default lab name below is `nm-mc-ipsec`; the runner reads the actual name from topology.
 The measured WSL instance uses `tmo-secgw-nm`. `/configure ...` snippets are MD-CLI private
@@ -215,7 +215,7 @@ Subsequent failure scenarios require this baseline. T0 needs no configuration re
 
 ### T1 — Planned switchover to the second DA
 
-![T1: OA changes from seg1 to seg2](topology-scenarios/T1-paths.svg)
+![T1: OA changes from seg1 to seg2](docs/topology-scenarios/T1-paths.svg)
 
 **Initial state:** seg1 OA and a nominal domain. seg2 has lower priority but is another DA;
 seg3 is a DS. Check the forwarding routes on target seg2 before issuing the action.
@@ -235,7 +235,7 @@ loss is part of the measured window. CHILD rekey is allowed. Wait for nominal be
 
 ### T1b — Planned return to seg1
 
-![T1b: OA returns to seg1](topology-scenarios/T1b-paths.svg)
+![T1b: OA returns to seg1](docs/topology-scenarios/T1b-paths.svg)
 
 **Initial state:** stable traffic through seg2, with nominal protection and target seg1 routes ready.
 
@@ -251,7 +251,7 @@ Prepare a complete nominal baseline before the next independent group.
 
 ### T2 — Active ISA failure
 
-![T2: seg1 ISA disabled; traffic uses seg2](topology-scenarios/T2-paths.svg)
+![T2: seg1 ISA disabled; traffic uses seg2](docs/topology-scenarios/T2-paths.svg)
 
 **Initial state:** seg1 OA, both IKE sessions established, nominal protection. seg1 CPM and
 network ports are operational. This test isolates an ISA failure from a complete node failure.
@@ -271,7 +271,7 @@ Leave the ISA disabled for the separate T3 recovery window.
 
 ### T3 — ISA return without reversion
 
-![T3: seg1 ISA restored; seg2 remains OA](topology-scenarios/T3-paths.svg)
+![T3: seg1 ISA restored; seg2 remains OA](docs/topology-scenarios/T3-paths.svg)
 
 **Initial state:** continuation of T2, with seg2 OA, stable traffic through seg2 and seg1 ISA
 disabled. The domain need not yet be nominal because the missing component is being restored.
@@ -292,7 +292,7 @@ the runner performs any required baseline switchover outside that group's measur
 
 ### T4 — Automatic revertive return
 
-![T4: seg1 ISA returns and seg1 automatically becomes OA](topology-scenarios/T4-paths.svg)
+![T4: seg1 ISA returns and seg1 automatically becomes OA](docs/topology-scenarios/T4-paths.svg)
 
 **Preparation:** seg2 OA, all nominal. Disable the ISA and enable revertive on standby seg1
 in one preparation transaction. Changing revertive is outside measurement because the Nokia
@@ -317,7 +317,7 @@ then prepare the normal baseline. This keeps the revertive administration toggle
 
 ### T5 — One LAG member fails
 
-![T5: LAG 12 member A disabled; member B remains available](topology-scenarios/T5-paths.svg)
+![T5: LAG 12 member A disabled; member B remains available](docs/topology-scenarios/T5-paths.svg)
 
 **Initial state:** seg1 OA, nominal, both LAG 12 members operational.
 
@@ -340,7 +340,7 @@ shunted user traffic on surviving member B.
 
 ### T6 — Both direct links between seg1 and seg2 fail
 
-![T6: LAG 12 disabled; control reachability uses seg3](topology-scenarios/T6-paths.svg)
+![T6: LAG 12 disabled; control reachability uses seg3](docs/topology-scenarios/T6-paths.svg)
 
 **Action in the nominal seg1 baseline:**
 
@@ -363,7 +363,7 @@ preserved IKE on both eNBs. Successful ping alone does not replace the nominal c
 
 ### T7 — Complete OA failure with core BFD
 
-![T7: seg1 CPM/IOM disabled; seg2 forwards traffic](topology-scenarios/T7-paths.svg)
+![T7: seg1 CPM/IOM disabled; seg2 forwards traffic](docs/topology-scenarios/T7-paths.svg)
 
 **Initial state:** seg1 OA, nominal. BFD is enabled on the Base and VPRN core/segw BGP groups
 at both ends. Inter-SecGW MIMP/MCS BFD retains its own settings.
@@ -392,11 +392,11 @@ the return boundary. Restore a nominal seg1 baseline before the next independent
 **Observed timing:** the accepted T7 reply gaps are 2.947 / 2.953 s. Approximately 96 s
 elapse from seg1 startup to all domains being observed nominal, with no additional packet
 loss during node return. These are separate measurements: traffic already uses seg2
-while seg1 boots and rejoins. See the [event timeline and interpretation](../RESULTS.md#traffic-restoration-versus-node-reintegration).
+while seg1 boots and rejoins. See the [event timeline and interpretation](RESULTS.md#traffic-restoration-versus-node-reintegration).
 
 ### T7-noBFD — Core-routing detection control
 
-![T7-noBFD: transient failed next-hop and the eventual recovered path](topology-scenarios/T7-noBFD-paths.svg)
+![T7-noBFD: transient failed next-hop and the eventual recovered path](docs/topology-scenarios/T7-noBFD-paths.svg)
 
 Repeat T7 after deleting the group `bfd-liveness` overrides on both Base/VPRN core groups
 of every SecGW and both segw groups on ipmpls. This disables core BGP BFD; inter-SecGW
@@ -427,7 +427,7 @@ still selects the failed node. It does not describe the normal BFD-enabled confi
 
 ### T8 — Both DAs fail with a normal DS pool
 
-![T8: both DAs disabled; normal-pool DS seg3 handles traffic](topology-scenarios/T8-paths.svg)
+![T8: both DAs disabled; normal-pool DS seg3 handles traffic](docs/topology-scenarios/T8-paths.svg)
 
 **Preparation:** seg1 OA, nominal, core routes through seg1, both IKE sessions established.
 Set seg3 `pool1 high-availability none`. Verify the actual mode with
@@ -445,7 +445,7 @@ stable traffic. Record loss/gap independently on each eNB. Leave the DAs off for
 
 ### T8r — Both DAs return after normal-pool takeover
 
-![T8r: DA components restored; accepted OA remains seg3](topology-scenarios/T8r-paths.svg)
+![T8r: DA components restored; accepted OA remains seg3](docs/topology-scenarios/T8r-paths.svg)
 
 Begin a separate stable traffic window through seg3, then start both DAs' components.
 Wait for both CLIs, one agreed OA and nominal on all nodes. Verify original IKE pairs and
@@ -459,7 +459,7 @@ Retain the `mc_redundancy` events from all three nodes.
 
 ### T9 — Both DAs fail with an HA pool
 
-![T9: both DAs disabled; states are preloaded on the seg3 HA pool ISA](topology-scenarios/T9-paths.svg)
+![T9: both DAs disabled; states are preloaded on the seg3 HA pool ISA](docs/topology-scenarios/T9-paths.svg)
 
 **Purpose:** repeat T8 with pool HA. Nokia describes preloading synchronized tunnel-group
 states onto pool ISAs. `tunnel-limit-32k` defines the pool limit; this program still exercises
@@ -484,7 +484,7 @@ are outside the failover window. The runner uses this offline procedure:
    capture T9's reference SPI pairs **after** baseline readiness.
 
 This is the procedure for this SR-SIM lab; platform-specific hardware maintenance is separate.
-See [operational notes](operational-notes.md). Require actual HA mode, an operational ISA,
+See [operational notes](OPERATIONAL-NOTES.md). Require actual HA mode, an operational ISA,
 nominal agreement, complete forwarding routes, both IKE sessions and stable traffic via seg1
 before injecting the double failure.
 
@@ -495,7 +495,7 @@ One observation per mode on two tunnels does not establish a statistical HA spee
 
 ### T9r — Both DAs return after HA takeover
 
-![T9r: both DAs restored; accepted OA remains seg3](topology-scenarios/T9r-paths.svg)
+![T9r: both DAs restored; accepted OA remains seg3](docs/topology-scenarios/T9r-paths.svg)
 
 Use the same separate return window as T8r: CLI readiness, one agreed OA, nominal, preserved
 IKE and recovered traffic. Require zero loss on both eNBs when seg3 remains OA.
@@ -508,7 +508,7 @@ enabled ISA so a subsequent boot loads the intended normal configuration.
 
 ### T10 — Public shunting through each standby
 
-![T10: public ESP enters standby seg2 before shunting to OA seg1](topology-scenarios/T10-seg2-paths.svg)
+![T10: public ESP enters standby seg2 before shunting to OA seg1](docs/topology-scenarios/T10-seg2-paths.svg)
 
 **Initial state:** seg1 OA, nominal. The core accepts the public gateway /32 only through the
 selected standby; private /32 routes remain through seg1. Exercise **seg2 and seg3 separately**.
@@ -544,11 +544,11 @@ standby and forwards ESP to the OA rather than decrypting it.
 **Acceptance:** observe for 10 s; require zero loss on both eNBs, preserved IKE, OA seg1
 and the public route through seg2. Repeat through seg3 using LAG 13:
 
-![T10: public ESP enters standby seg3](topology-scenarios/T10-seg3-paths.svg)
+![T10: public ESP enters standby seg3](docs/topology-scenarios/T10-seg3-paths.svg)
 
 ### T10b — Public-shunting negative controls
 
-![T10b: remove the public shunting profile on seg2](topology-scenarios/T10b-seg2-paths.svg)
+![T10b: remove the public shunting profile on seg2](docs/topology-scenarios/T10b-seg2-paths.svg)
 
 Keep the gateway route pinned. Start a separate stable window and remove the profile
 on the **selected standby**, leaving the OA profile unchanged:
@@ -570,14 +570,14 @@ dependency on shunting in the positive test.
 
 Wait for installed CHILD SAs and stable traffic. Repeat T10/T10b with the public route through seg3:
 
-![T10b: remove the public shunting profile on seg3](topology-scenarios/T10b-seg3-paths.svg)
+![T10b: remove the public shunting profile on seg3](docs/topology-scenarios/T10b-seg3-paths.svg)
 
 After both variants, delete neighbor import overrides and verify the gateway /32 through seg1.
 The intentional unrecovered negative-control gap is the observation-window bound, not recovery time.
 
 ### T11 — Private shunting through each standby
 
-![T11: return inner packets enter standby seg2](topology-scenarios/T11-seg2-paths.svg)
+![T11: return inner packets enter standby seg2](docs/topology-scenarios/T11-seg2-paths.svg)
 
 **Initial state:** seg1 OA, nominal. In core VPRN 100, pin both private /32 routes through
 seg2 while leaving the gateway /32 through seg1. The policy rejects `10.100.0.0/16 longer`
@@ -592,11 +592,11 @@ seg1 ISA encrypt → core Base → eNB. Encryption stays on OA; standby forwards
 **Acceptance:** observe 10 s; require zero loss on both eNBs, unchanged IKE, OA seg1 and
 both private routes through the selected standby. Repeat through seg3 using LAG 13:
 
-![T11: return inner packets enter standby seg3](topology-scenarios/T11-seg3-paths.svg)
+![T11: return inner packets enter standby seg3](docs/topology-scenarios/T11-seg3-paths.svg)
 
 ### T11b — Private-shunting negative controls
 
-![T11b: replies are blocked at seg2 private ingress](topology-scenarios/T11b-seg2-paths.svg)
+![T11b: replies are blocked at seg2 private ingress](docs/topology-scenarios/T11b-seg2-paths.svg)
 
 With private routes still pinned, remove the selected standby's private shunting profile:
 
@@ -612,7 +612,7 @@ the working request and the blocked reply separately.
 tail on both eNBs. Restore `multi-chassis-shunting-profile "shunt-priv"`, wait for installed
 CHILD SAs/stable traffic, then repeat the same control on seg3:
 
-![T11b: replies are blocked at seg3 private ingress](topology-scenarios/T11b-seg3-paths.svg)
+![T11b: replies are blocked at seg3 private ingress](docs/topology-scenarios/T11b-seg3-paths.svg)
 
 Remove private route pins after both variants. The gateway and both private /32 routes
 must again use seg1. Unused prefix-list/policy definitions may remain; forwarding is restored
@@ -620,7 +620,7 @@ by removing neighbor import overrides, which cleanup verifies.
 
 ### T12 — Switchover with member A down and shunting over member B
 
-![T12: both traffic directions shunt through former OA seg1 on surviving member B](topology-scenarios/T12-paths.svg)
+![T12: both traffic directions shunt through former OA seg1 on surviving member B](docs/topology-scenarios/T12-paths.svg)
 
 **Purpose:** exercise actual public/private shunted user traffic on the surviving member,
 in addition to control-plane reachability after a port failure.
@@ -657,7 +657,7 @@ namespace helpers running throughout the two failures.
 
 #### T13a — First failure: seg1 to seg2
 
-![T13a: seg1 stays off while seg2 forwards and seg3 remains standby](topology-scenarios/T13a-paths.svg)
+![T13a: seg1 stays off while seg2 forwards and seg3 remains standby](docs/topology-scenarios/T13a-paths.svg)
 
 1. Start a measured ping window on both eNBs after ten successful replies and record both
    original IKE SPI pairs, domain state, routes and operational BFD sessions.
@@ -678,7 +678,7 @@ must still be synchronized; this test does not require or force a false nominal 
 
 #### T13b — Second failure: seg2 to seg3
 
-![T13b: both DAs are off after the verified intermediate stage; seg3 forwards](topology-scenarios/T13b-paths.svg)
+![T13b: both DAs are off after the verified intermediate stage; seg3 forwards](docs/topology-scenarios/T13b-paths.svg)
 
 1. Start a separate measured window with both traffic directions routed through seg2.
    Verify that seg1 is still off and both IKE pairs match the original T13a pairs.
@@ -698,7 +698,7 @@ initiation, force-switchover or peer-domain reset is used between the faults.
 
 #### T13r — Return both DAs
 
-![T13r: both DAs restored after the sequential chain; accepted OA remains seg3](topology-scenarios/T13r-paths.svg)
+![T13r: both DAs restored after the sequential chain; accepted OA remains seg3](docs/topology-scenarios/T13r-paths.svg)
 
 Start a third measured window through seg3 and verify that both IKE pairs still match T13a.
 Start both DA CPM/IOM components, wait for their CLIs, all-domain nominal protection and
@@ -716,7 +716,7 @@ seg2; HA preloads synchronized states on the seg3 pool ISA before seg2 fails.
 
 #### T14a — First failure with HA standby
 
-![T14a: seg1 off, verified seg2 forwarding, HA pool on standby seg3](topology-scenarios/T14a-paths.svg)
+![T14a: seg1 off, verified seg2 forwarding, HA pool on standby seg3](docs/topology-scenarios/T14a-paths.svg)
 
 Kill seg1, verify OA seg2, two installed tunnels, all three core routes and both traffic
 flows. Require seg2/seg3 MCS `inSync` in both directions and the same 30-s observation
@@ -724,7 +724,7 @@ without additional loss. Keep seg1 off. Retain both original IKE pairs for T14b/
 
 #### T14b — Second failure and HA takeover
 
-![T14b: seg2 fails after the intermediate checkpoint; HA pool on seg3 carries traffic](topology-scenarios/T14b-paths.svg)
+![T14b: seg2 fails after the intermediate checkpoint; HA pool on seg3 carries traffic](docs/topology-scenarios/T14b-paths.svg)
 
 Kill seg2 only after T14a passes and seg1 is verified off. Require unique forwarding
 owner seg3, two installed tunnels, all core routes through seg3, preserved original
@@ -733,7 +733,7 @@ and reply routes are the same as T13b; pool HA is the configuration difference.
 
 #### T14r — DA return after HA takeover
 
-![T14r: both DAs restored after the HA sequence; accepted OA remains seg3](topology-scenarios/T14r-paths.svg)
+![T14r: both DAs restored after the HA sequence; accepted OA remains seg3](docs/topology-scenarios/T14r-paths.svg)
 
 Measure both DAs returning as in T13r and preserve the T14a IKE pairs across the complete
 chain. Record the actual OA, nominal protection and traffic result. Move forwarding to
@@ -760,7 +760,7 @@ Final acceptance requires:
 
 The program includes a separate final operational check. If a precondition is not met,
 stop the series, restore baseline and perform readiness checks before starting a new measurement.
-The final protocol is linked from [RESULTS.md](../RESULTS.md).
+The final protocol is linked from [RESULTS.md](RESULTS.md).
 
 ## Nokia documentation basis
 
