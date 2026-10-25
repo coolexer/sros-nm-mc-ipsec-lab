@@ -6,8 +6,10 @@ includes an automated switchover test runner.
 
 - [TEST-PLAN.md](TEST-PLAN.md) explains the test program: what each scenario does, how it is
   measured, and what passes.
-- [Customer test program in Russian](docs/TEST-PROGRAM-RU.md) describes every action, both
-  packet directions, acceptance and recovery, with a separate SVG for each measured window.
+- [Customer test program](docs/TEST-PROGRAM.md) describes every action, both packet directions,
+  acceptance and recovery, with a full topology view for each measured window.
+- [Per-test topology gallery](docs/TOPOLOGY-TESTS.md) shows disabled components and request/reply
+  arrows for all 23 windows. Companion packet-processing diagrams are linked from the gallery.
 - [RESULTS.md](RESULTS.md) contains the accepted measurements, their source traces and final
   operational state.
 
@@ -96,6 +98,8 @@ The published measurements use compact. Run `python3 gen_configs.py` again befor
 | `tests/ping_metrics.py` / `test_runner.py` | probe parser and regression checks |
 | `results/validated-compact-*/` | current run metadata, logs, JSON results and original ping traces; see RESULTS.md for provenance |
 | `docs/operational-notes.md` | resource conditions, pool preparation and final operational checks |
+| `docs/topology-scenarios/`, `docs/scenarios/` | full per-test topologies and companion packet-processing diagrams |
+| `docs/make_scenario_diagrams.py` | regenerates both diagram sets and the topology gallery |
 
 ## Useful commands
 

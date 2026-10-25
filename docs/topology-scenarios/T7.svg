@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1160" viewBox="0 0 1600 1160" font-family="Arial, sans-serif">
+<defs>
+<marker id="m005aff" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10z" fill="#005aff"/></marker>
+<marker id="mc46a00" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10z" fill="#c46a00"/></marker>
+<marker id="mc62828" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10z" fill="#c62828"/></marker>
+<marker id="m087f8c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10z" fill="#087f8c"/></marker>
+</defs>
+<rect width="1600" height="1160" fill="white"/>
+<text x="35" y="43" font-size="29" fill="#122344" text-anchor="start" font-weight="700">T7 · OA failure with core BFD</text>
+<text x="35" y="75" font-size="17" fill="#68788f" text-anchor="start" font-weight="400">N:M MC-IPsec · SR-SIM 26.7.R2 · compact · gateway 198.51.100.1/32 · ipsec-domain / tunnel-group 1</text>
+<rect x="30" y="95" width="1540" height="95" rx="12" fill="#f4f7fc" stroke="#ccd5e0" stroke-width="1.5"/>
+<text x="48" y="126" font-size="19" fill="#122344" text-anchor="start" font-weight="600">Kill seg1 CPM and IOM. Restore seg1 only after traffic has recovered through seg2.</text>
+<text x="48" y="157" font-size="17" fill="#68788f" text-anchor="start" font-weight="400">Recovered path before seg1 restart: OA seg2; public ingress seg2; private ingress seg2.</text>
+<rect x="650" y="205" width="920" height="680" rx="12" fill="#f6f9ff" stroke="#d8e2f2" stroke-width="1.5"/>
+<text x="680" y="253" font-size="19" fill="#122344" text-anchor="start" font-weight="600">SecGW full mesh: LAG 12 / 13 / 23</text>
+<rect x="280" y="325" width="280" height="360" rx="12" fill="#f1faf7" stroke="#84bca7" stroke-width="1.5"/>
+<text x="420" y="352" font-size="18" fill="#122344" text-anchor="middle" font-weight="600">ipmpls · one 7750 SR-1</text>
+<text x="420" y="376" font-size="14" fill="#68788f" text-anchor="middle" font-weight="400">AS 65000</text>
+<polyline points="540,425 610,425 610,365 700,365" fill="none" stroke="#d29898" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 6"/>
+<polyline points="540,580 580,580 580,400 700,400" fill="none" stroke="#d29898" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 6"/>
+<polyline points="540,440 625,440 625,745 700,745" fill="none" stroke="#aebccc" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="540,595 600,595 600,780 700,780" fill="none" stroke="#aebccc" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="540,455 590,455 590,225 1540,225 1540,560 1490,560" fill="none" stroke="#aebccc" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="540,610 565,610 565,870 1540,870 1540,595 1490,595" fill="none" stroke="#aebccc" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="225,405 300,425" fill="none" stroke="#b4bfce" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="225,550 260,550 260,465 300,465" fill="none" stroke="#b4bfce" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="420,650 420,760" fill="none" stroke="#b4bfce" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="820,430 820,650" fill="none" stroke="#c62828" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 6"/>
+<polyline points="850,430 850,650" fill="none" stroke="#c62828" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 6"/>
+<polyline points="980,340 1270,465" fill="none" stroke="#c62828" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 6"/>
+<polyline points="980,360 1290,465" fill="none" stroke="#c62828" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 6"/>
+<polyline points="980,715 1270,625" fill="none" stroke="#9caabd" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="980,735 1290,625" fill="none" stroke="#9caabd" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="300" y="390" width="240" height="100" rx="12" fill="white" stroke="#84bca7" stroke-width="1.5"/>
+<text x="420" y="426" font-size="20" fill="#122344" text-anchor="middle" font-weight="600">Base · public</text>
+<text x="420" y="456" font-size="14" fill="#68788f" text-anchor="middle" font-weight="400">ESP / gateway 198.51.100.1</text>
+<rect x="300" y="550" width="240" height="100" rx="12" fill="white" stroke="#84bca7" stroke-width="1.5"/>
+<text x="420" y="586" font-size="20" fill="#122344" text-anchor="middle" font-weight="600">VPRN 100 · private</text>
+<text x="420" y="616" font-size="14" fill="#68788f" text-anchor="middle" font-weight="400">Inner IP / MME network</text>
+<rect x="50" y="355" width="175" height="100" rx="12" fill="white" stroke="#ccd5e0" stroke-width="1.5"/>
+<text x="67" y="383" font-size="16" fill="#122344" text-anchor="start" font-weight="600">eNB1 · strongSwan</text>
+<text x="67" y="410" font-size="14" fill="#68788f" text-anchor="start" font-weight="400">public 100.64.1.2</text>
+<text x="67" y="435" font-size="14" fill="#68788f" text-anchor="start" font-weight="400">inner 10.100.1.1</text>
+<rect x="50" y="500" width="175" height="100" rx="12" fill="white" stroke="#ccd5e0" stroke-width="1.5"/>
+<text x="67" y="528" font-size="16" fill="#122344" text-anchor="start" font-weight="600">eNB2 · strongSwan</text>
+<text x="67" y="555" font-size="14" fill="#68788f" text-anchor="start" font-weight="400">public 100.64.2.2</text>
+<text x="67" y="580" font-size="14" fill="#68788f" text-anchor="start" font-weight="400">inner 10.100.2.1</text>
+<rect x="320" y="760" width="210" height="95" rx="12" fill="white" stroke="#ccd5e0" stroke-width="1.5"/>
+<text x="425" y="795" font-size="21" fill="#122344" text-anchor="middle" font-weight="600">MME</text>
+<text x="425" y="824" font-size="17" fill="#68788f" text-anchor="middle" font-weight="400">10.200.0.10</text>
+<rect x="700" y="270" width="280" height="160" rx="12" fill="#fff4f4" stroke="#c62828" stroke-width="2.5"/>
+<text x="715" y="299" font-size="18" fill="#c62828" text-anchor="start" font-weight="600">seg1 · DA · priority 200</text>
+<text x="715" y="321" font-size="16" fill="#c62828" text-anchor="start" font-weight="400">10.0.0.1     OFF</text>
+<rect x="710" y="332" width="120" height="87" rx="6" fill="#fff2f2" stroke="#c62828" stroke-width="1.5"/>
+<text x="718" y="352" font-size="13" fill="#c62828" text-anchor="start" font-weight="400">CPM + IOM OFF</text>
+<text x="718" y="373" font-size="12" fill="#68788f" text-anchor="start" font-weight="400">Network MDA 1/1</text>
+<text x="718" y="392" font-size="12" fill="#68788f" text-anchor="start" font-weight="400">public 1/1/9</text>
+<text x="718" y="410" font-size="12" fill="#68788f" text-anchor="start" font-weight="400">private 1/1/10</text>
+<rect x="840" y="332" width="130" height="87" rx="6" fill="#fff0f0" stroke="#c62828" stroke-width="2"/>
+<text x="905" y="354" font-size="15" fill="#c62828" text-anchor="middle" font-weight="600">MS-ISA2 · 1/2</text>
+<text x="905" y="381" font-size="14" fill="#c62828" text-anchor="middle" font-weight="400">OFF</text>
+<text x="905" y="405" font-size="12" fill="#c62828" text-anchor="middle" font-weight="400">tunnel-group 1</text>
+<circle cx="970" cy="282" r="13" fill="white"/><path d="M962,274 L978,290 M962,290 L978,274" stroke="#c62828" stroke-width="4"/>
+<rect x="700" y="650" width="280" height="160" rx="12" fill="#effaf4" stroke="#008653" stroke-width="2.5"/>
+<text x="715" y="679" font-size="18" fill="#008653" text-anchor="start" font-weight="600">seg2 · DA · priority 100</text>
+<text x="715" y="701" font-size="16" fill="#008653" text-anchor="start" font-weight="400">10.0.0.2     OA</text>
+<rect x="710" y="712" width="120" height="87" rx="6" fill="#f6f8fb" stroke="#c5cfdb" stroke-width="1.5"/>
+<text x="718" y="732" font-size="13" fill="#122344" text-anchor="start" font-weight="400">CPM + IOM UP</text>
+<text x="718" y="753" font-size="12" fill="#68788f" text-anchor="start" font-weight="400">Network MDA 1/1</text>
+<text x="718" y="772" font-size="12" fill="#68788f" text-anchor="start" font-weight="400">public 1/1/9</text>
+<text x="718" y="790" font-size="12" fill="#68788f" text-anchor="start" font-weight="400">private 1/1/10</text>
+<rect x="840" y="712" width="130" height="87" rx="6" fill="#f1faf5" stroke="#008653" stroke-width="2"/>
+<text x="905" y="734" font-size="15" fill="#008653" text-anchor="middle" font-weight="600">MS-ISA2 · 1/2</text>
+<text x="905" y="761" font-size="14" fill="#008653" text-anchor="middle" font-weight="400">encrypt / decrypt</text>
+<text x="905" y="785" font-size="12" fill="#008653" text-anchor="middle" font-weight="400">tunnel-group 1</text>
+<rect x="1210" y="465" width="280" height="160" rx="12" fill="white" stroke="#68788f" stroke-width="2.5"/>
+<text x="1225" y="494" font-size="18" fill="#68788f" text-anchor="start" font-weight="600">seg3 · DS · priority 200</text>
+<text x="1225" y="516" font-size="16" fill="#68788f" text-anchor="start" font-weight="400">10.0.0.3     standby</text>
+<rect x="1220" y="527" width="120" height="87" rx="6" fill="#f6f8fb" stroke="#c5cfdb" stroke-width="1.5"/>
+<text x="1228" y="547" font-size="13" fill="#122344" text-anchor="start" font-weight="400">CPM + IOM UP</text>
+<text x="1228" y="568" font-size="12" fill="#68788f" text-anchor="start" font-weight="400">Network MDA 1/1</text>
+<text x="1228" y="587" font-size="12" fill="#68788f" text-anchor="start" font-weight="400">public 1/1/9</text>
+<text x="1228" y="605" font-size="12" fill="#68788f" text-anchor="start" font-weight="400">private 1/1/10</text>
+<rect x="1350" y="527" width="130" height="87" rx="6" fill="#f1faf5" stroke="#68788f" stroke-width="2"/>
+<text x="1415" y="549" font-size="15" fill="#68788f" text-anchor="middle" font-weight="600">MS-ISA2 · 1/2</text>
+<text x="1415" y="576" font-size="14" fill="#68788f" text-anchor="middle" font-weight="400">UP</text>
+<text x="1415" y="600" font-size="12" fill="#68788f" text-anchor="middle" font-weight="400">pool</text>
+<polyline points="221,401 296,421" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="221,401 296,421" fill="none" stroke="#005aff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#m005aff)"/>
+<polyline points="221,546 256,546 256,461 296,461" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="221,546 256,546 256,461 296,461" fill="none" stroke="#005aff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#m005aff)"/>
+<polyline points="536,436 621,436 621,741 696,741" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="536,436 621,436 621,741 696,741" fill="none" stroke="#005aff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#m005aff)"/>
+<polyline points="696,776 596,776 596,591 536,591" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="696,776 596,776 596,591 536,591" fill="none" stroke="#005aff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#m005aff)"/>
+<polyline points="415,645 415,755" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="415,645 415,755" fill="none" stroke="#005aff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#m005aff)"/>
+<polyline points="425,765 425,655" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="425,765 425,655" fill="none" stroke="#c46a00" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#mc46a00)"/>
+<polyline points="544,599 604,599 604,784 704,784" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="544,599 604,599 604,784 704,784" fill="none" stroke="#c46a00" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#mc46a00)"/>
+<polyline points="704,749 629,749 629,444 544,444" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="704,749 629,749 629,444 544,444" fill="none" stroke="#c46a00" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#mc46a00)"/>
+<polyline points="304,429 229,409" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="304,429 229,409" fill="none" stroke="#c46a00" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#mc46a00)"/>
+<polyline points="304,469 264,469 264,554 229,554" fill="none" stroke="white" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline points="304,469 264,469 264,554 229,554" fill="none" stroke="#c46a00" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#mc46a00)"/>
+<text x="893" y="485" font-size="17" fill="#122344" text-anchor="start" font-weight="600">LAG 12</text>
+<text x="893" y="510" font-size="14" fill="#c62828" text-anchor="start" font-weight="400">A: 1/1/1</text>
+<text x="893" y="533" font-size="14" fill="#c62828" text-anchor="start" font-weight="400">B: 1/1/2</text>
+<text x="1040" y="322" font-size="16" fill="#68788f" text-anchor="start" font-weight="400">LAG 13 · 2 members</text>
+<text x="1040" y="775" font-size="16" fill="#68788f" text-anchor="start" font-weight="400">LAG 23 · 2 members</text>
+<rect x="30" y="900" width="1540" height="65" rx="12" fill="#f5f3ff" stroke="#d3c9ec" stroke-width="1.5"/>
+<text x="48" y="928" font-size="18" fill="#65439b" text-anchor="start" font-weight="600">NTP · 172.20.30.123</text>
+<text x="48" y="951" font-size="14" fill="#65439b" text-anchor="start" font-weight="400">chronyd -x · management</text>
+<text x="420" y="929" font-size="18" fill="#65439b" text-anchor="start" font-weight="400">Shared time reference → seg1 / seg2 / seg3 / ipmpls</text>
+<text x="420" y="952" font-size="14" fill="#65439b" text-anchor="start" font-weight="400">Separate management network; NTP is outside the user-traffic path.</text>
+<polyline points="40,995 95,995" fill="none" stroke="#005aff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#m005aff)"/>
+<text x="110" y="1001" font-size="17" fill="#005aff" text-anchor="start" font-weight="400">Request eNB → MME</text>
+<polyline points="355,995 410,995" fill="none" stroke="#c46a00" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#mc46a00)"/>
+<text x="425" y="1001" font-size="17" fill="#c46a00" text-anchor="start" font-weight="400">Reply MME → eNB</text>
+<polyline points="670,995 725,995" fill="none" stroke="#087f8c" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="8 6" marker-end="url(#m087f8c)"/>
+<text x="740" y="1001" font-size="17" fill="#087f8c" text-anchor="start" font-weight="400">MIMP/MCS in T6</text>
+<rect x="1030" y="984" width="22" height="22" rx="4" fill="#effaf4" stroke="#008653" stroke-width="1.5"/>
+<text x="1065" y="1001" font-size="17" fill="#008653" text-anchor="start" font-weight="400">OA</text>
+<circle cx="1175" cy="995" r="12" fill="white"/><path d="M1168,988 L1182,1002 M1168,1002 L1182,988" stroke="#c62828" stroke-width="4"/>
+<text x="1195" y="1001" font-size="17" fill="#c62828" text-anchor="start" font-weight="400">Disabled / blocked</text>
+<text x="40" y="1045" font-size="18" fill="#005aff" text-anchor="start" font-weight="400">Request: eNB → Base → seg2 ISA decrypt → VPRN → MME</text>
+<text x="40" y="1080" font-size="18" fill="#c46a00" text-anchor="start" font-weight="400">Reply: MME → VPRN → seg2 ISA encrypt → Base → eNB</text>
+<text x="40" y="1125" font-size="16" fill="#68788f" text-anchor="start" font-weight="400">Thin lines: lab links. Colored arrows: selected paths. Compact: both LAG members are on MDA 1/1.</text>
+</svg>

@@ -1,89 +1,85 @@
-# Условия запуска и восстановление стенда
+# Lab operating conditions and restoration
 
-Документ дополняет [программу испытаний](TEST-PROGRAM-RU.md) и
-[итоговые результаты](../RESULTS.md). Измерения относятся к compact-профилю SR-SIM 26.7.R2.
+These notes supplement the [test program](TEST-PROGRAM.md) and
+[accepted results](../RESULTS.md). Published measurements use the SR-SIM 26.7.R2 compact profile.
 
-## Ресурсы и время
+## Resources and time
 
-Измеренный стенд: WSL2, 12 логических CPU, 17,15 ГиБ RAM и 5 ГиБ swap; хост Intel i5-1245U,
-32 ГиБ физической RAM. Во время испытаний хост должен оставаться активным. Ресурсы WSL
-необходимо выделять с учётом остальных задач хоста; swap не заменяет запас физической памяти.
+The measured runtime is WSL2 with 12 logical CPUs, 17.15 GiB RAM and 5 GiB swap, on an
+Intel i5-1245U host with 32 GiB RAM. Keep the host awake throughout measurement. Allocate
+resources with the host's other workloads in mind; swap does not replace physical memory headroom.
 
-В compact у каждого SecGW один IOM и одна MS-ISA2. У каждой пары SecGW два участника
-LACP LAG на одной network MDA. Этот профиль проверяет отказ порта/линии. Для отдельного
-IOM/MDA failure domain предусмотрен [reference-профиль](../profiles/dual-iom.clab.yml)
-с размещением участника B на IOM 2; опубликованные измерения относятся к compact.
+Compact uses one IOM and one MS-ISA2 per SecGW. Each pair has two LACP members on one
+network MDA, validating port/link failures. The [reference profile](../profiles/dual-iom.clab.yml)
+places member B on IOM 2 for separate IOM/MDA failure domains. The accepted measurements
+apply to compact.
 
-Все четыре SR OS узла используют общий NTP `172.20.30.123` через management network.
-Лабораторный chronyd имеет local stratum 10 и запускается с `-x`; он предоставляет общее
-время от WSL, не изменяя часы хоста. В production используется согласованный внешний
-источник времени. Проверка: `show system ntp all` и выбранный Clock Source на каждом узле.
+All four SR OS nodes select NTP `172.20.30.123` over management. Lab chronyd uses local
+stratum 10 and runs with `-x`, providing a common WSL-based time reference without adjusting
+the host clock. Production uses an agreed external time source. Verify `show system ntp all`
+and the selected Clock Source on each router.
 
-## Подготовка pool HA перед T9
+## HA pool preparation before T9
 
-Подготовка выполняется отдельно от измеряемого отказа. Перед обслуживанием OA находится
-на seg1 или seg2, все узлы согласовали Current Active и имеют nominal.
+Preparation is separate from the measured fault. Start with OA on seg1 or seg2, an agreed
+Current Active and nominal on all participants.
 
-1. Остановить CPM/IOM компоненты обоих DA, оставив их netns helpers, core и eNB запущенными.
-   Эта операция относится к offline-обслуживанию и может прервать текущий трафик.
-2. Проверить не менее **10 ГиБ physical MemAvailable** перед выделением HA tables.
-3. На seg3 отключить ISA, задать pool `high-availability tunnel-limit-32k` и сохранить config.
-4. Холодно запустить CPM и IOM seg3. Для IOM установить cgroup ceiling 8 ГиБ RAM /
-   9 ГиБ RAM+swap. Дождаться CLI, включить ISA, дождаться operational и сохранить config.
-5. Наблюдать operational ISA 60 секунд. Затем запустить DA по очереди, проверяя CLI и
-   forwarding-маршруты каждого узла.
-6. Дождаться обеих IKE/CHILD SA, успешных readiness-проб, nominal и штатных маршрутов через seg1.
-   SPI для T9 записываются после завершения подготовки.
+1. Stop both DAs' CPM/IOM components, keeping their netns helpers, the core and eNBs running.
+   This is offline maintenance and can interrupt existing traffic.
+2. Require at least **10 GiB physical MemAvailable** before HA-table allocation.
+3. Disable seg3 ISA, set pool `high-availability tunnel-limit-32k` and save configuration.
+4. Cold-start seg3 CPM/IOM. Set the IOM cgroup ceiling to 8 GiB RAM / 9 GiB RAM+swap.
+   Wait for CLI, enable ISA, wait for operational state and save the enabled configuration.
+5. Observe the operational ISA for 60 s. Start the DAs sequentially, checking each CLI
+   and its forwarding routes.
+6. Wait for both IKE/CHILD sessions, successful readiness probes, nominal and normal routes
+   through seg1. Capture T9's reference SPI pairs only after preparation is complete.
 
-Указанные значения являются условиями этой лаборатории, а не спецификацией аппаратной
-ёмкости Nokia. Режим HA 32k задаёт ёмкость pool; в программе используются два IPsec-туннеля.
-Подготовка реализована в `prepare_pool()` runner; фактический режим и состояние ISA
-фиксируются в pool-preparation log заключительной группы.
+These are this lab's operating conditions, not Nokia hardware capacity specifications.
+HA 32k defines the pool limit; the program uses two IPsec tunnels. `prepare_pool()` implements
+the procedure; pool-preparation logs in the final evidence group record the actual mode and ISA state.
 
-## Возврат к обычному режиму
+## Return to normal mode
 
-После T9r штатно вернуть OA на seg1 и выполнить обслуживание standby seg3:
-отключить ISA, задать `high-availability none`, сохранить конфигурацию, перезапустить IOM,
-включить ISA и сохранить её включённое состояние. После readiness-проб проверить nominal.
-Трафик этих операций не входит в T9/T9r.
+After T9r, return OA to seg1 and maintain standby seg3: disable ISA, set
+`high-availability none`, save configuration, restart the IOM, enable ISA and save its
+enabled state. Run readiness probes and verify nominal. This maintenance is outside T9/T9r.
 
-Core и eNB остаются запущенными в течение pool maintenance. Распределённые namespace
-helpers SecGW также остаются запущенными, сохраняя data links между компонентами.
+Keep core and eNB containers running during pool maintenance. Distributed SecGW namespace
+helpers also remain running, preserving data links while CPM/IOM components restart.
 
-## Маршруты и shunting
+## Forwarding routes and shunting
 
-Перед каждым плановым переключением на целевом SecGW проверяются BGP-маршруты к обеим
-public eNB networks и private MME network. Проверка готовности включает forwarding routes,
-SA и фактическую передачу трафика.
+Before a planned switchover, check BGP routes on the target SecGW to both public eNB networks
+and the private MME network. Readiness includes forwarding routes, SAs and actual user traffic.
 
-В T10–T12 core выбирает заданный standby с помощью neighbor import policy. Список policies
-заменяется в одной MD-CLI candidate-транзакции: удалить прежний neighbor import, затем задать
-нужный список и commit. Измерение начинается после проверки фактически выбранных next-hops.
-После опыта neighbor overrides удаляются, и применяется штатная групповая policy.
+In T10–T12, core neighbor import policies select the required standby. Replace the policy list
+within one MD-CLI candidate transaction: delete the old neighbor import chain, set the required
+list and commit. Start measurement after checking the actual selected next-hops. Remove
+neighbor overrides after the test so the normal group policy applies.
 
-BGP connect-retry равен 5 с; MRAI SecGW export groups — 1 с. BFD включён на core peerings,
-кроме отдельного контрольного T7-noBFD. Согласованные BFD intervals проверяются через
-`show router bfd session`; конфигурационное значение и фактическое время обнаружения
-отказа должны рассматриваться отдельно.
+BGP connect-retry is 5 s; SecGW export-group MRAI is 1 s. Core peerings use BFD except in
+the T7-noBFD control. Observe negotiated intervals with `show router bfd session`.
+Configured intervals and measured failure-detection time are distinct quantities.
 
-## Финальная operational-проверка
+## Final operational acceptance
 
-Программа завершается со следующим состоянием:
+The program finishes with:
 
-- OA seg1; единый Current Active 10.0.0.1 и protection nominal на всех SecGW.
-- Оба peer MCS DB Sync State — inSync на каждом SecGW.
-- Обе IKE и CHILD SA установлены; на OA два installed tunnels.
-- Gateway /32 и оба private /32 направлены core через seg1.
-- Все SecGW имеют маршруты к обеим eNB networks и MME network.
-- ISA operational; каждый LAG имеет два up-members.
-- Shunting profiles восстановлены, route pinning снят, BFD включён, revertive false.
-- Pool mode none; NTP выбран на всех четырёх SR OS узлах.
-- Конфигурация сохранена на всех маршрутизаторах.
+- OA seg1, agreed Current Active 10.0.0.1 and nominal on every SecGW.
+- MCS DB Sync State inSync with both peers on each SecGW.
+- Both IKE/CHILD sessions installed; two installed tunnels on the OA.
+- Core gateway /32 and both private /32 routes through seg1.
+- Forwarding routes on every SecGW to both eNB networks and MME.
+- Operational ISAs and two active members per LAG.
+- Restored shunting profiles, removed route pins, enabled BFD and revertive false.
+- Pool mode none and selected NTP on all four SR OS nodes.
+- Saved configuration on every router.
 
-Исходный протокол проверки опубликован в [operational.log](../results/validated-final-state/operational.log).
+The protocol is published as [operational.log](../results/validated-final-state/operational.log).
 
-## Документация Nokia
+## Nokia documentation
 
-- [N:M MC-IPsec, pool HA, election и shunting](https://documentation.nokia.com/sr/26-7/7750-sr/books/ms-isa-esa/ip-tunnels.html).
-- [SR-SIM и совместное использование ресурсов хоста](https://documentation.nokia.com/sr/26-7/7x50-shared/srsim-installation-setup/sr-sim-overview.html).
-- [Требования к хосту SR-SIM](https://documentation.nokia.com/sr/26-7/7x50-shared/srsim-installation-setup/host-machine-requirements.html).
+- [N:M MC-IPsec, HA pool, election and shunting](https://documentation.nokia.com/sr/26-7/7750-sr/books/ms-isa-esa/ip-tunnels.html).
+- [SR-SIM shared host resources](https://documentation.nokia.com/sr/26-7/7x50-shared/srsim-installation-setup/sr-sim-overview.html).
+- [SR-SIM host requirements](https://documentation.nokia.com/sr/26-7/7x50-shared/srsim-installation-setup/host-machine-requirements.html).

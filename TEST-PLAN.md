@@ -1,5 +1,9 @@
 # N:M MC-IPsec functional validation
 
+The [customer test program](docs/TEST-PROGRAM.md) provides detailed actions, packet paths,
+acceptance and restoration. The [topology gallery](docs/TOPOLOGY-TESTS.md) shows the full lab,
+disabled components and request/reply arrows for each measurement window.
+
 Run `python3 -m unittest discover -s tests -v`, then `./tests/nm_tests.sh all`.
 `T2` includes the `T3` ISA recovery measurement. Node failure and return use one continuous
 traffic trace rather than separate T7/T7r windows. Individual case names are printed by the runner.

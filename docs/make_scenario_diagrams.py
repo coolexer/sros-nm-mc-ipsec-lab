@@ -2,6 +2,7 @@
 from html import escape
 from pathlib import Path
 import textwrap
+from scenario_topology import draw_topology, write_gallery
 
 OUT = Path(__file__).with_name('scenarios')
 BLUE, GREEN, RED, GRAY = '#2563eb', '#14804a', '#c42b32', '#64748b'
@@ -39,6 +40,7 @@ def traffic(y, labels, blocked=None):
 def draw(test, title, active='seg1', public=None, private=None, down=(), isa=(),
          block=None, ports=None, note='MIMP/MCS full mesh; all peers reachable'):
     public, private = public or active, private or active
+    draw_topology(test, active, public, private, down, isa, block, ports)
     out = ['<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" font-family="Arial, sans-serif">',
            '<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8z" fill="#2563eb"/></marker><marker id="arrow-blocked" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8z" fill="#c42b32"/></marker></defs>',
            '<rect width="1200" height="720" fill="white"/>',
@@ -99,6 +101,7 @@ def main():
         draw('T11-'+target, 'Private routes pinned to ' + target, private=target)
         draw('T11b-'+target, 'Remove private shunt profile on ' + target, private=target, block='private', note='Expected negative control: return traffic stops on the selected standby; restore profile before the next case')
     draw('T12', 'Member A off; OA seg2; both directions pinned to seg1', active='seg2', public='seg1', private='seg1', ports=('DOWN', 'UP'), note='Both public and private shunts cross LAG 12 on surviving member B. Control-plane reachability alone cannot prove this data path')
+    write_gallery()
 
 
 if __name__ == '__main__':
