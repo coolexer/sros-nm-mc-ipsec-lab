@@ -6,6 +6,8 @@ Base and VPRN 100 are routing instances of one core router. Its external ports a
 
 [Detailed test program](TEST-PROGRAM.md) · [Results](RESULTS.md)
 
+[Editable draw.io workbook](docs/lab-diagrams.drawio) · [Editing instructions](README.md#editing-diagrams)
+
 | Test | Action | Processing sequence |
 |---|---|---|
 | [T0](#t0) | No component is disabled. Both eNBs send traffic through OA seg1. | [Packet processing](docs/scenarios/T0.svg) |

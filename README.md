@@ -8,6 +8,8 @@ includes an automated switchover test runner.
   acceptance and recovery, with a full topology view for each measured window.
 - [Per-test topology gallery](TOPOLOGY-TESTS.md) shows disabled components and request/reply
   arrows for all 29 windows. Companion packet-processing diagrams are linked from the gallery.
+- [Editable diagram workbook](docs/lab-diagrams.drawio) contains all 61 diagrams as native
+  draw.io shapes, text and connectors. See [editing diagrams](#editing-diagrams).
 - [RESULTS.md](RESULTS.md) contains the accepted measurements, their source traces and final
   operational state.
 - [Operating conditions](OPERATIONAL-NOTES.md) covers resources, pool preparation and restoration.
@@ -102,6 +104,36 @@ The published measurements use compact. Run `python3 gen_configs.py` again befor
 | `OPERATIONAL-NOTES.md` | resource conditions, pool preparation and final operational checks |
 | `docs/topology-scenarios/`, `docs/scenarios/` | full per-test topologies and companion packet-processing diagrams |
 | `docs/make_scenario_diagrams.py` | regenerates both diagram sets and the topology gallery |
+| `docs/lab-diagrams.drawio` | editable workbook: three overview pages and topology/processing pages for all 29 windows |
+| `docs/make_editable_diagrams.py` | builds the editable workbook from the published SVG elements, using Python's standard library |
+
+## Editing diagrams
+
+Download [lab-diagrams.drawio](docs/lab-diagrams.drawio) using GitHub's **Download raw file**
+button. Open it in [diagrams.net](https://app.diagrams.net/) or draw.io Desktop with
+**File > Open from > Device**.
+
+The workbook contains 61 pages: **Overview - compact**, **Overview - dual IOM**,
+**Redundancy logic**, and a **topology** and **processing** page for each test window.
+Nodes, component cards, text and connectors are editable objects. Move a node by dragging
+its outer card; double-click a label to edit its text. Connection endpoints are attached
+to device/component cards, and intermediate waypoints can be moved independently.
+Use **View > Layers** to show or hide **Frames**, **Physical links**, **Devices**,
+**Traffic and fault markers**, and **Notes**. **Fit Window** (`Ctrl+Shift+H`) fits the page.
+
+Save your edits as `.drawio`. To update a diagram in the GitHub documents, export the
+corresponding page with **File > Export as > SVG** and replace its existing SVG in `docs/`.
+If **Include a copy of my diagram** is enabled, select **Current Page** to embed only
+that page's editable data in its SVG.
+The workbook page names identify the test and view; `T12 - topology`, for example, maps
+to `docs/topology-scenarios/T12-paths.svg`, and `T12 - processing` maps to
+`docs/scenarios/T12.svg`. The three overview pages map to `docs/topology.svg`,
+`docs/topology-dual-iom.svg` and `docs/redundancy-logic.svg` respectively.
+
+`python3 docs/make_editable_diagrams.py` rebuilds the workbook from the lab generators'
+SVG elements. This replaces the workbook, so save a separate copy of manual `.drawio`
+edits before rebuilding it. The scenario SVG generator similarly replaces its generated
+SVGs when run.
 
 ## Useful commands
 

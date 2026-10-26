@@ -246,6 +246,8 @@ def write_gallery():
              'T8r/T9r and T13r/T14r show the accepted outcome with seg3 remaining OA. '
              'Blocking in T10b/T11b is the expected negative-control result.', '',
              '[Detailed test program](TEST-PROGRAM.md) · [Results](RESULTS.md)', '',
+             '[Editable draw.io workbook](docs/lab-diagrams.drawio) · '
+             '[Editing instructions](README.md#editing-diagrams)', '',
              '| Test | Action | Processing sequence |', '|---|---|---|']
     for case, title, action in GALLERY:
         lines.append(f'| [{case}](#{case.lower()}) | {action} | [Packet processing](docs/scenarios/{case}.svg) |')
