@@ -27,12 +27,14 @@ shows the complete lab, disabled components and traffic arrows for every window.
 | Runtime | WSL2, 12 logical CPUs, 17.15 GiB RAM, 5 GiB swap |
 | Host | Intel i5-1245U, 32 GiB RAM |
 
-The program ran in sequential groups. The table consolidates the final accepted measurements
+The program ran in sequential groups. The tables consolidate the final accepted measurements
 for each scenario; their source groups are identified under Evidence. This is functional
 validation of two tunnels. Numerical gaps apply to this SR-SIM instance; hardware SLA
 thresholds and load-test parameters are agreed separately.
 
 ## Accepted measurements
+
+### Forwarding and failover checks
 
 Each eNB column gives lost packets and the maximum interval without a reply.
 The test identifier links to its measurement log.
@@ -54,13 +56,9 @@ The test identifier links to its measurement log.
 | [T9](results/validated-compact-20261025-072430/T9.log) | seg3 | yes | 24 / 2.811 s | 22 / 2.602 s | PASS |
 | [T9r](results/validated-compact-20261025-072430/T9r.log) | seg3 | yes | 0 / 0.105 s | 0 / 0.105 s | PASS |
 | [T10-seg2](results/validated-compact-20261025-070431/T10-seg2.log) | seg1 | yes | 0 / 0.104 s | 0 / 0.103 s | PASS |
-| [T10b-seg2](results/validated-compact-20261025-070431/T10b-seg2.log) | seg1 | yes | 93 / 10.534 s — blocked | 95 / 10.843 s — blocked | PASS |
 | [T10-seg3](results/validated-compact-20261025-070431/T10-seg3.log) | seg1 | yes | 0 / 0.104 s | 0 / 0.104 s | PASS |
-| [T10b-seg3](results/validated-compact-20261025-070431/T10b-seg3.log) | seg1 | yes | 92 / 10.507 s — blocked | 96 / 10.827 s — blocked | PASS |
 | [T11-seg2](results/validated-compact-20261025-070431/T11-seg2.log) | seg1 | yes | 0 / 0.103 s | 0 / 0.104 s | PASS |
-| [T11b-seg2](results/validated-compact-20261025-070431/T11b-seg2.log) | seg1 | yes | 93 / 10.582 s — blocked | 95 / 10.800 s — blocked | PASS |
 | [T11-seg3](results/validated-compact-20261025-070431/T11-seg3.log) | seg1 | yes | 0 / 0.118 s | 0 / 0.105 s | PASS |
-| [T11b-seg3](results/validated-compact-20261025-070431/T11b-seg3.log) | seg1 | yes | 92 / 10.558 s — blocked | 94 / 10.793 s — blocked | PASS |
 | [T12](results/validated-compact-20261025-070431/T12.log) | seg2 | yes | 1 / 0.205 s | 2 / 0.314 s | PASS |
 | [T13a](results/validated-compact-20261025-091934/T13a.log) | seg2 | yes | 27 / 3.201 s | 27 / 3.180 s | PASS |
 | [T13b](results/validated-compact-20261025-091934/T13b.log) | seg3 | yes | 24 / 2.786 s | 23 / 2.693 s | PASS |
@@ -77,10 +75,23 @@ The gap includes the window head, inter-reply intervals and the tail after the f
 Even a no-loss 10-pps stream has normal intervals near 0.1 s. This is an ICMP observation
 including host scheduling, rather than exact hardware forwarding downtime.
 
-In T10b/T11b, blocking after profile removal is the **expected negative-control result**.
-The window includes successful baseline replies before the action. After profile removal,
-both flows remain blocked through the end of observation. That gap bounds the observed
-blockage; it is not recovery time. The profile is restored after the control window ends.
+### Shunting dependency checks — expected traffic interruption
+
+These four controls deliberately remove the public shunting profile (T10b) or private
+shunting profile (T11b) from the selected standby. **The expected result is that ping replies
+stop while the OA and both IKE sessions remain unchanged.** PASS confirms this expected
+behavior and verifies that the preceding successful forwarding checks used shunting.
+
+Each eNB column gives lost packets and the **observed interruption interval**. The replies
+remain absent until the observation ends; the interval is not a recovery time. Successful
+baseline replies are included before the action. The profile is restored after the window.
+
+| Control | OA after | IKE kept | eNB1: lost / observed interruption | eNB2: lost / observed interruption | Verified result |
+|---|---|---|---|---|---|
+| [T10b-seg2](results/validated-compact-20261025-070431/T10b-seg2.log) | seg1 | yes | 93 / 10.534 s | 95 / 10.843 s | PASS — expected interruption confirmed |
+| [T10b-seg3](results/validated-compact-20261025-070431/T10b-seg3.log) | seg1 | yes | 92 / 10.507 s | 96 / 10.827 s | PASS — expected interruption confirmed |
+| [T11b-seg2](results/validated-compact-20261025-070431/T11b-seg2.log) | seg1 | yes | 93 / 10.582 s | 95 / 10.800 s | PASS — expected interruption confirmed |
+| [T11b-seg3](results/validated-compact-20261025-070431/T11b-seg3.log) | seg1 | yes | 92 / 10.558 s | 94 / 10.793 s | PASS — expected interruption confirmed |
 
 ## Verified behavior
 
